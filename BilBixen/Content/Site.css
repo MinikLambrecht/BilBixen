@@ -18,6 +18,28 @@ textarea {
     max-width: 280px;
 }
 
+.navbar-brand {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.navbar-toggle {
+    z-index: 3;
+}
+
+#footer {
+    position: fixed;
+    height: 50px;
+    text-align: center;
+    background-color: transparent;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+}
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
