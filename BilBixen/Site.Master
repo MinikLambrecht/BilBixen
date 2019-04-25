@@ -50,13 +50,13 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-left">
-                        <li><a runat="server" href="#">Cars for Sale</a></li>
-                        <li><a runat="server" href="#">Sell Your Car</a></li>
+                        <li><a runat="server" href="Sale">Cars For Sale</a></li>
+                        <li><a runat="server" href="Sell">Sell Your Car</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a runat="server" href="#">About Us</a></li>
-                        <li><a runat="server" href="#">Contact</a></li>
-                        <li><a runat="server" href="#">Login</a></li>
+                        <li><a runat="server" href="About">About Us</a></li>
+                        <li><a runat="server" href="Contact">Contact</a></li>
+                        <li><a runat="server" href="Login">Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -67,7 +67,7 @@
             </asp:ContentPlaceHolder>
             
             <section id="footer">
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                <p>Copyright &copy; <%: DateTime.Now.Year %> Minik Gaarde Lambrecht. All rights reserved.</p>
             </section>
         </div>
     </form>
