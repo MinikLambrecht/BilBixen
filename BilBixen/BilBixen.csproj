@@ -115,6 +115,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\LandingPage_Image.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="Pages\About.aspx" />
     <Content Include="Pages\Default.aspx" />
@@ -211,7 +212,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Custom\" />
     <Folder Include="Content\Files\" />
-    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
