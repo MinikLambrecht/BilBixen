@@ -38,7 +38,7 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div class="navbar navbar-fixed-top navbar-light bg-dark" role="navigation">
+        <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -48,7 +48,7 @@
                     </button>
                     <a class="navbar-brand" runat="server" href="~/">Bil Bixen</a>
                 </div>
-                <div class="navbar-collapse collapse" style="background-color: rgba(242, 242, 242, 1)">
+                <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li><a runat="server" href="Sale">Cars For Sale</a></li>
                         <li><a runat="server" href="Sell">Sell Your Car</a></li>
