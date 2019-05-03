@@ -1,0 +1,137 @@
+﻿@media (min-width: 767px) { /* Do this when Large */
+
+    /* Hide Content */
+    .HideWhenLarge {
+        display: none !important;
+    }
+
+
+    /* FooterTextAlign */
+
+    .FooterAlignCenterBig {
+        text-align: center;
+    }
+
+    .FooterAlignStartBig {
+        text-align: start;
+    }
+
+    .FooterAlignEndBig {
+        text-align: end;
+    }
+
+
+
+    /* Content Blocks */
+
+    .ContentBlockRight {
+        background-color: lightblue;
+        position: relative;
+        left: 5px;
+        border: 1px solid darkgray;
+        border-radius: 10px;
+    }
+
+    .ContentBlockLeft {
+        background-color: lightblue;
+        position: relative;
+        right: 5px;
+        border: 1px solid darkgray;
+        border-radius: 10px;
+    }
+
+
+
+    /* Sized Text */
+
+    .SizedTextLargeMedium {
+        font-size: medium;
+    }
+
+    .SizedTextLarge {
+        font-size: large;
+    }
+
+    .SizedTextLarger {
+        font-size: larger;
+    }
+
+    .SizedTextxLarge {
+        font-size: x-large;
+    }
+
+    .SizedTextxxLarge {
+        font-size: xx-large;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) { /* Do this when Small */
+
+    /* Hide Content */
+    .HideWhenSmall {
+        display: none !important;
+    }
+
+
+
+    /* FooterTextAlign */
+
+    .FooterAlignCenterSmall {
+        text-align: center;
+    }
+
+
+
+    /* Content Blocks */
+
+    .ContentBlockRightMobile {
+        background-color: lightblue;
+        position: relative;
+        top: 10px;
+        border: 1px solid darkgray;
+        border-radius: 10px;
+        font-size: medium;
+    }
+
+    .ContentBlockLeftMobile {
+        background-color: lightblue;
+        position: relative;
+        border: 1px solid darkgray;
+        border-radius: 10px;
+    }
+
+
+
+
+    /* Sized Text */
+
+    .SizedTextxxSmall {
+        font-size: xx-small;
+    }
+
+    .SizedTextxSmall {
+        font-size: x-small;
+    }
+
+    .SizedTextSmaller {
+        font-size: smaller;
+    }
+
+    .SizedTextSmall {
+        font-size: small;
+    }
+
+    .SizedTextSmallMedium {
+        font-size: medium;
+    }
+}

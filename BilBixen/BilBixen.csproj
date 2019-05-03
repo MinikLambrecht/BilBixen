@@ -115,9 +115,14 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\TabSection.css" />
+    <Content Include="Content\Custom.css" />
     <Content Include="Content\Images\LandingPage_Image.jpg" />
+    <Content Include="Content\ItemCard.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\SizedCustom.css" />
     <Content Include="Pages\About.aspx" />
+    <Content Include="Pages\CarAdPage.aspx" />
     <Content Include="Pages\CarsForSale.aspx" />
     <Content Include="Pages\Contact.aspx" />
     <Content Include="Pages\Default.aspx" />
@@ -180,6 +185,13 @@
     </Compile>
     <Compile Include="Pages\About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CarAdPage.aspx.cs">
+      <DependentUpon>CarAdPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\CarAdPage.aspx.designer.cs">
+      <DependentUpon>CarAdPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\CarsForSale.aspx.cs">
       <DependentUpon>CarsForSale.aspx</DependentUpon>

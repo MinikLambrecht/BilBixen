@@ -1,0 +1,150 @@
+﻿
+
+
+/* Content Blocks */
+
+.ContentBlock {
+    background-color: lightblue;
+    position: relative;
+    border: 1px solid darkgray;
+    border-radius: 10px;
+}
+
+.ContentBlockvCard {
+    background-color: lightblue;
+    position: relative;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+.ContentBlockBack {
+    background-color: skyblue;
+    position: relative;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+.ContentBlockExtended {
+    background-color: lightblue;
+    position: relative;
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.ContentBlockExtendedSmall {
+    background-color: lightblue;
+    position: relative;
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    width: 90%;
+}
+
+
+
+/* Container-Fluid Center */
+
+.CenterContainerFluid {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+/* Images */
+
+.ImageBorder {
+    border: 2px solid black;
+}
+
+.ImageBorderRounded {
+    border-radius: 20px;
+}
+
+
+/* Text Colors */
+
+.WhiteText {
+    color: white;
+}
+
+.GrayText {
+    color: gray;
+}
+
+.BlackText {
+    color: black;
+}
+
+.SteelBlueText {
+    color: steelblue;
+}
+
+
+
+/* Title Text */
+
+.TitleTextBlueBack {
+    color: steelblue;
+}
+
+.TitleTextDarkBack {
+    color: lightcyan;
+}
+
+.TitleTextCenter {
+    text-align: center;
+}
+
+.TitleTextInfo {
+    color: gray;
+}
+
+
+
+/* Text Sizes */
+
+.xxSmallText {
+    font-size: xx-small;
+}
+
+.xSmallText {
+    font-size: x-small;
+}
+
+.SmallerText {
+    font-size: smaller;
+}
+
+.SmallText {
+    font-size: small;
+}
+
+.MediumText {
+    font-size: medium;
+}
+
+.LargeText {
+    font-size: large;
+}
+
+.LargerText {
+    font-size: larger;
+}
+
+.xLargeText {
+    font-size: x-large;
+}
+
+.xxLargeText {
+    font-size: xx-large;
+}
