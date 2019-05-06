@@ -39,6 +39,11 @@ namespace BilBixen.Scripts.Helper_Classes
             _PRICE = price;
         }
 
+        public void AddAD(string title, string desc, string brand, string model, string engine, string km, string doors, DateTime firstreg, string category, string fuel, string status, int price)
+        {
+
+        }
+
         private void CarSqlCall(string brand, string model, string engine, string km, string doors, DateTime firstreg, string category, string fuel, string status)
         {
             string query = "";
