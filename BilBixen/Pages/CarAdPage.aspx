@@ -35,55 +35,70 @@
         <div class="CommentSection jumbotron">
 
             <ul class="nav nav-pills">
-                <li class="active"><a data-toggle="pill" href="#desc">Description</a></li>
-                <li><a data-toggle="pill" href="#info">Info</a></li>
-                <li><a data-toggle="pill" href="#comments">Comments</a></li>
+                <li class="active"><a data-toggle="pill" href="#Desc">Description</a></li>
+                <li><a data-toggle="pill" href="#Info">Info</a></li>
+                <li><a data-toggle="pill" href="#Comments">Comments</a></li>
             </ul>
 
             <div class="TabContentBackground">
 
                 <div class="tab-content">
-                    <div id="desc" class="tab-pane fade in active">
+                    <div id="Desc" class="tab-pane fade in active">
+                        <br />
+                        <hr />
+
                         <h3>HOME</h3>
                         <p>Some content.</p>
                     </div>
 
-                    <div id="info" class="tab-pane fade">
+                    <div id="Info" class="tab-pane fade">
+                        <br />
+                        <hr />
+
                         <h3>Menu 1</h3>
                         <p>Some content in menu 1.</p>
                     </div>
 
-                        <div id="comments" class="tab-pane fade">
+                    <div id="Comments" class="tab-pane fade">
                         <br />
+                        <hr />
 
-                        <div class="Comment" style="background-color: lightblue; border-radius: 20px;">
+                        <div class="CommentBox" style="">
                             <p class="CommentUsername">Username</p>
                             <p class="CommentText">I will be placing comment text here</p>
                         </div>
 
-                        <div class="Comment" style="background-color: lightblue; border-radius: 20px;">
+                        <div class="CommentBox">
                             <p class="CommentUsername">Username</p>
                             <p class="CommentText">I will be placing comment text here</p>
                         </div>
 
-                        <div class="Comment" style="background-color: lightblue; border-radius: 20px;">
+                        <div class="CommentBox">
                             <p class="CommentUsername">Username</p>
                             <p class="CommentText">I will be placing comment text here</p>
                         </div>
 
-                        <div class="Comment" style="background-color: lightblue; border-radius: 20px;">
+                        <div class="CommentBox">
                             <p class="CommentUsername">Username</p>
                             <p class="CommentText">I will be placing comment text here</p>
                         </div>
 
-                        <div class="Comment" style="background-color: lightblue; border-radius: 20px;">
+                        <div class="CommentBox">
                             <p class="CommentUsername">Username</p>
                             <p class="CommentText">I will be placing comment text here</p>
                         </div>
 
-                        <div class="Comment" style="background-color: lightblue; border-radius: 20px;">
+                        <div class="CommentBox">
                             <p class="CommentUsername">Username</p>
                             <p class="CommentText">I will be placing comment text here</p>
+                        </div>
+
+                        <hr />
+
+                        <div class="WriteComment">
+                            <textarea class="CommentTextbox" type="text" placeholder="Write your comment here" required> </textarea>
+                            <br />
+                            <input class="btn btn-success pull-right" type="submit"/>
                         </div>
                     </div>
                 </div>

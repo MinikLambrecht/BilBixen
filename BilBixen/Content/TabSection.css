@@ -12,14 +12,29 @@
 
 
 /* Comments */
-div.Comment > p {
+.CommentBox {
+    background-color: lightblue;
+    border-radius: 20px;
+    border-top-left-radius: 0px;
+}
+
+.CommentTextbox {
+    position: relative;
+    left: 25px;
+    width: 100% !important;
+    border-radius: 5px;
+    height: 50px;
+}
+
+div.CommentBox > p {
     margin-left: 20px;
 }
 
-div.Comment > p.CommentText {
+div.CommentBox > p.CommentText {
     position: relative;
     margin-left: 40px;
     bottom: 15px;
+
 }
 
 p.CommentUsername {
