@@ -44,6 +44,16 @@ namespace BilBixen.Scripts.Helper_Classes
 
         }
 
+        public void RemoveAd(int id)
+        {
+
+        }
+
+        public void EditAd(int id)
+        {
+
+        }
+
         private void CarSqlCall(string brand, string model, string engine, string km, string doors, DateTime firstreg, string category, string fuel, string status)
         {
             string query = "";
