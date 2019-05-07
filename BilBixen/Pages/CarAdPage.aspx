@@ -13,7 +13,7 @@
             </div>
 
             <div class="col-md-4">
-                <div class="jumbotron">
+                <div class="BackPlate">
                     <p class="LargerText">Heres a list</p>
 
                     <ul class="LargerText">
@@ -32,7 +32,7 @@
         </div>
 
 
-        <div class="CommentSection jumbotron">
+        <div class="CommentSection BackPlate">
 
             <ul class="nav nav-pills">
                 <li class="active"><a data-toggle="pill" href="#Desc">Description</a></li>
@@ -43,25 +43,27 @@
             <div class="TabContentBackground">
 
                 <div class="tab-content">
+                    <br />
+                    <hr />
+                    
+                    <!-- Description -->
                     <div id="Desc" class="tab-pane fade in active">
-                        <br />
-                        <hr />
-
-                        <h3>HOME</h3>
-                        <p>Some content.</p>
+                        
+                        <h2 class="DescTitle">This is a title</h2>
+                        <p class="DescText">Here there will be lots of text like lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots & lots of text.</p>
                     </div>
 
-                    <div id="Info" class="tab-pane fade">
-                        <br />
-                        <hr />
 
-                        <h3>Menu 1</h3>
+                    <!-- Info -->
+                    <div id="Info" class="tab-pane fade">
+
+                        <h2 class="InfoTitle">Menu 1</h2>
                         <p>Some content in menu 1.</p>
                     </div>
 
+
+                    <!-- Comments -->
                     <div id="Comments" class="tab-pane fade">
-                        <br />
-                        <hr />
 
                         <div class="CommentBox" style="">
                             <p class="CommentUsername">Username</p>
@@ -70,12 +72,12 @@
 
                         <div class="CommentBox">
                             <p class="CommentUsername">Username</p>
-                            <p class="CommentText">I will be placing comment text here</p>
+                            <p class="CommentText">I will be placing comment text here but more</p>
                         </div>
 
                         <div class="CommentBox">
                             <p class="CommentUsername">Username</p>
-                            <p class="CommentText">I will be placing comment text here</p>
+                            <p class="CommentText">I will place less text here</p>
                         </div>
 
                         <div class="CommentBox">
@@ -95,11 +97,12 @@
 
                         <hr />
 
-                        <div class="WriteComment">
-                            <textarea class="CommentTextbox" type="text" placeholder="Write your comment here" required> </textarea>
-                            <br />
-                            <input class="btn btn-success pull-right" type="submit"/>
+                        <div class="WriteComment input-block-level">
+                            <textarea class="CommentTextbox" placeholder="Write your comment here" required> </textarea>
+                            
+                            <input class="btn btn-success CommentSubmitButton" type="submit"/>
                         </div>
+
                     </div>
                 </div>
             </div>

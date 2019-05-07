@@ -9,21 +9,105 @@
     
 }
 
+.BackPlate {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    background-color: #eee;
+}
+
+    .BackPlate h1,
+    .BackPlate .h1 {
+        color: inherit;
+    }
+
+    .BackPlate p {
+        margin-bottom: 15px;
+        font-size: 21px;
+        font-weight: 200;
+    }
+
+    .BackPlate > hr {
+        border-top-color: #d5d5d5;
+    }
+
+.container .BackPlate,
+.container-fluid .BackPlate {
+    padding-right: 15px;
+    padding-left: 15px;
+    border-radius: 6px;
+}
+
+.BackPlate .container {
+    max-width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .BackPlate {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .container .BackPlate,
+    .container-fluid .BackPlate {
+        padding-right: 60px;
+        padding-left: 60px;
+    }
+
+    .BackPlate h1,
+    .BackPlate .h1 {
+        font-size: 63px;
+    }
+}
+
+/* Description */
+.DescTitle {
+    color: white;
+    position: relative;
+    left: 10px;
+}
+
+.DescText {
+    background-color: lightblue;
+    border: 20px solid lightblue;
+    border-top: 10px solid lightblue;
+    border-radius: 10px;
+}
+
 
 
 /* Comments */
 .CommentBox {
     background-color: lightblue;
+    border-right: 10px solid lightblue;
     border-radius: 20px;
     border-top-left-radius: 0px;
+    display: table;
+    margin-bottom: 20px;
+}
+
+.WriteComment {
+    display: block;
+    width: 100%;
+}
+
+.CommentSubmitButton {
+    margin-top: auto;
+    width: 15%;
+    height: 50%;
+    float: right;
 }
 
 .CommentTextbox {
     position: relative;
-    left: 25px;
-    width: 100% !important;
+    left: 20px;
+    max-width: 80%;
+    width: 80%;
     border-radius: 5px;
-    height: 50px;
+    height: 60px;
+    border: 3px solid white;
+    border-right: 1px solid white;
 }
 
 div.CommentBox > p {
