@@ -418,6 +418,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Custom\" />
     <Folder Include="Content\Files\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
