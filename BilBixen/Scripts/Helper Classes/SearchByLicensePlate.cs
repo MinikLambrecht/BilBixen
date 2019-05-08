@@ -12,40 +12,43 @@ namespace BilBixen.Scripts.Helper_Classes
     {
         private string token = "jpdjnjobzpt5x7irdmu745h64o22hr6a";
 
-        string _LICENSEPLATE;
-        string _STATUS;
-        string _STATUSDATE;
-        string _CARTYPE;
-        string _USE;
-        string _FIRSTREGISTRATION;
-        string _VINNUMBER;
-        string _OWNWEIGHT;
-        string _TOTALWEIGHT;
-        string _AXELS;
-        string _PULLINGAXELS;
-        string _SEATS;
-        string _COUPLING;
-        string _DOORS;
-        string _MAKE;
-        string _MODEL;
-        string _VARIANT;
-        string _MODELTYPE;
-        string _MODELYEAR;
-        string _COLOR;
-        string _CHASSISTYPE;
-        string _ENGINECYLINDERS;
-        string _ENGINEVOLUME;
-        string _ENGINEPOWER;
-        string _FUELTYPE;
-        string _REGISTRATIONZIPCODE;
+        public string _LICENSEPLATE;
+        public string _STATUS;
+        public string _STATUSDATE;
+        public string _CARTYPE;
+        public string _USE;
+        public string _FIRSTREGISTRATION;
+        public string _VINNUMBER;
+        public string _OWNWEIGHT;
+        public string _TOTALWEIGHT;
+        public string _AXELS;
+        public string _PULLINGAXELS;
+        public string _SEATS;
+        public string _COUPLING;
+        public string _DOORS;
+        public string _MAKE;
+        public string _MODEL;
+        public string _VARIANT;
+        public string _MODELTYPE;
+        public string _MODELYEAR;
+        public string _COLOR;
+        public string _CHASSISTYPE;
+        public string _ENGINECYLINDERS;
+        public string _ENGINEVOLUME;
+        public string _ENGINEPOWER;
+        public string _FUELTYPE;
+        public string _REGISTRATIONZIPCODE;
 
+        string[] final = new string[26];
 
-        public void SetInfo()
+        public string[] GetInfo()
         {
-            Task.Run(async () => await GetResponseString());
+            GetResponseString();
+
+            return final;
         }
 
-        async Task GetResponseString()
+        async void GetResponseString()
         {
             string result;
 
@@ -82,29 +85,32 @@ namespace BilBixen.Scripts.Helper_Classes
             finalCollection.RemoveAt(0);
             finalCollection.RemoveAt(finalCollection.Count);
 
-            _LICENSEPLATE = finalCollection[0];
-            _STATUS = finalCollection[1];
-            _STATUSDATE = finalCollection[2];
-            _CARTYPE = finalCollection[3];
-            _USE = finalCollection[4];
-            _FIRSTREGISTRATION = finalCollection[5];
-            _VINNUMBER = finalCollection[6];
-            _OWNWEIGHT = finalCollection[7];
-            _TOTALWEIGHT = finalCollection[8];
-            _AXELS = finalCollection[9];
-            _PULLINGAXELS = finalCollection[10];
-            _SEATS = finalCollection[11];
-            _COUPLING = finalCollection[12];
-            _DOORS = finalCollection[13];
-            _MAKE = finalCollection[14];
-            _MODEL = finalCollection[15];
-            _COLOR = finalCollection[16];
-            _CHASSISTYPE = finalCollection[17];
-            _ENGINECYLINDERS = finalCollection[18];
-            _ENGINEVOLUME = finalCollection[19];
-            _ENGINEPOWER = finalCollection[20];
-            _FUELTYPE = finalCollection[21];
-            _REGISTRATIONZIPCODE = finalCollection[22];
+            _LICENSEPLATE = final[0];
+            _STATUS = final[1];
+            _STATUSDATE = final[2];
+            _CARTYPE = final[3];
+            _USE = final[4];
+            _FIRSTREGISTRATION = final[5];
+            _VINNUMBER = final[6];
+            _OWNWEIGHT = final[7];
+            _TOTALWEIGHT = final[8];
+            _AXELS = final[9];
+            _PULLINGAXELS = final[10];
+            _SEATS = final[11];
+            _COUPLING = final[12];
+            _DOORS = final[13];
+            _MAKE = final[14];
+            _MODEL = final[15];
+            _VARIANT = final[16];
+            _MODELTYPE = final[17];
+            _MODELYEAR = final[18];
+            _COLOR = final[19];
+            _CHASSISTYPE = final[20];
+            _ENGINECYLINDERS = final[21];
+            _ENGINEVOLUME = final[22];
+            _ENGINEPOWER = final[23];
+            _FUELTYPE = final[24];
+            _REGISTRATIONZIPCODE = final[25];
         }
     }
 }
