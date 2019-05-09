@@ -41,6 +41,8 @@ namespace BilBixen.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            /* move this into a button function
+             
             string[] data = plateSearch.GetInfo();
 
             licensePlate = data[0];
@@ -69,7 +71,7 @@ namespace BilBixen.Pages
             enginePower = data[23];
             fuelType = data[24];
             regitrationZipcode = data[25];
-
+            */
             AdID = GenerateID();
         }
 
