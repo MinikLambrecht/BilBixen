@@ -1,11 +1,11 @@
-﻿<%@ Page Title="Template" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CarAdPage.aspx.cs" Inherits="BilBixen.Pages.CarAdPage" %>
+﻿<%@ Page Title="Template" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CarAdPage.aspx.cs" Inherits="BilBixen.Pages.CarAdPage" Async="true" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="MainContainer container" style="background-color: white; border-radius: 10px">
-        <h1>CarTitle</h1>
-        <p class="xLargeText"> Quick Info</p>
+        <h1><%= _MAKE %></h1>
+        <p class="xLargeText"> <%= $"{_MAKE} {_FUELTYPE}" %></p>
 
         <div class="row">
             <div class="col-md-8" style="display:flex; justify-content:center">
@@ -21,11 +21,9 @@
                         <br />
                         <li><b>KM: </b><br /> Number</li>
                         <br />
-                        <li><b>1st Register: </b><br /> Date</li>
+                        <li><b>1st Register: </b><br /> <%= _FIRSTREGISTRATION %></li>
                         <br />
-                        <li><b>KM/l: </b><br /> Number</li>
-                        <br />
-                        <li><b>Model year: </b><br /> Number</li>
+                        <li><b>Model year: </b><br /> <%= _MODELYEAR %></li>
                     </ul>
                 </div>
             </div>
