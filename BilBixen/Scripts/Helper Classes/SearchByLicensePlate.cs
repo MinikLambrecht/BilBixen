@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
+using System.Diagnostics;
 
 namespace BilBixen.Scripts.Helper_Classes
 {
@@ -41,14 +42,16 @@ namespace BilBixen.Scripts.Helper_Classes
 
         string[] final = new string[26];
 
-        public string[] GetInfo(string plate)
+        public async Task<string[]> GetInfo(string plate)
         {
-            GetResponseString(plate);
+            await GetResponseString(plate);
+
+            //Debug.WriteLine(String.Join(",", final));
 
             return final;
         }
 
-        async void GetResponseString(string Lplate)
+        async Task GetResponseString(string Lplate)
         {
             string result;
 
@@ -82,8 +85,24 @@ namespace BilBixen.Scripts.Helper_Classes
                 i++;
             }
 
+            //Debug.WriteLine($"Before------------------------------ {Environment.NewLine} {String.Join(",", finalCollection)} {Environment.NewLine + Environment.NewLine} ");
+
             finalCollection.RemoveAt(0);
-            finalCollection.RemoveAt(finalCollection.Count);
+            finalCollection.RemoveAt(finalCollection.Count - 1);
+
+            //Debug.WriteLine($"After------------------------------ {Environment.NewLine} {String.Join(",", finalCollection)} {Environment.NewLine + Environment.NewLine} ");
+
+            i = 0;
+
+            foreach (string str in finalCollection)
+            {
+                Debug.WriteLine(i + " " + str);
+
+                i++;
+            }
+
+
+            final = finalCollection.ToArray();
 
             _LICENSEPLATE = final[0];
             _STATUS = final[1];
