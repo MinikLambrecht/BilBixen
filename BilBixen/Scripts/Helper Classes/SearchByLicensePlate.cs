@@ -41,14 +41,14 @@ namespace BilBixen.Scripts.Helper_Classes
 
         string[] final = new string[26];
 
-        public string[] GetInfo()
+        public string[] GetInfo(string plate)
         {
-            GetResponseString();
+            GetResponseString(plate);
 
             return final;
         }
 
-        async void GetResponseString()
+        async void GetResponseString(string Lplate)
         {
             string result;
 
@@ -58,7 +58,7 @@ namespace BilBixen.Scripts.Helper_Classes
                 request.DefaultRequestHeaders.Accept.Clear();
                 request.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                result = await request.GetStringAsync("https://v1.motorapi.dk/vehicles/CE78197");
+                result = await request.GetStringAsync("https://v1.motorapi.dk/vehicles/" + Lplate.ToUpper());
             }
 
             string temp;

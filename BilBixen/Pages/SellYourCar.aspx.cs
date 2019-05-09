@@ -36,14 +36,14 @@ namespace BilBixen.Pages
         public string fuelType;
         public string regitrationZipcode;
 
-
+        string plateInput;
         public int AdID;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             /* move this into a button function
              
-            string[] data = plateSearch.GetInfo();
+            string[] data = plateSearch.GetInfo(plateInput);
 
             licensePlate = data[0];
             status = data[1];
