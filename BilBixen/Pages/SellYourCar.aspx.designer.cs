@@ -19,16 +19,7 @@ namespace BilBixen.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload AdPictures;
-        
-        /// <summary>
-        /// regexValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator regexValidator;
+        protected global::AjaxControlToolkit.AjaxFileUpload AdPictures;
         
         /// <summary>
         /// UploadFiles control.

@@ -100,7 +100,7 @@ namespace BilBixen.Pages
                 {
                     HttpPostedFile hpf = hfc[i];
 
-                    string ext = System.IO.Path.GetExtension(hpf.FileName);
+                    string ext = Path.GetExtension(hpf.FileName);
 
 
                     if (hpf.ContentLength > 0)
@@ -114,7 +114,7 @@ namespace BilBixen.Pages
                             Directory.CreateDirectory(Server.MapPath("~/Images/") + AdID.ToString());
                             List.Text = "Dir created!";
                         }
-                        hpf.SaveAs(System.IO.Path.Combine(Server.MapPath("~/Images/") + AdID.ToString(), AdID.ToString() + "_" + i.ToString() + ext));
+                        hpf.SaveAs(Path.Combine(Server.MapPath("~/Images/") + AdID.ToString(), AdID.ToString() + "_" + i.ToString() + ext));
                     }
                 }
             }
