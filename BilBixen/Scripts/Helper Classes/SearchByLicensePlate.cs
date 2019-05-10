@@ -7,6 +7,39 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Diagnostics;
 
+/*
+ 
+    GetInfo string array setup (Final Output):
+
+        LICENSEPLATE; // 0
+        STATUS; // 1
+        STATUSDATE; // 2
+        CARTYPE; // 3
+        USE; // 4
+        FIRSTREGISTRATION; // 5
+        VINNUMBER; // 6
+        OWNWEIGHT; // 7
+        TOTALWEIGHT; // 8
+        AXELS; // 9
+        PULLINGAXELS; // 10
+        SEATS; // 11
+        COUPLING; // 12
+        DOORS; // 13
+        MAKE; // 14
+        MODEL; // 15
+        VARIANT; // 16
+        MODELTYPE; // 17
+        MODELYEAR; // 18
+        COLOR; // 19
+        CHASSISTYPE; // 20
+        ENGINECYLINDERS; // 21
+        ENGINEVOLUME; // 22
+        ENGINEPOWER; // 23
+        FUELTYPE; // 24
+        REGISTRATIONZIPCODE; // 25
+
+     */
+
 namespace BilBixen.Scripts.Helper_Classes
 {
     public class SearchByLicensePlate
