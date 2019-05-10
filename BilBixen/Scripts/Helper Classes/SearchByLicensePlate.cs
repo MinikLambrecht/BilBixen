@@ -80,7 +80,7 @@ namespace BilBixen.Scripts.Helper_Classes
 
             string[] resultarray = result.Split(new string[] { ": \"" }, StringSplitOptions.None);
 
-            Debug.WriteLine(String.Join(", ", resultarray));
+            //Debug.WriteLine(String.Join(", ", resultarray));
 
             int i = 0;
 

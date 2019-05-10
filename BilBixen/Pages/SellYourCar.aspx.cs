@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Web;
-using System.IO;
+using System.Web.UI;
 using AjaxControlToolkit;
 using BilBixen.Scripts.Helper_Classes;
 
+
+
 namespace BilBixen.Pages
 {
-    public partial class SellYourCar : System.Web.UI.Page
+    public partial class SellYourCar : Page
     {
         SearchByLicensePlate plateSearch = new SearchByLicensePlate();
 
@@ -40,15 +41,17 @@ namespace BilBixen.Pages
         string plateInput;
 
         public int AdID;
-        private int FileCount = 0;
 
-        int testForPB = 0;
-
-        protected void Page_Load(object sender, EventArgs e)
+        protected async void Page_Load(object sender, EventArgs e)
         {
-            /* move this into a button function
-             
-            string[] data = plateSearch.GetInfo(plateInput);
+            AdID = GenerateID();
+
+        }
+
+        protected async void LoadData(object sender, EventArgs e)
+        {
+            plateInput = PlateOrVIN.Value.ToString();
+            string[] data = await plateSearch.GetInfo(plateInput);
 
             licensePlate = data[0];
             status = data[1];
@@ -76,39 +79,34 @@ namespace BilBixen.Pages
             enginePower = data[23];
             fuelType = data[24];
             regitrationZipcode = data[25];
-            */
 
-            if (IsPostBack)
-            {
-                testForPB = 1;
+            LicensePlatelblText.Text = licensePlate;
+            StatuslblText.Text = status;
+            StatusDatelblText.Text = statusDate;
+            CarTypelblText.Text = carType;
+            UselblText.Text = use;
+            FirstRegistrationlblText.Text = firstRegistration;
+            VINNumberlblText.Text = vinNumber;
+            OwnWeightlblText.Text = ownWeight;
+            TotalWeightlblText.Text = totalWeight;
+            AxelslblText.Text = axels;
+            PullingAxelslblText.Text = pullingAxels;
+            SeatslblText.Text = seats;
+            ClutchlblText.Text = coupling;
+            DoorslblText.Text = doors;
+            MakelblText.Text = make;
+            ModellblText.Text = model;
+            VariantlblText.Text = variant;
+            ModelTypelblText.Text = modelType;
+            ModelYearlblText.Text = modelYear;
+            ColorlblText.Text = color;
+            ChasisTypelblText.Text = chassisType;
+            EngineCylinderslblText.Text = engineCyleders;
+            EngineVolumelblText.Text = engineVolume;
+            EnginePowerlblText.Text = enginePower;
+            FuelTypelblText.Text = fuelType;
+            RegistrationZIPlblText.Text = regitrationZipcode;
 
-                string message = testForPB.ToString();
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                sb.Append("<script type = 'text/javascript'>");
-                sb.Append("window.onload=function(){");
-                sb.Append("alert('");
-                sb.Append(message);
-                sb.Append("')};");
-                sb.Append("</script>");
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
-            }
-            else
-            {
-                testForPB = 0;
-                
-                string message = testForPB.ToString();
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                sb.Append("<script type = 'text/javascript'>");
-                sb.Append("window.onload=function(){");
-                sb.Append("alert('");
-                sb.Append(message);
-                sb.Append("')};");
-                sb.Append("</script>");
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
-            }
-
-
-            AdID = GenerateID();
         }
 
         public int GenerateID()
@@ -129,11 +127,9 @@ namespace BilBixen.Pages
 
         protected void AdPictures_UploadComplete(object sender, AjaxFileUploadEventArgs e)
         {
-            
+
             try
             {
-                List.Text = e.FileName;
-
                 //HttpFileCollection hfc = Request.Files;
                 //for (int i = 0; i < hfc.Count; i++)
                 //{
@@ -161,13 +157,6 @@ namespace BilBixen.Pages
             {
                 // Log errors
             }
-        }
-
-        
-        protected void AdPictures_ClientUploadComplete(object sender, EventArgs e)
-        {
-            
-            List.Text = FileCount.ToString();
         }
     }
 }
