@@ -22,35 +22,10 @@ namespace BilBixen.Pages
         public string _COLOR;
         public string _FUELTYPE;
 
-        SearchByLicensePlate platesearch = new SearchByLicensePlate();
 
-        string[] data;
-
-
-        protected async void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            data = await platesearch.GetInfo("CB39909");
 
-            // CE78197
-            // CB39909
-            int i = 0;
-
-            foreach (string str in data)
-            {
-                //Debug.WriteLine("DATA " + i + " " + str);
-
-                i++;
-            }
-
-
-            _FIRSTREGISTRATION = data[5];
-            _TOTALWEIGHT = data[8];
-            _COUPLING = data[12];
-            _MAKE = data[14];
-            _MODEL = data[15];
-            _MODELYEAR = data[18];
-            _COLOR = data[19];
-            _FUELTYPE = data[24];
         }
     }
 }
