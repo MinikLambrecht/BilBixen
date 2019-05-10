@@ -29,13 +29,15 @@ namespace BilBixen.Pages
 
         protected async void Page_Load(object sender, EventArgs e)
         {
-            data = await platesearch.GetInfo("CE78197");
+            data = await platesearch.GetInfo("CB39909");
 
+            // CE78197
+            // CB39909
             int i = 0;
 
             foreach (string str in data)
             {
-                Debug.WriteLine(i + " " + str);
+                //Debug.WriteLine("DATA " + i + " " + str);
 
                 i++;
             }
@@ -44,7 +46,6 @@ namespace BilBixen.Pages
             _FIRSTREGISTRATION = data[5];
             _TOTALWEIGHT = data[8];
             _COUPLING = data[12];
-            _DOORS = data[13];
             _MAKE = data[14];
             _MODEL = data[15];
             _MODELYEAR = data[18];
@@ -58,31 +59,31 @@ namespace BilBixen.Pages
  
     GetInfo string array setup:
 
-        LICENSEPLATE; 0
-        STATUS; 1
-        STATUSDATE; 2
-        CARTYPE; 3
-        USE; 4
-        FIRSTREGISTRATION; 5
-        VINNUMBER; 6
-        OWNWEIGHT; 7
-        TOTALWEIGHT; 8
-        AXELS; 9
-        PULLINGAXELS; 10
-        SEATS; 11
-        COUPLING; 12
-        DOORS; 13
-        MAKE; 14
-        MODEL; 15
-        VARIANT; 16
-        MODELTYPE; 17
-        MODELYEAR; 18
-        COLOR; 19
-        CHASSISTYPE; 20
-        ENGINECYLINDERS; 21
-        ENGINEVOLUME; 22
-        ENGINEPOWER; 23
-        FUELTYPE; 24
-        REGISTRATIONZIPCODE; 25
+        LICENSEPLATE; // 0
+        STATUS; // 1
+        STATUSDATE; // 2
+        CARTYPE; // 3
+        USE; // 4
+        FIRSTREGISTRATION; // 5
+        VINNUMBER; // 6
+        OWNWEIGHT; // 7
+        TOTALWEIGHT; // 8
+        AXELS; // 9
+        PULLINGAXELS; // 10
+        SEATS; // 11
+        COUPLING; // 12
+        DOORS; // 13
+        MAKE; // 14
+        MODEL; // 15
+        VARIANT; // 16
+        MODELTYPE; // 17
+        MODELYEAR; // 18
+        COLOR; // 19
+        CHASSISTYPE; // 20
+        ENGINECYLINDERS; // 21
+        ENGINEVOLUME; // 22
+        ENGINEPOWER; // 23
+        FUELTYPE; // 24
+        REGISTRATIONZIPCODE; // 25
 
      */

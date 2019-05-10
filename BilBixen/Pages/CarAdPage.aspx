@@ -5,7 +5,7 @@
 
     <div class="MainContainer container" style="background-color: white; border-radius: 10px">
         <h1><%= _MAKE %></h1>
-        <p class="xLargeText"> <%= $"{_MAKE} {_FUELTYPE}" %></p>
+        <p class="xLargeText"> <%= $"{_MODEL} {_FUELTYPE}" %></p>
 
         <div class="row">
             <div class="col-md-8" style="display:flex; justify-content:center">
@@ -55,8 +55,11 @@
                     <!-- Info -->
                     <div id="Info" class="tab-pane fade">
 
-                        <h2 class="InfoTitle">Menu 1</h2>
-                        <p>Some content in menu 1.</p>
+                        <h2 class="InfoTitle"><%= $"{_MAKE} {_MODEL}" %></h2>
+                        
+                        <ul>
+                            <li> Info</li>
+                        </ul>
                     </div>
 
 

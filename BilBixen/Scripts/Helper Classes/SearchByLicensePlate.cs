@@ -13,34 +13,34 @@ namespace BilBixen.Scripts.Helper_Classes
     {
         private string token = "jpdjnjobzpt5x7irdmu745h64o22hr6a";
 
-        public string _LICENSEPLATE;
-        public string _STATUS;
-        public string _STATUSDATE;
-        public string _CARTYPE;
-        public string _USE;
-        public string _FIRSTREGISTRATION;
-        public string _VINNUMBER;
-        public string _OWNWEIGHT;
-        public string _TOTALWEIGHT;
-        public string _AXELS;
-        public string _PULLINGAXELS;
-        public string _SEATS;
-        public string _COUPLING;
-        public string _DOORS;
-        public string _MAKE;
-        public string _MODEL;
-        public string _VARIANT;
-        public string _MODELTYPE;
-        public string _MODELYEAR;
-        public string _COLOR;
-        public string _CHASSISTYPE;
-        public string _ENGINECYLINDERS;
-        public string _ENGINEVOLUME;
-        public string _ENGINEPOWER;
-        public string _FUELTYPE;
-        public string _REGISTRATIONZIPCODE;
+        public string _LICENSEPLATE; // 0
+        public string _STATUS; // 1
+        public string _STATUSDATE; // 2
+        public string _CARTYPE; // 3
+        public string _USE; // 4
+        public string _FIRSTREGISTRATION; // 5
+        public string _VINNUMBER; // 6
+        public string _OWNWEIGHT; // 7
+        public string _TOTALWEIGHT; // 8
+        public string _AXELS; // 9
+        public string _PULLINGAXELS; // 10
+        public string _SEATS; // 11
+        public string _COUPLING; // 12
+        public string _DOORS; // 13
+        public string _MAKE; // 14
+        public string _MODEL; // 15
+        public string _VARIANT; // 16
+        public string _MODELTYPE; // 17
+        public string _MODELYEAR; // 18
+        public string _COLOR; // 19
+        public string _CHASSISTYPE; // 20
+        public string _ENGINECYLINDERS; // 21
+        public string _ENGINEVOLUME; // 22
+        public string _ENGINEPOWER; // 23
+        public string _FUELTYPE; // 24
+        public string _REGISTRATIONZIPCODE; // 25
 
-        string[] final = new string[26];
+        string[] final;
 
         public async Task<string[]> GetInfo(string plate)
         {
@@ -70,7 +70,17 @@ namespace BilBixen.Scripts.Helper_Classes
 
             result = temp;
 
+            temp = result.Replace("false,", "\"false\",");
+
+            result = temp;
+
+            temp = result.Replace("true,", "\"true\",");
+
+            result = temp;
+
             string[] resultarray = result.Split(new string[] { ": \"" }, StringSplitOptions.None);
+
+            Debug.WriteLine(String.Join(", ", resultarray));
 
             int i = 0;
 
@@ -91,15 +101,6 @@ namespace BilBixen.Scripts.Helper_Classes
             finalCollection.RemoveAt(finalCollection.Count - 1);
 
             //Debug.WriteLine($"After------------------------------ {Environment.NewLine} {String.Join(",", finalCollection)} {Environment.NewLine + Environment.NewLine} ");
-
-            i = 0;
-
-            foreach (string str in finalCollection)
-            {
-                Debug.WriteLine(i + " " + str);
-
-                i++;
-            }
 
 
             final = finalCollection.ToArray();
