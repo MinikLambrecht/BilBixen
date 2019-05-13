@@ -6,7 +6,7 @@ namespace BilBixen.Scripts.Helper_Classes
 {
     public class Ad
     {
-        private string[] _IMGURI = new string[10];
+        private string[] _IMGURL = new string[10];
 
         private string _TITLE;
         private string _DESCRIPTION;
@@ -39,38 +39,35 @@ namespace BilBixen.Scripts.Helper_Classes
             _PRICE = price;
         }
 
-        public void AddAD(string title, string desc, string brand, string model, string engine, string km, string doors, DateTime firstreg, string category, string fuel, string status, int price)
+        public void AddAd(string title, string desc, string brand, string model, string engine, string km, string doors, DateTime firstreg, string category, string fuel, string status, int price)
         {
-
         }
 
         public void RemoveAd(int id)
         {
-
         }
 
         public void EditAd(int id)
         {
-
         }
 
         private void CarSqlCall(string brand, string model, string engine, string km, string doors, DateTime firstreg, string category, string fuel, string status)
         {
-            string query = "";
+            const string query = "";
 
-            using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
             {
-                MySqlCommand cmd = new MySqlCommand(query, conn);
+                var cmd = new MySqlCommand(query, conn);
             }
         }
 
         private void AdSqlCall(string title, string desc, string brand, string model, string engine, string km, string doors, DateTime firstreg, string category, string fuel, string status, int price)
         {
-            string query = "";
+            const string query = "";
 
-            using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
             {
-                MySqlCommand cmd = new MySqlCommand(query, conn);
+                var cmd = new MySqlCommand(query, conn);
             }
         }
     }

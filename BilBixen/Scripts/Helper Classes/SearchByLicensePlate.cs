@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Web;
-using System.Diagnostics;
 
 /*
- 
+
     GetInfo string array setup (Final Output):
 
         LICENSEPLATE; // 0
@@ -20,8 +17,8 @@ using System.Diagnostics;
         VINNUMBER; // 6
         OWNWEIGHT; // 7
         TOTALWEIGHT; // 8
-        AXELS; // 9
-        PULLINGAXELS; // 10
+        AXLES; // 9
+        PULLINGAXLES; // 10
         SEATS; // 11
         COUPLING; // 12
         DOORS; // 13
@@ -44,62 +41,63 @@ namespace BilBixen.Scripts.Helper_Classes
 {
     public class SearchByLicensePlate
     {
-        private string token = "jpdjnjobzpt5x7irdmu745h64o22hr6a";
+        private const string Token = "jpdjnjobzpt5x7irdmu745h64o22hr6a";
 
-        public string _LICENSEPLATE; // 0
-        public string _STATUS; // 1
-        public string _STATUSDATE; // 2
-        public string _CARTYPE; // 3
-        public string _USE; // 4
-        public string _FIRSTREGISTRATION; // 5
-        public string _VINNUMBER; // 6
-        public string _OWNWEIGHT; // 7
-        public string _TOTALWEIGHT; // 8
-        public string _AXELS; // 9
-        public string _PULLINGAXELS; // 10
-        public string _SEATS; // 11
-        public string _COUPLING; // 12
-        public string _DOORS; // 13
-        public string _MAKE; // 14
-        public string _MODEL; // 15
-        public string _VARIANT; // 16
-        public string _MODELTYPE; // 17
-        public string _MODELYEAR; // 18
-        public string _COLOR; // 19
-        public string _CHASSISTYPE; // 20
-        public string _ENGINECYLINDERS; // 21
-        public string _ENGINEVOLUME; // 22
-        public string _ENGINEPOWER; // 23
-        public string _FUELTYPE; // 24
-        public string _REGISTRATIONZIPCODE; // 25
+        private string _LICENSEPLATE; // 0
+        private string _STATUS; // 1
+        private string _STATUSDATE; // 2
+        private string _CARTYPE; // 3
+        private string _USE; // 4
+        private string _FIRSTREGISTRATION; // 5
+        private string _VINNUMBER; // 6
+        private string _OWNWEIGHT; // 7
+        private string _TOTALWEIGHT; // 8
+        private string _AXLES; // 9
+        private string _PULLINGAXLES; // 10
+        private string _SEATS; // 11
+        private string _COUPLING; // 12
+        private string _DOORS; // 13
+        private string _MAKE; // 14
+        private string _MODEL; // 15
+        private string _VARIANT; // 16
+        private string _MODELTYPE; // 17
+        private string _MODELYEAR; // 18
+        private string _COLOR; // 19
+        private string _CHASSISTYPE; // 20
+        private string _ENGINECYLINDERS; // 21
+        private string _ENGINEVOLUME; // 22
+        private string _ENGINEPOWER; // 23
+        private string _FUELTYPE; // 24
+        private string _REGISTRATIONZIPCODE; // 25
 
-        string[] final;
+        private string[] _FINAL;
 
+        /// <summary>Gets the information.</summary>
+        /// <param name="plate">License plate.</param>
+        /// <returns>Returns relevant information about the car associated with the license plate.</returns>
         public async Task<string[]> GetInfo(string plate)
         {
             await GetResponseString(plate);
 
             //Debug.WriteLine(String.Join(",", final));
 
-            return final;
+            return _FINAL;
         }
 
-        async Task GetResponseString(string Lplate)
+        private async Task GetResponseString(string lplate)
         {
             string result;
 
             using (var request = new HttpClient())
             {
-                request.DefaultRequestHeaders.Add("X-AUTH-TOKEN", token);
+                request.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Token);
                 request.DefaultRequestHeaders.Accept.Clear();
                 request.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                result = await request.GetStringAsync("https://v1.motorapi.dk/vehicles/" + Lplate.ToUpper());
+                result = await request.GetStringAsync("https://v1.motorapi.dk/vehicles/" + lplate.ToUpper());
             }
 
-            string temp;
-
-            temp = result.Replace("null,", "\"null\",");
+            var temp = result.Replace("null,", "\"null\",");
 
             result = temp;
 
@@ -111,22 +109,11 @@ namespace BilBixen.Scripts.Helper_Classes
 
             result = temp;
 
-            string[] resultarray = result.Split(new string[] { ": \"" }, StringSplitOptions.None);
+            var resultarray = result.Split(new[] { ": \"" }, StringSplitOptions.None);
 
             //Debug.WriteLine(String.Join(", ", resultarray));
 
-            int i = 0;
-
-            List<string> finalCollection = new List<string>();
-
-            foreach (string item in resultarray)
-            {
-                string[] tempo = item.Split(new string[] { "\"," }, StringSplitOptions.None);
-
-                finalCollection.Add(tempo[0]);
-
-                i++;
-            }
+            var finalCollection = resultarray.Select(item => item.Split(new[] { "\"," }, StringSplitOptions.None)).Select(tempo => tempo[0]).ToList();
 
             //Debug.WriteLine($"Before------------------------------ {Environment.NewLine} {String.Join(",", finalCollection)} {Environment.NewLine + Environment.NewLine} ");
 
@@ -135,35 +122,34 @@ namespace BilBixen.Scripts.Helper_Classes
 
             //Debug.WriteLine($"After------------------------------ {Environment.NewLine} {String.Join(",", finalCollection)} {Environment.NewLine + Environment.NewLine} ");
 
+            _FINAL = finalCollection.ToArray();
 
-            final = finalCollection.ToArray();
-
-            _LICENSEPLATE = final[0];
-            _STATUS = final[1];
-            _STATUSDATE = final[2];
-            _CARTYPE = final[3];
-            _USE = final[4];
-            _FIRSTREGISTRATION = final[5];
-            _VINNUMBER = final[6];
-            _OWNWEIGHT = final[7];
-            _TOTALWEIGHT = final[8];
-            _AXELS = final[9];
-            _PULLINGAXELS = final[10];
-            _SEATS = final[11];
-            _COUPLING = final[12];
-            _DOORS = final[13];
-            _MAKE = final[14];
-            _MODEL = final[15];
-            _VARIANT = final[16];
-            _MODELTYPE = final[17];
-            _MODELYEAR = final[18];
-            _COLOR = final[19];
-            _CHASSISTYPE = final[20];
-            _ENGINECYLINDERS = final[21];
-            _ENGINEVOLUME = final[22];
-            _ENGINEPOWER = final[23];
-            _FUELTYPE = final[24];
-            _REGISTRATIONZIPCODE = final[25];
+            _LICENSEPLATE = _FINAL[0];
+            _STATUS = _FINAL[1];
+            _STATUSDATE = _FINAL[2];
+            _CARTYPE = _FINAL[3];
+            _USE = _FINAL[4];
+            _FIRSTREGISTRATION = _FINAL[5];
+            _VINNUMBER = _FINAL[6];
+            _OWNWEIGHT = _FINAL[7];
+            _TOTALWEIGHT = _FINAL[8];
+            _AXLES = _FINAL[9];
+            _PULLINGAXLES = _FINAL[10];
+            _SEATS = _FINAL[11];
+            _COUPLING = _FINAL[12];
+            _DOORS = _FINAL[13];
+            _MAKE = _FINAL[14];
+            _MODEL = _FINAL[15];
+            _VARIANT = _FINAL[16];
+            _MODELTYPE = _FINAL[17];
+            _MODELYEAR = _FINAL[18];
+            _COLOR = _FINAL[19];
+            _CHASSISTYPE = _FINAL[20];
+            _ENGINECYLINDERS = _FINAL[21];
+            _ENGINEVOLUME = _FINAL[22];
+            _ENGINEPOWER = _FINAL[23];
+            _FUELTYPE = _FINAL[24];
+            _REGISTRATIONZIPCODE = _FINAL[25];
         }
     }
 }

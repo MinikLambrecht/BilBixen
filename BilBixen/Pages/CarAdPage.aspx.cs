@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using BilBixen.Scripts.Helper_Classes;
-using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace BilBixen.Pages
 {
-    public partial class CarAdPage : System.Web.UI.Page
+    public partial class CarAdPage : Page
     {
         public string _FIRSTREGISTRATION;
         public string _TOTALWEIGHT;
