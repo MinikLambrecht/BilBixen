@@ -43,32 +43,32 @@ namespace BilBixen.Scripts.Helper_Classes
     {
         private const string Token = "jpdjnjobzpt5x7irdmu745h64o22hr6a";
 
-        private string _LICENSEPLATE; // 0
-        private string _STATUS; // 1
-        private string _STATUSDATE; // 2
-        private string _CARTYPE; // 3
-        private string _USE; // 4
-        private string _FIRSTREGISTRATION; // 5
-        private string _VINNUMBER; // 6
-        private string _OWNWEIGHT; // 7
-        private string _TOTALWEIGHT; // 8
-        private string _AXLES; // 9
-        private string _PULLINGAXLES; // 10
-        private string _SEATS; // 11
-        private string _COUPLING; // 12
-        private string _DOORS; // 13
-        private string _MAKE; // 14
-        private string _MODEL; // 15
-        private string _VARIANT; // 16
-        private string _MODELTYPE; // 17
-        private string _MODELYEAR; // 18
-        private string _COLOR; // 19
-        private string _CHASSISTYPE; // 20
-        private string _ENGINECYLINDERS; // 21
-        private string _ENGINEVOLUME; // 22
-        private string _ENGINEPOWER; // 23
-        private string _FUELTYPE; // 24
-        private string _REGISTRATIONZIPCODE; // 25
+        //private string _LICENSEPLATE; // 0
+        //private string _STATUS; // 1
+        //private string _STATUSDATE; // 2
+        //private string _CARTYPE; // 3
+        //private string _USE; // 4
+        //private string _FIRSTREGISTRATION; // 5
+        //private string _VINNUMBER; // 6
+        //private string _OWNWEIGHT; // 7
+        //private string _TOTALWEIGHT; // 8
+        //private string _AXLES; // 9
+        //private string _PULLINGAXLES; // 10
+        //private string _SEATS; // 11
+        //private string _COUPLING; // 12
+        //private string _DOORS; // 13
+        //private string _MAKE; // 14
+        //private string _MODEL; // 15
+        //private string _VARIANT; // 16
+        //private string _MODELTYPE; // 17
+        //private string _MODELYEAR; // 18
+        //private string _COLOR; // 19
+        //private string _CHASSISTYPE; // 20
+        //private string _ENGINECYLINDERS; // 21
+        //private string _ENGINEVOLUME; // 22
+        //private string _ENGINEPOWER; // 23
+        //private string _FUELTYPE; // 24
+        //private string _REGISTRATIONZIPCODE; // 25
 
         private string[] _FINAL;
 
@@ -124,32 +124,32 @@ namespace BilBixen.Scripts.Helper_Classes
 
             _FINAL = finalCollection.ToArray();
 
-            _LICENSEPLATE = _FINAL[0];
-            _STATUS = _FINAL[1];
-            _STATUSDATE = _FINAL[2];
-            _CARTYPE = _FINAL[3];
-            _USE = _FINAL[4];
-            _FIRSTREGISTRATION = _FINAL[5];
-            _VINNUMBER = _FINAL[6];
-            _OWNWEIGHT = _FINAL[7];
-            _TOTALWEIGHT = _FINAL[8];
-            _AXLES = _FINAL[9];
-            _PULLINGAXLES = _FINAL[10];
-            _SEATS = _FINAL[11];
-            _COUPLING = _FINAL[12];
-            _DOORS = _FINAL[13];
-            _MAKE = _FINAL[14];
-            _MODEL = _FINAL[15];
-            _VARIANT = _FINAL[16];
-            _MODELTYPE = _FINAL[17];
-            _MODELYEAR = _FINAL[18];
-            _COLOR = _FINAL[19];
-            _CHASSISTYPE = _FINAL[20];
-            _ENGINECYLINDERS = _FINAL[21];
-            _ENGINEVOLUME = _FINAL[22];
-            _ENGINEPOWER = _FINAL[23];
-            _FUELTYPE = _FINAL[24];
-            _REGISTRATIONZIPCODE = _FINAL[25];
+            //_LICENSEPLATE = _FINAL[0];
+            //_STATUS = _FINAL[1];
+            //_STATUSDATE = _FINAL[2];
+            //_CARTYPE = _FINAL[3];
+            //_USE = _FINAL[4];
+            //_FIRSTREGISTRATION = _FINAL[5];
+            //_VINNUMBER = _FINAL[6];
+            //_OWNWEIGHT = _FINAL[7];
+            //_TOTALWEIGHT = _FINAL[8];
+            //_AXLES = _FINAL[9];
+            //_PULLINGAXLES = _FINAL[10];
+            //_SEATS = _FINAL[11];
+            //_COUPLING = _FINAL[12];
+            //_DOORS = _FINAL[13];
+            //_MAKE = _FINAL[14];
+            //_MODEL = _FINAL[15];
+            //_VARIANT = _FINAL[16];
+            //_MODELTYPE = _FINAL[17];
+            //_MODELYEAR = _FINAL[18];
+            //_COLOR = _FINAL[19];
+            //_CHASSISTYPE = _FINAL[20];
+            //_ENGINECYLINDERS = _FINAL[21];
+            //_ENGINEVOLUME = _FINAL[22];
+            //_ENGINEPOWER = _FINAL[23];
+            //_FUELTYPE = _FINAL[24];
+            //_REGISTRATIONZIPCODE = _FINAL[25];
         }
     }
 }

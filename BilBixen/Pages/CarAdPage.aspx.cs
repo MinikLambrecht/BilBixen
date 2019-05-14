@@ -19,7 +19,22 @@ namespace BilBixen.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CreateComments();
+        }
 
+        void CreateComments()
+        {
+            int amountOfComments = 5;
+            string username = "TestName", commentText = "TestText is only to be used in tests";
+
+            for (var i = 0; i < amountOfComments; i++)
+            {
+                Comments.InnerHtml += "" +
+                    "<div class=\"CommentBox\" style=\"\"> " +
+                    $"<p class=\"CommentUsername\">{username}</p> " +
+                    $"<p class=\"CommentText\">{commentText}</p> " +
+                    "</div>";
+            }
         }
     }
 }
