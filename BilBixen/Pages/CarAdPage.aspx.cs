@@ -1,6 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Diagnostics;
+using System.Linq;
 using System.Web.UI;
 using BilBixen.Scripts.Helper_Classes;
+using MySql.Data.MySqlClient;
 
 namespace BilBixen.Pages
 {
@@ -16,24 +22,76 @@ namespace BilBixen.Pages
         public string _COLOR;
         public string _FUELTYPE;
 
+        string[] commentUsernames;
+        string[] commentTexts;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            GetCommentsFromDatabase();
+
             CreateComments();
+        }
+
+        void GetCommentsFromDatabase()
+        {
+            const string query = "Select * from bilbixen.comments " +
+                "where comment_STATUS_ID = 2 and Comment_AD_ID = 1;";
+
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            {
+                conn.Open();
+
+                var cmd = new MySqlCommand(query, conn);
+
+                List<string> usernames = new List<string>();
+                List<string> text = new List<string>();
+
+                var dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
+                var rows = dt.AsEnumerable().ToArray();
+
+                int i = 0;
+
+                foreach (DataRow row in rows)
+                {
+                    try
+                    {
+                        usernames.Add(rows[i]["Comment_USER"].ToString());
+                        text.Add(rows[i]["Comment_TEXT"].ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
+
+                    i++;
+                }
+
+                commentUsernames = usernames.ToArray();
+                commentTexts = text.ToArray();
+            }
         }
 
         void CreateComments()
         {
-            int amountOfComments = 5;
-            string username = "TestName", commentText = "TestText is only to be used in tests";
-
-            for (var i = 0; i < amountOfComments; i++)
+            if (commentUsernames.Length == commentTexts.Length)
             {
-                Comments.InnerHtml += "" +
-                    "<div class=\"CommentBox\" style=\"\"> " +
-                    $"<p class=\"CommentUsername\">{username}</p> " +
-                    $"<p class=\"CommentText\">{commentText}</p> " +
-                    "</div>";
+                var amountOfComments = commentUsernames.Length;
+
+                for (var i = 0; i < amountOfComments; i++)
+                {
+                    Comments.InnerHtml += "" +
+                        "<div class=\"CommentBox\" style=\"\"> " +
+                        $"<p class=\"CommentUsername\">{commentUsernames[i]}</p> " +
+                        $"<p class=\"CommentText\">{commentTexts[i]}</p> " +
+                        "</div>";
+                }
+            }
+            else
+            {
+                Debug.WriteLine("CommentUsernames Lenght: " + commentUsernames.Length);
+                Debug.WriteLine("CommentTexts Lenght: " + commentTexts.Length);
             }
         }
     }

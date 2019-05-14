@@ -66,7 +66,7 @@
                     <!-- Comments -->
                     <div id="CommentArea" class="tab-pane fade">
 
-                        <div runat="server" id="Comments">
+                        <div runat="server" id="Comments" class="CommentContainer">
 
                         </div>
 
