@@ -35,7 +35,7 @@
             <ul class="nav nav-pills">
                 <li class="active"><a data-toggle="pill" href="#Desc">Description</a></li>
                 <li><a data-toggle="pill" href="#Info">Info</a></li>
-                <li><a data-toggle="pill" href="#Comments">Comments</a></li>
+                <li><a data-toggle="pill" href="#CommentArea">Comments</a></li>
             </ul>
 
             <div class="TabContentBackground">
@@ -64,36 +64,10 @@
 
 
                     <!-- Comments -->
-                    <div id="Comments" class="tab-pane fade">
+                    <div id="CommentArea" class="tab-pane fade">
 
-                        <div class="CommentBox" style="">
-                            <p class="CommentUsername">Username</p>
-                            <p class="CommentText">I will be placing comment text here</p>
-                        </div>
+                        <div runat="server" id="Comments">
 
-                        <div class="CommentBox">
-                            <p class="CommentUsername">Username</p>
-                            <p class="CommentText">I will be placing comment text here but more</p>
-                        </div>
-
-                        <div class="CommentBox">
-                            <p class="CommentUsername">Username</p>
-                            <p class="CommentText">I will place less text here</p>
-                        </div>
-
-                        <div class="CommentBox">
-                            <p class="CommentUsername">Username</p>
-                            <p class="CommentText">I will be placing comment text here</p>
-                        </div>
-
-                        <div class="CommentBox">
-                            <p class="CommentUsername">Username</p>
-                            <p class="CommentText">I will be placing comment text here</p>
-                        </div>
-
-                        <div class="CommentBox">
-                            <p class="CommentUsername">Username</p>
-                            <p class="CommentText">I will be placing comment text here</p>
                         </div>
 
                         <hr />
