@@ -13,22 +13,40 @@ namespace BilBixen.Pages {
     public partial class SellYourCar {
         
         /// <summary>
-        /// ASYNC_FILE_UPLOAD control.
+        /// ADID_LABEL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.AsyncFileUpload ASYNC_FILE_UPLOAD;
+        protected global::System.Web.UI.WebControls.Label ADID_LABEL;
         
         /// <summary>
-        /// TEST_BUTTON control.
+        /// fileDocument control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button TEST_BUTTON;
+        protected global::System.Web.UI.WebControls.FileUpload fileDocument;
+        
+        /// <summary>
+        /// btnUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpload;
+        
+        /// <summary>
+        /// infoLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label infoLabel;
         
         /// <summary>
         /// PLATEORVIN_LABEL_TEXT control.
