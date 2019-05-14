@@ -1,7 +1,7 @@
-﻿using System;
+﻿using BilBixen.Scripts.Helper_Classes;
+using System;
+using System.IO;
 using System.Web.UI;
-using AjaxControlToolkit;
-using BilBixen.Scripts.Helper_Classes;
 
 namespace BilBixen.Pages
 {
@@ -38,11 +38,12 @@ namespace BilBixen.Pages
 
         private string _PLATE_INPUT;
 
-        public int _AD_ID;
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            _AD_ID = GenerateId();
+            if (!Page.IsPostBack)
+            {
+                ViewState["CAR_AD_ID"] = GenerateId();
+            }
         }
 
         protected async void LoadData(object sender, EventArgs e)
@@ -103,7 +104,6 @@ namespace BilBixen.Pages
             ENGINE_POWER_LABEL_TEXT.Text = _ENGINE_POWER;
             FUEL_TYPE_LABEL_TEXT.Text = _FUEL_TYPE;
             REGISTRATIONZIPCODE_LABEL_TEXT.Text = _REGISTRATION_ZIPCODE;
-
         }
 
         private static int GenerateId()
@@ -122,38 +122,63 @@ namespace BilBixen.Pages
             return Convert.ToInt32(uniqueId);
         }
 
-        protected void AdPictures_UploadComplete(object sender, AjaxFileUploadEventArgs e)
+        protected void BtnUpload_OnClick(object sender, EventArgs e)
         {
+            if (!fileDocument.HasFiles)
+            {
+                infoLabel.Text = "No files selected!";
+                return;
+            }
 
             try
             {
-                //HttpFileCollection hfc = Request.Files;
-                //for (int i = 0; i < hfc.Count; i++)
-                //{
-                //    HttpPostedFile hpf = hfc[i];
+                var docFileLength = fileDocument.FileBytes.Length;
+                var fileName = fileDocument.PostedFile.FileName;
 
-                //    string ext = Path.GetExtension(hpf.FileName);
+                var savePath = Server.MapPath("~/Images/") + ViewState["CAR_AD_ID"];
 
+                if (docFileLength > 4096000)
+                {
+                    infoLabel.Text = "Image exceeds the size limit of 4 MB.";
+                    return;
+                }
 
-                //    if (hpf.ContentLength > 0)
-                //    {
-                //        if (Directory.Exists(Server.MapPath("~/Images/") + AdID.ToString()))
-                //        {
-                //            List.Text = "Dir exists!";
-                //        }
-                //        else
-                //        {
-                //            Directory.CreateDirectory(Server.MapPath("~/Images/") + AdID.ToString());
-                //            List.Text = "Dir created!";
-                //        }
-                //        hpf.SaveAs(Path.Combine(Server.MapPath("~/Images/") + AdID.ToString(), AdID.ToString() + "_" + i.ToString() + ext));
-                //    }
-                //}
+                ADID_LABEL.Text = "File size not exceeded!";
+
+                if (fileName != string.Empty)
+                {
+                    var ext = Path.GetExtension(fileDocument.FileName);
+
+                    if (!((ext == ".jpeg") | (ext == ".jpg") | (ext == ".png")))
+                    {
+                        return;
+                    }
+
+                    if (!Directory.Exists(savePath))
+                    {
+                        Directory.CreateDirectory(savePath);
+                        ADID_LABEL.Text = "Dir created!";
+                    }
+
+                    var fileCount = Directory.GetFiles(savePath, "*.*", SearchOption.TopDirectoryOnly).Length;
+
+                    ADID_LABEL.Text = fileCount.ToString();
+
+                    for (var i = 0; i < fileCount; i++)
+                    {
+                        fileDocument.PostedFile.SaveAs(Path.Combine(savePath, "IMG" + "_" + i + ext));
+                    }
+
+                    //infoLabel.Text = "Images uploaded successfully.";
+                }
+                else
+                {
+                    infoLabel.Text = "File not found.";
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                // Log errors
+                infoLabel.Text = ex.Message;
             }
         }
     }

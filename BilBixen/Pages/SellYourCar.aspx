@@ -4,25 +4,64 @@
 
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
-            
-            <asp:AsyncFileUpload ID="ASYNC_FILE_UPLOAD" runat="server" OnClientUploadComplete="uploadComplete"  UploaderStyle="Modern" Width="100%" UploadingBackColor="#CCFFFF" ThrobberID="myThrobber" />
 
-            
-            <script>
-                function uploadComplete() {
-                    var adId = '<%= _AD_ID%>';
-                    alert(adId);
-                }
-                function uploadError() {
-
-                }
-            </script>
-            
-            <asp:button ID="TEST_BUTTON" runat="server" OnClientClick="javascript:alert();" Text="Click me!" />
+            <asp:Label runat="server" ID="ADID_LABEL" Text="ID: "></asp:Label>
 
             <hr />
 
-            <input id="PLATEORVIN_LABEL_TEXT" runat="server" placeholder="Type in License plate or VIN" style="width:250px; text-transform: uppercase" />
+            <asp:FileUpload ID="fileDocument" runat="server" />
+            <asp:Button ID="btnUpload" runat="server" OnClick="BtnUpload_OnClick" OnClientClick="return CheckForTestFile();" Text="Upload" />
+            <br />
+            <asp:Label runat="server" ID="infoLabel" Text="Label Stuff..."></asp:Label>
+
+            <script>
+                //Trim the input text
+                function Trim(input) {
+                    var lre = /^\s*/;
+                    var rre = /\s*$/;
+                    input = input.replace(lre, "");
+                    input = input.replace(rre, "");
+                    return input;
+                }
+
+                // filter the files before Uploading for text file only
+                function CheckForTestFile() {
+                    var file = document.getElementById('<%=fileDocument.ClientID%>');
+                    var fileName = file.value;
+                    //Checking for file browsed or not
+                    if (Trim(fileName) === '') {
+                        alert("No file has been selected!");
+                        file.focus();
+                        return false;
+                    }
+
+                    //Setting the extension array for diff. type of text files
+                    var extArray = new Array(".jpeg", ".jpg", ".png");
+
+                    //getting the file name
+                    while (fileName.indexOf("\\") !== -1)
+                        fileName = fileName.slice(fileName.indexOf("\\") + 1);
+
+                    //Getting the file extension
+                    var ext = fileName.slice(fileName.indexOf(".")).toLowerCase();
+
+                    //matching extension with our given extensions.
+                    for (var i = 0; i < extArray.length; i++) {
+                        if (extArray[i] === ext) {
+                            return true;
+                        }
+                    }
+                    alert("Please only upload files that end in types:  "
+                        + (extArray.join("  ")) + "\nPlease select a new "
+                        + "file to upload and submit again.");
+                    file.focus();
+                    return false;
+                }
+            </script>
+
+            <hr />
+
+            <input id="PLATEORVIN_LABEL_TEXT" runat="server" placeholder="Type in License plate or VIN" style="width: 250px; text-transform: uppercase" />
             <asp:Button ID="SEARCH_BUTTON" runat="server" Text="Search" OnClick="LoadData" />
 
             <hr />
@@ -31,7 +70,7 @@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <asp:Label ID="LICENSE_PLATE" runat="server" Text="License plate: "></asp:Label>
                     <br />
-                    <asp:Label ID="STATUS_LABEL" runat="server" Text="Status: "/>
+                    <asp:Label ID="STATUS_LABEL" runat="server" Text="Status: " />
                     <br />
                     <asp:Label ID="STATUS_DATE_LABEL" runat="server" Text="Status date: "></asp:Label>
                     <br />
@@ -139,6 +178,8 @@
 
             <hr />
         </ContentTemplate>
+        <Triggers>
+            <asp:PostBackTrigger ControlID="btnUpload" />
+        </Triggers>
     </asp:UpdatePanel>
-
 </asp:Content>
