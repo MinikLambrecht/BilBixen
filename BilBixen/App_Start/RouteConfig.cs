@@ -24,6 +24,7 @@ namespace BilBixen
             routes.MapPageRoute("Sell_Page", "Sell", "~/Pages/SellYourCar.aspx");
 
             routes.MapPageRoute("Ad_Page", "Temp", "~/Pages/CarAdPage.aspx");
+            routes.MapPageRoute("Any_Ad_Page", "AD/{anything}", "~/Pages/CarAdPage.aspx");
         }
     }
 }

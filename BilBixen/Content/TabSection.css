@@ -78,6 +78,10 @@
 
 
 /* Comments */
+.CommentContainer {
+    margin-left: 25px;
+}
+
 .CommentBox {
     background-color: lightblue;
     border-right: 10px solid lightblue;
