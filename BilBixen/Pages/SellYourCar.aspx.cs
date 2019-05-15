@@ -1,6 +1,8 @@
 ﻿using BilBixen.Scripts.Helper_Classes;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web.UI;
 
 namespace BilBixen.Pages
@@ -160,14 +162,52 @@ namespace BilBixen.Pages
                         ADID_LABEL.Text = "Dir created!";
                     }
 
-                    var fileCount = Directory.GetFiles(savePath, "*.*", SearchOption.TopDirectoryOnly).Length;
+                    string[] files = Directory.GetFiles(savePath, "*.*", SearchOption.TopDirectoryOnly);
+                    List<string> fileNames = new List<string>();
+                    List<int> highestNumber = new List<int>();
 
-                    ADID_LABEL.Text = fileCount.ToString();
-
-                    for (var i = 0; i < fileCount; i++)
+                    if (files.Length > 0)
                     {
-                        fileDocument.PostedFile.SaveAs(Path.Combine(savePath, "IMG" + "_" + i + ext));
+                        foreach (string str in files)
+                        {
+                            fileNames.Add(Path.GetFileNameWithoutExtension(str));
+                        }
+
+                        foreach (var name in fileNames)
+                        {
+                            var fileNumber = name.Substring(name.LastIndexOf('_') + 1);
+                            highestNumber.Add(int.Parse(fileNumber));
+
+                            int value = highestNumber.Max();
+
+                            int newFileNumber = value + 1;
+
+                            fileDocument.PostedFile.SaveAs(Path.Combine(savePath, "IMG" + "_" + newFileNumber + ext));
+                        }
                     }
+                    else
+                    {
+                        fileDocument.PostedFile.SaveAs(Path.Combine(savePath, "IMG" + "_" + "0" + ext));
+                    }
+
+                    //if (fileCount == 0)
+                    //{
+                    //    ADID_LABEL.Text = "<0";
+                    //    for (var i = 0; i < fileCount; i++)
+                    //    {
+                    //        fileDocument.PostedFile.SaveAs(Path.Combine(savePath, "/IMG" + "_" + i + ext));
+                    //    }
+                    //    ADID_LABEL.Text = "<0 Complete";
+                    //}
+                    //else
+                    //{
+                    //    ADID_LABEL.Text = ">0";
+                    //    for (var i = 0; i < fileCount; i++)
+                    //    {
+                    //        fileDocument.PostedFile.SaveAs(Path.Combine(savePath, "/IMG" + "_" + i + ext));
+                    //    }
+                    //    ADID_LABEL.Text = ">0 Complete";
+                    //}
 
                     //infoLabel.Text = "Images uploaded successfully.";
                 }
