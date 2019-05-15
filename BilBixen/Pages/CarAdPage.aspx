@@ -5,7 +5,7 @@
 
     <div class="MainContainer container" style="background-color: white; border-radius: 10px">
         <h1><%= _MAKE %></h1>
-        <p class="xLargeText"> <%= $"{_MODEL} {_FUELTYPE}" %></p>
+        <p class="xLargeText"> <%= $"{_MODEL} {_ENGINE}, {_FUELTYPE}" %></p>
 
         <div class="row">
             <div class="col-md-8" style="display:flex; justify-content:center">
@@ -17,9 +17,9 @@
                     <p class="LargerText">Heres a list</p>
 
                     <ul class="LargerText">
-                        <li><b>Price: </b><br /> Number</li>
+                        <li><b>Price: </b><br /> <%= _PRICE %></li>
                         <br />
-                        <li><b>KM: </b><br /> Number</li>
+                        <li><b>KM: </b><br /> <%= _KM %></li>
                         <br />
                         <li><b>1st Register: </b><br /> <%= _FIRSTREGISTRATION %></li>
                         <br />
@@ -35,7 +35,7 @@
             <ul class="nav nav-pills">
                 <li class="active"><a data-toggle="pill" href="#Desc">Description</a></li>
                 <li><a data-toggle="pill" href="#Info">Info</a></li>
-                <li><a data-toggle="pill" href="#CommentArea">Comments</a></li>
+                <li><a data-toggle="pill" href="#CommentArea">Comments<span class="badge"> <%= commentAmount %></span></a></li>
             </ul>
 
             <div class="TabContentBackground">
@@ -57,8 +57,18 @@
 
                         <h2 class="InfoTitle"><%= $"{_MAKE} {_MODEL}" %></h2>
                         
-                        <ul>
-                            <li> Info</li>
+                        <ul class="LargerText">
+                            <li><b>Price: </b><br /> <%= _PRICE %></li>
+                            <br />
+                            <li><b>KM: </b><br /> <%= _KM %></li>
+                            <br />
+                            <li><b>1st Register: </b><br /> <%= _FIRSTREGISTRATION %></li>
+                            <br />
+                            <li><b>Model year: </b><br /> <%= _MODELYEAR %></li>
+                            <br />
+                            <li><b>Engine: </b><br /> <%= _ENGINE %></li>
+                            <br />
+                            <li><b>KM: </b><br /> <%= _KM %></li>
                         </ul>
                     </div>
 

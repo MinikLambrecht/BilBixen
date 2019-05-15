@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 using BilBixen.Scripts.Helper_Classes;
 using MySql.Data.MySqlClient;
@@ -22,21 +23,90 @@ namespace BilBixen.Pages
         public string _COLOR;
         public string _FUELTYPE;
 
+        public string _KM;
+        public string _ENGINE;
+        public string _PRICE;
+
+        public int commentAmount;
         string[] commentUsernames;
         string[] commentTexts;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            GetCommentsFromDatabase();
+            Debug.WriteLine(GetLastURLExtentionAndID());
 
-            CreateComments();
+            try
+            {
+                GetCarDataFromDatabase();
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+
+            try
+            {
+                GetCommentsFromDatabase();
+
+                CreateComments();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
+        string GetLastURLExtentionAndID()
+        {
+            string[] result = HttpContext.Current.Request.Url.AbsoluteUri.Split('/');
+
+            return result[result.Length - 1];
+        }
+
+        void GetCarDataFromDatabase()
+        {
+
+            string query = "Select * from bilbixen.cars " +
+                $"where car_AD_PAGE_ID = {GetLastURLExtentionAndID()};";
+
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            {
+                conn.Open();
+
+                var cmd = new MySqlCommand(query, conn);
+
+                var dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
+                var rows = dt.AsEnumerable().ToArray();
+
+                int i = 0;
+
+                foreach (DataRow row in rows)
+                {
+                    try
+                    {
+                        _KM = rows[i]["car_KM"].ToString();
+                        _ENGINE = rows[i]["car_ENGINE"].ToString();
+                        _FIRSTREGISTRATION = rows[i]["car_FIRST_REGISTRATION"].ToString();
+                        _PRICE = rows[i]["car_PRICE"].ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Get Car ERROR: " + ex);
+                    }
+
+                    i++;
+                }
+            }
         }
 
         void GetCommentsFromDatabase()
         {
-            const string query = "Select * from bilbixen.comments " +
-                "where comment_STATUS_ID = 2 and Comment_AD_ID = 1;";
+
+            string query = "Select * from bilbixen.comments " +
+                $"where comment_STATUS_ID = 2 and Comment_AD_ID = {GetLastURLExtentionAndID()};";
 
             using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
             {
@@ -62,7 +132,7 @@ namespace BilBixen.Pages
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine(ex);
+                        Debug.WriteLine("Get Comments ERROR: " + ex);
                     }
 
                     i++;
@@ -75,23 +145,32 @@ namespace BilBixen.Pages
 
         void CreateComments()
         {
-            if (commentUsernames.Length == commentTexts.Length)
+            try
             {
-                var amountOfComments = commentUsernames.Length;
-
-                for (var i = 0; i < amountOfComments; i++)
+                if (commentUsernames.Length == commentTexts.Length)
                 {
-                    Comments.InnerHtml += "" +
-                        "<div class=\"CommentBox\" style=\"\"> " +
-                        $"<p class=\"CommentUsername\">{commentUsernames[i]}</p> " +
-                        $"<p class=\"CommentText\">{commentTexts[i]}</p> " +
-                        "</div>";
+
+                    commentAmount = commentUsernames.Length;
+                    var amountOfComments = commentUsernames.Length;
+
+                    for (var i = 0; i < amountOfComments; i++)
+                    {
+                        Comments.InnerHtml += "" +
+                            "<div class=\"CommentBox\" style=\"\"> " +
+                            $"<p class=\"CommentUsername\">{commentUsernames[i]}</p> " +
+                            $"<p class=\"CommentText\">{commentTexts[i]}</p> " +
+                            "</div>";
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("CommentUsernames Lenght: " + commentUsernames.Length);
+                    Debug.WriteLine("CommentTexts Lenght: " + commentTexts.Length);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Debug.WriteLine("CommentUsernames Lenght: " + commentUsernames.Length);
-                Debug.WriteLine("CommentTexts Lenght: " + commentTexts.Length);
+                Debug.WriteLine(ex);
             }
         }
     }
