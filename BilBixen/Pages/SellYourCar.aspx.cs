@@ -1,8 +1,6 @@
 ﻿using BilBixen.Scripts.Helper_Classes;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web.UI;
 
 namespace BilBixen.Pages
@@ -134,22 +132,20 @@ namespace BilBixen.Pages
 
             try
             {
-                var docFileLength = fileDocument.FileBytes.Length;
-                var fileName = fileDocument.PostedFile.FileName;
-
-                var savePath = Server.MapPath("~/Images/") + ViewState["CAR_AD_ID"];
-
-                if (docFileLength > 4096000)
+                foreach (var file in fileDocument.PostedFiles)
                 {
-                    infoLabel.Text = "Image exceeds the size limit of 4 MB.";
-                    return;
-                }
+                    var fileLength = file.ContentLength;
+                    var fileName = file.FileName;
 
-                ADID_LABEL.Text = "File size not exceeded!";
+                    var savePath = Server.MapPath("~/Images/") + ViewState["CAR_AD_ID"];
 
-                if (fileName != string.Empty)
-                {
-                    var ext = Path.GetExtension(fileDocument.FileName);
+                    if (fileLength > 4096000)
+                    {
+                        infoLabel.Text = "Image exceeds the size limit of 4 MB.";
+                        return;
+                    }
+
+                    var ext = Path.GetExtension(fileName);
 
                     if (!((ext == ".jpeg") | (ext == ".jpg") | (ext == ".png")))
                     {
@@ -159,61 +155,11 @@ namespace BilBixen.Pages
                     if (!Directory.Exists(savePath))
                     {
                         Directory.CreateDirectory(savePath);
-                        ADID_LABEL.Text = "Dir created!";
                     }
 
-                    string[] files = Directory.GetFiles(savePath, "*.*", SearchOption.TopDirectoryOnly);
-                    List<string> fileNames = new List<string>();
-                    List<int> highestNumber = new List<int>();
+                    var fileCount = Directory.GetFiles(savePath, "*", SearchOption.TopDirectoryOnly).Length;
 
-                    if (files.Length > 0)
-                    {
-                        foreach (string str in files)
-                        {
-                            fileNames.Add(Path.GetFileNameWithoutExtension(str));
-                        }
-
-                        foreach (var name in fileNames)
-                        {
-                            var fileNumber = name.Substring(name.LastIndexOf('_') + 1);
-                            highestNumber.Add(int.Parse(fileNumber));
-
-                            int value = highestNumber.Max();
-
-                            int newFileNumber = value + 1;
-
-                            fileDocument.PostedFile.SaveAs(Path.Combine(savePath, "IMG" + "_" + newFileNumber + ext));
-                        }
-                    }
-                    else
-                    {
-                        fileDocument.PostedFile.SaveAs(Path.Combine(savePath, "IMG" + "_" + "0" + ext));
-                    }
-
-                    //if (fileCount == 0)
-                    //{
-                    //    ADID_LABEL.Text = "<0";
-                    //    for (var i = 0; i < fileCount; i++)
-                    //    {
-                    //        fileDocument.PostedFile.SaveAs(Path.Combine(savePath, "/IMG" + "_" + i + ext));
-                    //    }
-                    //    ADID_LABEL.Text = "<0 Complete";
-                    //}
-                    //else
-                    //{
-                    //    ADID_LABEL.Text = ">0";
-                    //    for (var i = 0; i < fileCount; i++)
-                    //    {
-                    //        fileDocument.PostedFile.SaveAs(Path.Combine(savePath, "/IMG" + "_" + i + ext));
-                    //    }
-                    //    ADID_LABEL.Text = ">0 Complete";
-                    //}
-
-                    //infoLabel.Text = "Images uploaded successfully.";
-                }
-                else
-                {
-                    infoLabel.Text = "File not found.";
+                    file.SaveAs(Path.Combine(savePath, "IMG" + "_" + fileCount + ext));
                 }
             }
             catch (Exception ex)

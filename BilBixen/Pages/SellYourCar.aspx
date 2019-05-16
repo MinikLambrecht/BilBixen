@@ -9,7 +9,7 @@
 
             <hr />
 
-            <asp:FileUpload ID="fileDocument" runat="server" />
+            <asp:FileUpload ID="fileDocument" runat="server" AllowMultiple="True" />
             <asp:Button ID="btnUpload" runat="server" OnClick="BtnUpload_OnClick" OnClientClick="return CheckForTestFile();" Text="Upload" />
             <br />
             <asp:Label runat="server" ID="infoLabel" Text="Label Stuff..."></asp:Label>

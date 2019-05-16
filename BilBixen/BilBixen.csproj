@@ -202,6 +202,7 @@
     <Content Include="Content\Images\Honda Civic 1,3\3.JPG" />
     <Content Include="Content\Images\Honda Civic 1,3\4.JPG" />
     <Content Include="Content\Images\Honda Civic 1,3\5.JPG" />
+    <Content Include="Content\Images\LandingPage_Image.png" />
     <Content Include="Content\Images\Mazda E2000 B Pick-up\1.jpg" />
     <Content Include="Content\Images\Mazda E2000 B Pick-up\2.jpg" />
     <Content Include="Content\Images\Mazda E2000 B Pick-up\3.jpg" />
@@ -264,7 +265,6 @@
     <Content Include="Content\Images\VW Transporter Petrol Pickup\5.jpg" />
     <Content Include="Content\TabSection.css" />
     <Content Include="Content\Custom.css" />
-    <Content Include="Content\Images\LandingPage_Image.jpg" />
     <Content Include="Content\ItemCard.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\SizedCustom.css" />
