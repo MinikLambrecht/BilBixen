@@ -13,6 +13,15 @@ namespace BilBixen.Pages {
     public partial class CarAdPage {
         
         /// <summary>
+        /// ImageMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ImageMenu;
+        
+        /// <summary>
         /// Comments control.
         /// </summary>
         /// <remarks>
@@ -20,5 +29,14 @@ namespace BilBixen.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Comments;
+        
+        /// <summary>
+        /// CommentTextArea control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea CommentTextArea;
     }
 }

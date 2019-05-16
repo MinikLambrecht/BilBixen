@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using BilBixen.Scripts.Helper_Classes;
@@ -13,6 +15,8 @@ namespace BilBixen.Pages
 {
     public partial class CarAdPage : Page
     {
+        SearchByLicensePlate plateSearch = new SearchByLicensePlate();
+
         public string _FIRSTREGISTRATION;
         public string _TOTALWEIGHT;
         public string _COUPLING;
@@ -22,6 +26,7 @@ namespace BilBixen.Pages
         public string _MODELYEAR;
         public string _COLOR;
         public string _FUELTYPE;
+        public string _PLATE;
 
         public string _KM;
         public string _ENGINE;
@@ -31,31 +36,105 @@ namespace BilBixen.Pages
         string[] commentUsernames;
         string[] commentTexts;
 
+        public string[] ImagesURI;
 
-        protected void Page_Load(object sender, EventArgs e)
+        #region OnPageLoad
+
+        protected async void Page_Load(object sender, EventArgs e)
         {
             Debug.WriteLine(GetLastURLExtentionAndID());
 
-            try
+            if (!Page.IsPostBack)
             {
-                GetCarDataFromDatabase();
+                try
+                {
+                    GetCarDataFromDatabase();
 
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
 
-            try
-            {
-                GetCommentsFromDatabase();
+                try
+                {
+                    GetImagesFromFolderAndInsertToPage();
 
-                CreateComments();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+
+                try
+                {
+                    await GetInfoFromPlate();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+
+                try
+                {
+                    GetCommentsFromDatabase();
+
+                    CreateComments();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
             }
-            catch (Exception ex)
+        }
+
+        void GetImagesFromFolderAndInsertToPage()
+        {
+            string folderURI = HttpContext.Current.Server.MapPath($"~/Images/{GetLastURLExtentionAndID()}/");
+
+            DirectoryInfo d = new DirectoryInfo(folderURI);
+
+            FileInfo[] files = d.GetFiles("*");
+
+            CreateImageMenuItems(files);
+        }
+
+        void CreateImageMenuItems(FileInfo[] files)
+        {
+            int i = 0;
+
+            foreach (FileInfo uri in files)
             {
-                Debug.WriteLine(ex);
+
+                if (i == 0)
+                {
+                    ImageMenu.InnerHtml += "" +
+                        $"<!-- Slide {i + 1} -->" +
+                        $"<div class=\"item active\">" +
+                        $"<img src = \"/Images/{GetLastURLExtentionAndID()}/{files[i].Name}\" class=\"ImageMenuImage\"/>" +
+                        $"</div>";
+                }
+                else
+                {
+                    ImageMenu.InnerHtml += "" +
+                        $"<!-- Slide {i + 1} -->" +
+                        $"<div class=\"item\">" +
+                        $"<img src = \"/Images/{GetLastURLExtentionAndID()}/{files[i].Name}\" class=\"ImageMenuImage\"/>" +
+                        $"</div>";
+                }
+
+                i++;
             }
+        }
+
+        async Task GetInfoFromPlate()
+        {
+            var data = await plateSearch.GetInfo(_PLATE);
+
+            _COUPLING = data[12];
+            _DOORS = data[13];
+            _MODELYEAR = data[18];
+            _COLOR = data[19];
         }
 
         string GetLastURLExtentionAndID()
@@ -68,7 +147,7 @@ namespace BilBixen.Pages
         void GetCarDataFromDatabase()
         {
 
-            string query = "Select * from bilbixen.cars " +
+            string query = "Select * from bilbixen.all_cars " +
                 $"where car_AD_PAGE_ID = {GetLastURLExtentionAndID()};";
 
             using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
@@ -87,10 +166,13 @@ namespace BilBixen.Pages
                 {
                     try
                     {
+                        _MAKE = rows[i]["car_BRAND"].ToString();
+                        _MODEL = rows[i]["car_MODEL"].ToString();
                         _KM = rows[i]["car_KM"].ToString();
                         _ENGINE = rows[i]["car_ENGINE"].ToString();
                         _FIRSTREGISTRATION = rows[i]["car_FIRST_REGISTRATION"].ToString();
                         _PRICE = rows[i]["car_PRICE"].ToString();
+                        _PLATE = rows[i]["car_PLATE"].ToString();
                     }
                     catch (Exception ex)
                     {
@@ -173,6 +255,55 @@ namespace BilBixen.Pages
                 Debug.WriteLine(ex);
             }
         }
+
+        #endregion
+
+        #region PostComments
+
+        protected void Comment_Click(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Posting comment");
+
+            try
+            {
+                PostComment();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
+        void PostComment()
+        {
+            string name;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                name = User.Identity.Name;
+            }
+            else
+            {
+                name = "Anonymous";
+            }
+                string text = CommentTextArea.Value;
+
+                string query = "Insert into `comments` (Comment_TEXT, Comment_USER, Comment_STATUS_ID, Comment_AD_ID) " +
+                    $"values ('{text}', '{name}', 1, '{GetLastURLExtentionAndID()}');";
+
+                using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+                {
+                    conn.Open();
+
+                    var cmd = new MySqlCommand(query, conn);
+
+                    var dt = new DataTable();
+                    dt.Load(cmd.ExecuteReader());
+                }
+            
+        }
+
+        #endregion
     }
 }
 

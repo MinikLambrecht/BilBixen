@@ -5,12 +5,59 @@
 
     <div class="MainContainer container" style="background-color: white; border-radius: 10px">
         <h1><%= _MAKE %></h1>
-        <p class="xLargeText"> <%= $"{_MODEL} {_ENGINE}, {_FUELTYPE}" %></p>
+        <p class="xLargeText"> <%= $"{_MODEL}, {_ENGINE} - {_FUELTYPE}" %></p>
 
         <div class="row">
-            <div class="col-md-8" style="display:flex; justify-content:center">
-                <img src="../Assets/Images/Assests/img/1391804290_bf9cbcc629_z.jpg" style="width: 90%; height: 90%; border-radius: 10px; border:8px solid lightgray"/>
-            </div>
+            <asp:UpdatePanel runat="server">
+                <ContentTemplate>
+                    <div class="col-md-8">
+                        <!-- Bootstrap CSS -->
+                        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+                        <div class="container-fluid">
+		
+                            <!-- Carousel container -->
+                            <div id="my-pics" class="carousel slide" data-ride="carousel" style="margin:auto;">
+
+                                <!-- Content -->
+                                <div runat="server" id="ImageMenu" class="carousel-inner ImageMenu" role="listbox">
+
+
+
+                                </div>
+
+                                <!-- Previous/Next controls -->
+                                <a class="left carousel-control" href="#my-pics" role="button" data-slide="prev">
+                                    <span class="icon-prev" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#my-pics" role="button" data-slide="next">
+                                    <span class="icon-next" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+
+                            </div>
+                        </div>
+		
+                        <!-- jQuery library -->
+                        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                        <!-- Bootstrap JS -->
+                        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+                        <!-- Initialize Bootstrap functionality -->
+                        <script>
+                            // Initialize tooltip component
+                            $(function () {
+                                $('[data-toggle="tooltip"]').tooltip()
+                            })
+
+                            // Initialize popover component
+                            $(function () {
+                                $('[data-toggle="popover"]').popover()
+                            })
+                        </script>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
 
             <div class="col-md-4">
                 <div class="BackPlate">
@@ -28,6 +75,8 @@
                 </div>
             </div>
         </div>
+
+        <br />
 
 
         <div class="CommentSection BackPlate">
@@ -72,7 +121,6 @@
                         </ul>
                     </div>
 
-
                     <!-- Comments -->
                     <div id="CommentArea" class="tab-pane fade">
 
@@ -83,9 +131,19 @@
                         <hr />
 
                         <div class="WriteComment input-block-level">
-                            <textarea class="CommentTextbox" placeholder="Write your comment here" required> </textarea>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <div class="container-fluid">
+                                        <div class="col-md-10">
+                                            <textarea runat="server" id="CommentTextArea" class="CommentTextbox" placeholder="Write a comment here" required></textarea>
+                                        </div>
                             
-                            <input class="btn btn-success CommentSubmitButton" type="submit"/>
+                                        <div class="col-md-2">
+                                            <asp:Button runat="server" CssClass="btn btn-success CommentSubmitButton" Text="Submit" OnClick="Comment_Click"/>
+                                        </div>
+                                    </div>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
 
                     </div>

@@ -328,6 +328,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Images\900\900_0.jpg" />
+    <Content Include="Images\900\900_1.jpg" />
     <Content Include="Pages\About.aspx" />
     <Content Include="Pages\CarAdPage.aspx" />
     <Content Include="Pages\CarsForSale.aspx" />
@@ -485,7 +487,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Custom\" />
     <Folder Include="Content\Files\" />
-    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
