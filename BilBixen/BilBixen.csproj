@@ -136,6 +136,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Custom\LoginPage.css" />
     <Content Include="Content\Images\Audi 80 1,8 S\1.jpg" />
     <Content Include="Content\Images\Audi 80 1,8 S\2.jpg" />
     <Content Include="Content\Images\Audi 80 1,8 S\3.jpg" />
@@ -485,7 +486,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Custom\" />
     <Folder Include="Content\Files\" />
   </ItemGroup>
   <ItemGroup>

@@ -62,7 +62,7 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a runat="server" href="About">About Us</a></li>
                                 <li><a runat="server" href="Contact">Contact</a></li>
-                                <li><a runat="server" href="Login">Login</a></li>
+                                <li><a runat="server" href="Login">Login/Register</a></li>
                             </ul>
                         </div>
                     </div>
