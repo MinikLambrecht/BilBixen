@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace BilBixen.Pages
 {
@@ -37,6 +39,23 @@ namespace BilBixen.Pages
             if (!Page.IsPostBack)
             {
                 ViewState["CAR_AD_ID"] = GenerateId();
+
+                #region Fill Dropdowns
+
+                try
+                {
+                    FillCarTypeDropdownFromDatabase();
+
+                    FillFuelDropdownFromDatabase();
+
+                    FillMakeDropdownFromDatabase();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+
+                #endregion
             }
         }
 
@@ -71,8 +90,15 @@ namespace BilBixen.Pages
             TOTAL_WEIGHT_LABEL_TEXT.Value = _TOTAL_WEIGHT;
             SEATS_LABEL_TEXT.Value = _SEATS;
             DOORS_LABEL_TEXT.Value = _DOORS;
-            MAKE_LABEL_TEXT.Value = _MAKE;
-            MODEL_LABEL_TEXT.Value = _MODEL;
+
+
+            Custom_Make.Text = _MAKE;
+            MAKE_LABEL_TEXT.SelectedValue = "0";
+
+            Custom_Model.Text = _MODEL;
+            MODEL_LABEL_TEXT.SelectedValue = "0";
+
+
             VARIANT_LABEL_TEXT.Value = _VARIANT;
             MODEL_TYPE_LABEL_TEXT.Value = _MODEL_TYPE;
             MODEL_YEAR_LABEL_TEXT.Value = _MODEL_YEAR;
@@ -80,8 +106,6 @@ namespace BilBixen.Pages
             FUEL_TYPE_LABEL_TEXT.Value = _FUEL_TYPE;
 
             #endregion
-
-
         }
 
         private static int GenerateId()
@@ -100,31 +124,55 @@ namespace BilBixen.Pages
             return Convert.ToInt32(uniqueId);
         }
 
-        void FillDropdownsFromDatabase()
+        protected void MakeSelect_OnChange(object sender, EventArgs e)
         {
-            string query = "Select * from bilbixen.all_cars " +
-                $"where car_CATEGORY = 'Passenger' and car_STATUS = 'For Sale';";
+            Debug.WriteLine("Changed Brand");
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            MODEL_LABEL_TEXT.Enabled = true;
+
+            for (int i = 1; i < MODEL_LABEL_TEXT.Items.Count -1; i++)
             {
-                conn.Open();
-
-                var cmd = new MySqlCommand(query, conn);
-
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                var rows = dt.AsEnumerable().ToArray();
-
-                foreach (DataRow row in rows)
-                {
-                    // row["model_NAME"]
-                }
+                MODEL_LABEL_TEXT.Items.RemoveAt(i);
             }
+
+            FillModelDropdownFromDatabase(int.Parse(MAKE_LABEL_TEXT.SelectedValue));
         }
 
         protected void SubmitAdbtn_OnClick(object sender, EventArgs e)
         {
+            try
+            {
 
+                if (MAKE_LABEL_TEXT.SelectedValue == "0")
+                {
+                    AddNewMakeToDatabase();
+                }
+                if (MODEL_LABEL_TEXT.SelectedValue == "0")
+                {
+                    AddNewModelToDatabase();
+                }
+
+                int brandId = GetBrandIdFromDatabase(MAKE_LABEL_TEXT.SelectedItem.Text);
+
+                int modelId = GetModelIdFromDatabase(MODEL_LABEL_TEXT.SelectedItem.Text);
+
+                string query = "Insert into `cars` (car_BRAND, car_MODEL, car_KM, car_ENGINE, car_FUEL, car_DOORS, car_FIRST_REGISTRATION, car_PRICE, car_CATEGORY, car_AD_PAGE_ID, car_PLATE, car_MODELYEAR) " +
+                        $"values ({brandId}, {modelId}, {KM_LABEL_TEXT.Value}, {VARIANT_LABEL_TEXT.Value}, {FUEL_TYPE_LABEL_TEXT.Value}, {DOORS_LABEL_TEXT.Value}, {FIRST_REGISTRATION_LABEL_TEXT.Value}, {PRICE_LABEL_TEXT.Value}, {CAR_TYPE_LABEL_TEXT.Value}, {ViewState["CAR_AD_ID"]}, {PLATEORVIN_LABEL_TEXT.Value}, {MODEL_YEAR_LABEL_TEXT.Value});";
+
+                using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+                {
+                    conn.Open();
+
+                    var cmd = new MySqlCommand(query, conn);
+
+                    var dt = new DataTable();
+                    dt.Load(cmd.ExecuteReader());
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         protected void BtnUpload_OnClick(object sender, EventArgs e)
@@ -224,5 +272,218 @@ namespace BilBixen.Pages
                 infoLabel.Text = ex.Message;
             }
         }
+
+
+
+        void AddNewMakeToDatabase()
+        {
+            string query = "Insert into `brands` (brand_NAME) " +
+                    $"values ('{MAKE_LABEL_TEXT.SelectedItem.Text}');";
+
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            {
+                conn.Open();
+
+                var cmd = new MySqlCommand(query, conn);
+
+                var dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
+            }
+        }
+
+        void AddNewModelToDatabase()
+        {
+            int makeID = GetBrandIdFromDatabase(MAKE_LABEL_TEXT.SelectedItem.Text);
+
+            string query = "Insert into `models` (model_NAME, model_BRAND, model_CATEGORY) " +
+                    $"values ('{MODEL_LABEL_TEXT.SelectedItem.Text}', '{makeID}', '{CAR_TYPE_LABEL_TEXT.SelectedIndex}');";
+
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            {
+                conn.Open();
+
+                var cmd = new MySqlCommand(query, conn);
+
+                var dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
+            }
+        }
+
+        int GetBrandIdFromDatabase(string brandName)
+        {
+            int result = 0;
+
+            string query = "Select * from bilbixen.brands " +
+                $"where brand_NAME = '{brandName}';";
+
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            {
+                conn.Open();
+
+                var cmd = new MySqlCommand(query, conn);
+
+                var dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
+                var rows = dt.AsEnumerable().ToArray();
+
+                int i = 0;
+
+                foreach (DataRow row in rows)
+                {
+                    if(rows[i]["brand_NAME"].ToString() == MAKE_LABEL_TEXT.SelectedItem.Text)
+                    {
+                        result = int.Parse(rows[i]["brand_ID"].ToString());
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        int GetModelIdFromDatabase(string modelName)
+        {
+            int result = 0;
+
+            string query = "Select * from bilbixen.models " +
+                $"where model_NAME = '{modelName}';";
+
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            {
+                conn.Open();
+
+                var cmd = new MySqlCommand(query, conn);
+
+                var dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
+                var rows = dt.AsEnumerable().ToArray();
+
+                int i = 0;
+
+                foreach (DataRow row in rows)
+                {
+                    if (rows[i]["model_NAME"].ToString() == MAKE_LABEL_TEXT.SelectedItem.Text)
+                    {
+                        result = int.Parse(rows[i]["model_ID"].ToString());
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+
+        #region Fill Dropdowns (Code)
+
+        void FillMakeDropdownFromDatabase()
+        {
+            string query = "Select * from bilbixen.brands";
+
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            {
+                conn.Open();
+
+                var cmd = new MySqlCommand(query, conn);
+
+                var dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
+                var rows = dt.AsEnumerable().ToArray();
+
+                foreach (DataRow row in rows)
+                {
+                    ListItem item = new ListItem();
+                    item.Value = row["brand_ID"].ToString();
+                    item.Text = row["brand_NAME"].ToString();
+
+                    MAKE_LABEL_TEXT.Items.Add(item);
+                }
+            }
+        }
+
+        void FillModelDropdownFromDatabase(int brandID)
+        {
+            string query = "Select * from bilbixen.models " +
+                $"where model_BRAND = {brandID};";
+
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            {
+                conn.Open();
+
+                var cmd = new MySqlCommand(query, conn);
+
+                var dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
+                var rows = dt.AsEnumerable().ToArray();
+
+                foreach (DataRow row in rows)
+                {
+                    ListItem item = new ListItem();
+
+                    item.Value = row["model_ID"].ToString();
+                    item.Text = row["model_NAME"].ToString();
+
+                    MODEL_LABEL_TEXT.Items.Add(item);
+                }
+            }
+        }
+
+        void FillFuelDropdownFromDatabase()
+        {
+            string query = "Select * from bilbixen.fuels";
+
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            {
+                conn.Open();
+
+                var cmd = new MySqlCommand(query, conn);
+
+                var dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
+                var rows = dt.AsEnumerable().ToArray();
+
+                foreach (DataRow row in rows)
+                {
+                    ListItem item = new ListItem();
+                    item.Value = row["fuel_ID"].ToString();
+                    item.Text = row["fuel_TYPE"].ToString();
+
+                    FUEL_TYPE_LABEL_TEXT.Items.Add(item);
+                }
+            }
+        }
+
+        void FillCarTypeDropdownFromDatabase()
+        {
+            string query = "Select * from bilbixen.categories";
+
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            {
+                conn.Open();
+
+                var cmd = new MySqlCommand(query, conn);
+
+                var dt = new DataTable();
+                dt.Load(cmd.ExecuteReader());
+                var rows = dt.AsEnumerable().ToArray();
+
+                foreach (DataRow row in rows)
+                {
+                    ListItem item = new ListItem();
+                    item.Value = row["category_ID"].ToString();
+                    item.Text = row["category_NAME"].ToString();
+
+                    CAR_TYPE_LABEL_TEXT.Items.Add(item);
+                }
+            }
+        }
+
+        #endregion
     }
 }

@@ -67,6 +67,24 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.Button SEARCH_BUTTON;
         
         /// <summary>
+        /// PRICE_LABEL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PRICE_LABEL;
+        
+        /// <summary>
+        /// PRICE_LABEL_TEXT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText PRICE_LABEL_TEXT;
+        
+        /// <summary>
         /// LICENSE_PLATE control.
         /// </summary>
         /// <remarks>
@@ -100,7 +118,16 @@ namespace BilBixen.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect MAKE_LABEL_TEXT;
+        protected global::System.Web.UI.WebControls.DropDownList MAKE_LABEL_TEXT;
+        
+        /// <summary>
+        /// Custom_Make control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListItem Custom_Make;
         
         /// <summary>
         /// MODEL_LABEL control.
@@ -118,7 +145,34 @@ namespace BilBixen.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect MODEL_LABEL_TEXT;
+        protected global::System.Web.UI.WebControls.DropDownList MODEL_LABEL_TEXT;
+        
+        /// <summary>
+        /// Custom_Model control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListItem Custom_Model;
+        
+        /// <summary>
+        /// KM_LABEL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label KM_LABEL;
+        
+        /// <summary>
+        /// KM_LABEL_TEXT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText KM_LABEL_TEXT;
         
         /// <summary>
         /// FUEL_TYPE_LABEL control.

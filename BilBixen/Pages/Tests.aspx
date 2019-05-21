@@ -68,24 +68,32 @@
 
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <asp:Label ID="PRICE_LABEL" runat="server" Text="Price: "></asp:Label>
+                    <input ID="PRICE_LABEL_TEXT" runat="server" Value="" />
+                    <br />
+                    <br />
                     <asp:Label ID="LICENSE_PLATE" runat="server" Text="License plate: "></asp:Label>
                     <input ID="LICENSE_PLATE_TEXT" runat="server" Value="" />
                     <br />
                     <br />
                     <asp:Label ID="MAKE_LABEL" runat="server" Text="Make: "></asp:Label>
-                    <select ID="MAKE_LABEL_TEXT" runat="server" Value="" >
-
-                    </select>
+                    <asp:DropDownList AutoPostBack="true" ID="MAKE_LABEL_TEXT" runat="server" OnSelectedIndexChanged="MakeSelect_OnChange">
+                        <asp:ListItem runat="server" ID="Custom_Make" Value="0" Text="" Selected="True"></asp:ListItem>
+                    </asp:DropDownList>
                     <br />
                     <br />
                     <asp:Label ID="MODEL_LABEL" runat="server" Text="Model: "></asp:Label>
-                    <select ID="MODEL_LABEL_TEXT" runat="server" Value="" >
-
-                    </select>
+                    <asp:DropDownList runat="server" ID="MODEL_LABEL_TEXT" Enabled="false">
+                        <asp:ListItem runat="server" ID="Custom_Model" Value="0" Text="" Selected="True"></asp:ListItem>
+                    </asp:DropDownList>
+                    <br />
+                    <br />
+                    <asp:Label ID="KM_LABEL" runat="server" Text="KM: "></asp:Label>
+                    <input ID="KM_LABEL_TEXT" runat="server" Value="" />
                     <br />
                     <br />
                     <asp:Label ID="FUEL_TYPE_LABEL" runat="server" Text="Fuel type: "></asp:Label>
-                    <select ID="FUEL_TYPE_LABEL_TEXT" runat="server" Value="" />
+                    <select ID="FUEL_TYPE_LABEL_TEXT" runat="server">
 
                     </select>
                     <br />
