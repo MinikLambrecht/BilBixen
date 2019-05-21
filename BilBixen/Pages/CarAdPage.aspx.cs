@@ -42,8 +42,6 @@ namespace BilBixen.Pages
 
         protected async void Page_Load(object sender, EventArgs e)
         {
-            Debug.WriteLine(GetLastURLExtentionAndID());
-
             if (!Page.IsPostBack)
             {
                 try
@@ -66,6 +64,7 @@ namespace BilBixen.Pages
                     Debug.WriteLine(ex);
                 }
 
+                /*
                 try
                 {
                     await GetInfoFromPlate();
@@ -74,6 +73,7 @@ namespace BilBixen.Pages
                 {
                     Debug.WriteLine(ex);
                 }
+                */
 
                 try
                 {
@@ -173,6 +173,10 @@ namespace BilBixen.Pages
                         _FIRSTREGISTRATION = rows[i]["car_FIRST_REGISTRATION"].ToString();
                         _PRICE = rows[i]["car_PRICE"].ToString();
                         _PLATE = rows[i]["car_PLATE"].ToString();
+                        _MODELYEAR = rows[i]["car_MODELYEAR"].ToString();
+                        _FUELTYPE = rows[i]["car_FUEL"].ToString();
+
+                        _FIRSTREGISTRATION = _FIRSTREGISTRATION.Split(' ')[0];
                     }
                     catch (Exception ex)
                     {

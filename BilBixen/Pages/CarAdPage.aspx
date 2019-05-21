@@ -104,21 +104,33 @@
                     <!-- Info -->
                     <div id="Info" class="tab-pane fade">
 
-                        <h2 class="InfoTitle"><%= $"{_MAKE} {_MODEL}" %></h2>
+                        <div class="ContentBlockExtended">
+                            <h2 class="InfoTitle">Details: </h2>
                         
-                        <ul class="LargerText">
-                            <li><b>Price: </b><br /> <%= _PRICE %></li>
-                            <br />
-                            <li><b>KM: </b><br /> <%= _KM %></li>
-                            <br />
-                            <li><b>1st Register: </b><br /> <%= _FIRSTREGISTRATION %></li>
-                            <br />
-                            <li><b>Model year: </b><br /> <%= _MODELYEAR %></li>
-                            <br />
-                            <li><b>Engine: </b><br /> <%= _ENGINE %></li>
-                            <br />
-                            <li><b>KM: </b><br /> <%= _KM %></li>
-                        </ul>
+                            <ul class="LargerText">
+                                <li><b>Make: </b><br /> <%= _MAKE %></li>
+                                <br />
+                                <li><b>Model: </b><br /> <%= _MODEL %></li>
+                                <br />
+                                <li><b>Type: </b><br /> <%= _ENGINE %></li>
+                                <br />
+                                <li><b>Fuel: </b><br /> <%= _FUELTYPE %></li>
+                                <br />
+                                <li><b>KM: </b><br /> <%= _KM %></li>
+                                <br />
+                                <li><b>Model year: </b><br /> <%= _MODELYEAR %></li>
+                                <br />
+                                <li><b>1st Register: </b><br /> <%= _FIRSTREGISTRATION %></li>
+                                <br />
+                                <li><b>License Plate: </b><br /> <%= _PLATE %></li>
+                                <br />
+                                <li><b>Total weight: </b><br /> <%= _TOTALWEIGHT %></li>'
+                                <br />
+                                <li><b>Doors: </b><br /> <%= _DOORS %></li>
+                                <br />
+                                <li><b>Color: </b><br /> <%= _COLOR %></li>
+                            </ul>
+                        </div>
                     </div>
 
                     <!-- Comments -->
