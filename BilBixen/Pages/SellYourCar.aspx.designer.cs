@@ -31,15 +31,6 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.FileUpload fileDocument;
         
         /// <summary>
-        /// btnUpload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpload;
-        
-        /// <summary>
         /// infoLabel control.
         /// </summary>
         /// <remarks>
@@ -67,6 +58,24 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.Button SEARCH_BUTTON;
         
         /// <summary>
+        /// PRICE_LABEL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PRICE_LABEL;
+        
+        /// <summary>
+        /// PRICE_LABEL_TEXT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText PRICE_LABEL_TEXT;
+        
+        /// <summary>
         /// LICENSE_PLATE control.
         /// </summary>
         /// <remarks>
@@ -76,121 +85,13 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.Label LICENSE_PLATE;
         
         /// <summary>
-        /// STATUS_LABEL control.
+        /// LICENSE_PLATE_TEXT control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label STATUS_LABEL;
-        
-        /// <summary>
-        /// STATUS_DATE_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label STATUS_DATE_LABEL;
-        
-        /// <summary>
-        /// CAR_TYPE_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CAR_TYPE_LABEL;
-        
-        /// <summary>
-        /// USE_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label USE_LABEL;
-        
-        /// <summary>
-        /// FIRST_REGISTRATION_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label FIRST_REGISTRATION_LABEL;
-        
-        /// <summary>
-        /// VIN_NUMBER_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label VIN_NUMBER_LABEL;
-        
-        /// <summary>
-        /// OWN_WEIGHT_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label OWN_WEIGHT_LABEL;
-        
-        /// <summary>
-        /// TOTAL_WEIGHT_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TOTAL_WEIGHT_LABEL;
-        
-        /// <summary>
-        /// AXLES_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label AXLES_LABEL;
-        
-        /// <summary>
-        /// PULLING_AXLES_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label PULLING_AXLES_LABEL;
-        
-        /// <summary>
-        /// SEATS_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SEATS_LABEL;
-        
-        /// <summary>
-        /// CLUTCH_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CLUTCH_LABEL;
-        
-        /// <summary>
-        /// DOORS_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label DOORS_LABEL;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText LICENSE_PLATE_TEXT;
         
         /// <summary>
         /// MAKE_LABEL control.
@@ -202,6 +103,24 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.Label MAKE_LABEL;
         
         /// <summary>
+        /// MAKE_LABEL_TEXT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList MAKE_LABEL_TEXT;
+        
+        /// <summary>
+        /// Custom_Make control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListItem Custom_Make;
+        
+        /// <summary>
         /// MODEL_LABEL control.
         /// </summary>
         /// <remarks>
@@ -211,76 +130,40 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.Label MODEL_LABEL;
         
         /// <summary>
-        /// VARIANT_LABEL control.
+        /// MODEL_LABEL_TEXT control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label VARIANT_LABEL;
+        protected global::System.Web.UI.WebControls.DropDownList MODEL_LABEL_TEXT;
         
         /// <summary>
-        /// MODEL_TYPE_LABEL control.
+        /// Custom_Model control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MODEL_TYPE_LABEL;
+        protected global::System.Web.UI.WebControls.ListItem Custom_Model;
         
         /// <summary>
-        /// MODEL_YEAR_LABEL control.
+        /// KM_LABEL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MODEL_YEAR_LABEL;
+        protected global::System.Web.UI.WebControls.Label KM_LABEL;
         
         /// <summary>
-        /// COLOR_LABEL control.
+        /// KM_LABEL_TEXT control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label COLOR_LABEL;
-        
-        /// <summary>
-        /// CHASSIS_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CHASSIS_LABEL;
-        
-        /// <summary>
-        /// ENGINE_CYLINDERS_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ENGINE_CYLINDERS_LABEL;
-        
-        /// <summary>
-        /// ENGINE_VOLUME_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ENGINE_VOLUME_LABEL;
-        
-        /// <summary>
-        /// ENGINE_POWER_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ENGINE_POWER_LABEL;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText KM_LABEL_TEXT;
         
         /// <summary>
         /// FUEL_TYPE_LABEL control.
@@ -292,40 +175,22 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.Label FUEL_TYPE_LABEL;
         
         /// <summary>
-        /// REGISTRATIONZIPCODE_LABEL control.
+        /// FUEL_TYPE_LABEL_TEXT control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label REGISTRATIONZIPCODE_LABEL;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect FUEL_TYPE_LABEL_TEXT;
         
         /// <summary>
-        /// LICENSE_PLATE_TEXT control.
+        /// CAR_TYPE_LABEL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LICENSE_PLATE_TEXT;
-        
-        /// <summary>
-        /// STATUS_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label STATUS_LABEL_TEXT;
-        
-        /// <summary>
-        /// STATUS_DATE_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label STATUS_DATE_LABEL_TEXT;
+        protected global::System.Web.UI.WebControls.Label CAR_TYPE_LABEL;
         
         /// <summary>
         /// CAR_TYPE_LABEL_TEXT control.
@@ -334,115 +199,16 @@ namespace BilBixen.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CAR_TYPE_LABEL_TEXT;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect CAR_TYPE_LABEL_TEXT;
         
         /// <summary>
-        /// USE_LABEL_TEXT control.
+        /// VARIANT_LABEL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label USE_LABEL_TEXT;
-        
-        /// <summary>
-        /// FIRST_REGISTRATION_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label FIRST_REGISTRATION_LABEL_TEXT;
-        
-        /// <summary>
-        /// VIN_NUMBER_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label VIN_NUMBER_LABEL_TEXT;
-        
-        /// <summary>
-        /// OWN_WEIGHT_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label OWN_WEIGHT_LABEL_TEXT;
-        
-        /// <summary>
-        /// TOTAL_WEIGHT_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TOTAL_WEIGHT_LABEL_TEXT;
-        
-        /// <summary>
-        /// AXLES_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label AXLES_LABEL_TEXT;
-        
-        /// <summary>
-        /// PULLING_AXLES_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label PULLING_AXLES_LABEL_TEXT;
-        
-        /// <summary>
-        /// SEATS_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SEATS_LABEL_TEXT;
-        
-        /// <summary>
-        /// CLUTCH_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CLUTCH_LABEL_TEXT;
-        
-        /// <summary>
-        /// DOORS_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label DOORS_LABEL_TEXT;
-        
-        /// <summary>
-        /// MAKE_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MAKE_LABEL_TEXT;
-        
-        /// <summary>
-        /// MODEL_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MODEL_LABEL_TEXT;
+        protected global::System.Web.UI.WebControls.Label VARIANT_LABEL;
         
         /// <summary>
         /// VARIANT_LABEL_TEXT control.
@@ -451,7 +217,16 @@ namespace BilBixen.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label VARIANT_LABEL_TEXT;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText VARIANT_LABEL_TEXT;
+        
+        /// <summary>
+        /// MODEL_TYPE_LABEL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label MODEL_TYPE_LABEL;
         
         /// <summary>
         /// MODEL_TYPE_LABEL_TEXT control.
@@ -460,52 +235,16 @@ namespace BilBixen.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MODEL_TYPE_LABEL_TEXT;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MODEL_TYPE_LABEL_TEXT;
         
         /// <summary>
-        /// MODEL_YEAR_LABEL_TEXT control.
+        /// ENGINE_POWER_LABEL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MODEL_YEAR_LABEL_TEXT;
-        
-        /// <summary>
-        /// COLOR_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label COLOR_LABEL_TEXT;
-        
-        /// <summary>
-        /// CHASSIS_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CHASSIS_LABEL_TEXT;
-        
-        /// <summary>
-        /// ENGINE_CYLINDERS_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ENGINE_CYLINDERS_LABEL_TEXT;
-        
-        /// <summary>
-        /// ENGINE_VOLUME_LABEL_TEXT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ENGINE_VOLUME_LABEL_TEXT;
+        protected global::System.Web.UI.WebControls.Label ENGINE_POWER_LABEL;
         
         /// <summary>
         /// ENGINE_POWER_LABEL_TEXT control.
@@ -514,24 +253,141 @@ namespace BilBixen.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ENGINE_POWER_LABEL_TEXT;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ENGINE_POWER_LABEL_TEXT;
         
         /// <summary>
-        /// FUEL_TYPE_LABEL_TEXT control.
+        /// FIRST_REGISTRATION_LABEL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label FUEL_TYPE_LABEL_TEXT;
+        protected global::System.Web.UI.WebControls.Label FIRST_REGISTRATION_LABEL;
         
         /// <summary>
-        /// REGISTRATIONZIPCODE_LABEL_TEXT control.
+        /// FIRST_REGISTRATION_LABEL_TEXT control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label REGISTRATIONZIPCODE_LABEL_TEXT;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText FIRST_REGISTRATION_LABEL_TEXT;
+        
+        /// <summary>
+        /// VIN_NUMBER_LABEL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label VIN_NUMBER_LABEL;
+        
+        /// <summary>
+        /// VIN_NUMBER_LABEL_TEXT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText VIN_NUMBER_LABEL_TEXT;
+        
+        /// <summary>
+        /// OWN_WEIGHT_LABEL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label OWN_WEIGHT_LABEL;
+        
+        /// <summary>
+        /// OWN_WEIGHT_LABEL_TEXT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText OWN_WEIGHT_LABEL_TEXT;
+        
+        /// <summary>
+        /// TOTAL_WEIGHT_LABEL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TOTAL_WEIGHT_LABEL;
+        
+        /// <summary>
+        /// TOTAL_WEIGHT_LABEL_TEXT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TOTAL_WEIGHT_LABEL_TEXT;
+        
+        /// <summary>
+        /// SEATS_LABEL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label SEATS_LABEL;
+        
+        /// <summary>
+        /// SEATS_LABEL_TEXT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SEATS_LABEL_TEXT;
+        
+        /// <summary>
+        /// DOORS_LABEL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label DOORS_LABEL;
+        
+        /// <summary>
+        /// DOORS_LABEL_TEXT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText DOORS_LABEL_TEXT;
+        
+        /// <summary>
+        /// MODEL_YEAR_LABEL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label MODEL_YEAR_LABEL;
+        
+        /// <summary>
+        /// MODEL_YEAR_LABEL_TEXT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MODEL_YEAR_LABEL_TEXT;
+        
+        /// <summary>
+        /// SubmitAdButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SubmitAdButton;
     }
 }

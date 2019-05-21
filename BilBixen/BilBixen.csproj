@@ -339,6 +339,7 @@
     <Content Include="Images\900\900_1.jpg" />
     <Content Include="Pages\About.aspx" />
     <Content Include="Pages\CarAdPage.aspx" />
+    <Content Include="Pages\CarSearchPage.aspx" />
     <Content Include="Pages\CarsForSale.aspx" />
     <Content Include="Pages\Contact.aspx" />
     <Content Include="Pages\Default.aspx" />
@@ -412,6 +413,13 @@
     </Compile>
     <Compile Include="Pages\CarAdPage.aspx.designer.cs">
       <DependentUpon>CarAdPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CarSearchPage.aspx.cs">
+      <DependentUpon>CarSearchPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\CarSearchPage.aspx.designer.cs">
+      <DependentUpon>CarSearchPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\CarsForSale.aspx.cs">
       <DependentUpon>CarsForSale.aspx</DependentUpon>
