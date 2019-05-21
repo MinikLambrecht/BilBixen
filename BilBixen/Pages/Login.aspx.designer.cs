@@ -13,6 +13,15 @@ namespace BilBixen.Pages {
     public partial class Login {
         
         /// <summary>
+        /// LoginTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LoginTab;
+        
+        /// <summary>
         /// Wiz1 control.
         /// </summary>
         /// <remarks>
@@ -29,5 +38,14 @@ namespace BilBixen.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CreateUserWizardStep NewAccountSteps;
+        
+        /// <summary>
+        /// TabName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField TabName;
     }
 }

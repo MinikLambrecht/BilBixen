@@ -1,19 +1,16 @@
-﻿.Content {
-    margin-top: 1vw;
-}
-
-.LoginTable {
-    border: 0;
-    border-spacing: 5px;
-    width: 100%;
-    height: 100%;
-    font-size: 100%;
+﻿td, tr {
+    text-align: center;
     font-family: Verdana;
+    width: 100%;
 }
 
-row {
-    display: flex;
-    -o-justify-content: center;
-    -webkit-justify-content: center;
-    justify-content: center;
+td input {
+    max-width: 100%;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    font-size: 100%;
+    margin-top: 1vw;
 }
