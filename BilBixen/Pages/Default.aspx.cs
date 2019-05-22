@@ -1,5 +1,5 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
@@ -7,20 +7,22 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using MySql.Data.MySqlClient;
+using MySql.Web.Security;
 
-namespace BilBixen
+namespace BilBixen.Pages
 {
     public partial class Default : Page
     {
-        Random rand = new Random();
+        public Random Rand { get; } = new Random();
 
-        public string _MAKE;
-        public string _MODEL;
-        public string _ENGINE;
-        public string _KM;
-        public string _PRICE;
+        private string _MAKE;
+        private string _MODEL;
+        private string _ENGINE;
+        private string _KM;
+        private string _PRICE;
 
-        public string _AD_ID;
+        private string _AD_ID;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -38,36 +40,37 @@ namespace BilBixen
             }
         }
 
-        int GetIndexOfDatabaseOutputDataScores(DataRow[] rows)
+        // Bug: Role provider connection is actively refused by pc
+        protected void TestButton_OnClick(object sender, EventArgs e)
+        {
+            var roleManager = new MySQLRoleProvider();
+            var roles = roleManager.GetAllRoles();
+
+            foreach (var role in roles)
+            {
+                Debug.WriteLineIf(!string.IsNullOrWhiteSpace(role), role);
+            }
+        }
+
+        private static int GetIndexOfDatabaseOutputDataScores(IEnumerable<DataRow> rows)
         {
             float highestScore = 0;
-            int indexNumberOfHighestScore = 0;
+            var indexNumberOfHighestScore = 0;
 
-            int i = 0;
+            var i = 0;
 
-            int km;
-            int price;
-            int firstRegYear;
-
-            foreach(DataRow row in rows)
+            foreach(var row in rows)
             {
-                if (!string.IsNullOrWhiteSpace(row["car_KM"].ToString()))
-                {
-                    km = int.Parse(row["car_KM"].ToString());
-                }
-                else
-                {
-                    km = 100;
-                }
+                var km = !string.IsNullOrWhiteSpace(row["car_KM"].ToString()) ? int.Parse(row["car_KM"].ToString()) : 100;
 
-                price = int.Parse(row["car_PRICE"].ToString());
+                var price = int.Parse(row["car_PRICE"].ToString());
 
-                string year = row["car_FIRST_REGISTRATION"].ToString().Split('/')[2].Split(' ')[0];
+                var year = row["car_FIRST_REGISTRATION"].ToString().Split('/')[2].Split(' ')[0];
 
-                firstRegYear = int.Parse(year);
+                var firstRegYear = int.Parse(year);
 
-                //Devide KM with price times the first year of registration (Higher score is better)
-                float score = (((km / price) * firstRegYear));
+                //Divide KM with price times the first year of registration (Higher score is better)
+                float score = (km / price) * firstRegYear;
 
                 if(score > highestScore)
                 {
@@ -81,11 +84,9 @@ namespace BilBixen
             return indexNumberOfHighestScore;
         }
 
-        void GetPassengerCarsDataFromDatabase()
+        private void GetPassengerCarsDataFromDatabase()
         {
-
-            string query = "Select * from bilbixen.all_cars " +
-                $"where car_CATEGORY = 'Passenger' and car_STATUS = 'For Sale';";
+            const string query = "Select * from bilbixen.all_cars where car_CATEGORY = 'Passenger' and car_STATUS = 'For Sale';";
 
             using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
             {
@@ -97,7 +98,7 @@ namespace BilBixen
                 dt.Load(cmd.ExecuteReader());
                 var rows = dt.AsEnumerable().ToArray();
 
-                int i = GetIndexOfDatabaseOutputDataScores(rows);
+                var i = GetIndexOfDatabaseOutputDataScores(rows);
 
                 _MAKE = rows[i]["car_BRAND"].ToString();
                 _MODEL = rows[i]["car_MODEL"].ToString();
@@ -106,30 +107,19 @@ namespace BilBixen
                 _PRICE = rows[i]["car_PRICE"].ToString();
                 _AD_ID = rows[i]["car_AD_PAGE_ID"].ToString();
 
-                FileInfo[] files = GetImagesFromFolder(_AD_ID);
+                var files = GetImagesFromFolder(_AD_ID);
 
                 i = 0;
 
-                PassengerCars.InnerHtml += "" +
-                    $"<img class=\"ItemCardImage\" src=\"/Images/{_AD_ID}/{files[i].Name}\">" +
-                    $"<br />" +
-                    "<div class=\"caption ContentBlock ItemCardDesc\">" +
-                    $"<h3>{_MAKE}, {_MODEL}</h3>" +
-                    $"<h4>{_ENGINE}</h4>" +
-                    $"<p>KM: {_KM}</p>" +
-                    $"<p>{_PRICE},- DKK</p>" +
-                    "<p>" +
-                    $"<a href = \"/AD/{_AD_ID}\" class=\"btn btn-primary\" role=\"button\">View Car</a>" +
-                    "</p>" +
-                    "</div>";
+                PassengerCars.InnerHtml +=
+                    $"<img class=\"ItemCardImage\" src=\"/Images/{_AD_ID}/{files[i].Name}\"><br /><div class=\"caption ContentBlock ItemCardDesc\"><h3>{_MAKE}, {_MODEL}</h3><h4>{_ENGINE}</h4><p>KM: {_KM}</p><p>{_PRICE},- DKK</p><p><a href = \"/AD/{_AD_ID}\" class=\"btn btn-primary\" role=\"button\">View Car</a></p></div>";
             }
         }
 
         void GetWreckedCarsDataFromDatabase()
         {
 
-            string query = "Select * from bilbixen.all_cars " +
-                $"where car_CATEGORY = 'Wreck' and car_STATUS = 'For Sale';";
+            var query = "Select * from bilbixen.all_cars where car_CATEGORY = 'Wreck' and car_STATUS = 'For Sale';";
 
             using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
             {
@@ -141,7 +131,7 @@ namespace BilBixen
                 dt.Load(cmd.ExecuteReader());
                 var rows = dt.AsEnumerable().ToArray();
 
-                int i = GetIndexOfDatabaseOutputDataScores(rows);
+                var i = GetIndexOfDatabaseOutputDataScores(rows);
 
                 _MAKE = rows[i]["car_BRAND"].ToString();
                 _MODEL = rows[i]["car_MODEL"].ToString();
@@ -150,30 +140,19 @@ namespace BilBixen
                 _PRICE = rows[i]["car_PRICE"].ToString();
                 _AD_ID = rows[i]["car_AD_PAGE_ID"].ToString();
 
-                FileInfo[] files = GetImagesFromFolder(_AD_ID);
+                var files = GetImagesFromFolder(_AD_ID);
 
                 i = 0;
 
-                WreckedCars.InnerHtml += "" +
-                $"<img class=\"ItemCardImage\" src=\"/Images/{_AD_ID}/{files[i].Name}\">" +
-                $"<br />" +
-                "<div class=\"caption ContentBlock ItemCardDesc\">" +
-                $"<h3>{_MAKE}, {_MODEL}</h3>" +
-                $"<h4>{_ENGINE}</h4>" +
-                $"<p>KM: {_KM}</p>" +
-                $"<p>{_PRICE},- DKK</p>" +
-                "<p>" +
-                $"<a href = \"/AD/{_AD_ID}\" class=\"btn btn-primary\" role=\"button\">View Car</a>" +
-                "</p>" +
-                "</div>";
+                WreckedCars.InnerHtml +=
+                    $"<img class=\"ItemCardImage\" src=\"/Images/{_AD_ID}/{files[i].Name}\"><br /><div class=\"caption ContentBlock ItemCardDesc\"><h3>{_MAKE}, {_MODEL}</h3><h4>{_ENGINE}</h4><p>KM: {_KM}</p><p>{_PRICE},- DKK</p><p><a href = \"/AD/{_AD_ID}\" class=\"btn btn-primary\" role=\"button\">View Car</a></p></div>";
             }
         }
 
         void GetVanCarsDataFromDatabase()
         {
 
-            string query = "Select * from bilbixen.all_cars " +
-                $"where car_CATEGORY = 'Van' and car_STATUS = 'For Sale';";
+            var query = "Select * from bilbixen.all_cars where car_CATEGORY = 'Van' and car_STATUS = 'For Sale';";
 
             using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
             {
@@ -185,7 +164,7 @@ namespace BilBixen
                 dt.Load(cmd.ExecuteReader());
                 var rows = dt.AsEnumerable().ToArray();
 
-                int i = GetIndexOfDatabaseOutputDataScores(rows);
+                var i = GetIndexOfDatabaseOutputDataScores(rows);
 
                 _MAKE = rows[i]["car_BRAND"].ToString();
                 _MODEL = rows[i]["car_MODEL"].ToString();
@@ -198,28 +177,18 @@ namespace BilBixen
 
                 i = 0;
 
-                IndustrialCars.InnerHtml += "" +
-                $"<img class=\"ItemCardImage\" src=\"/Images/{_AD_ID}/{files[i].Name}\">" +
-                $"<br />" +
-                "<div class=\"caption ContentBlock ItemCardDesc\">" +
-                $"<h3>{_MAKE}, {_MODEL}</h3>" +
-                $"<h4>{_ENGINE}</h4>" +
-                $"<p>KM: {_KM}</p>" +
-                $"<p>{_PRICE},- DKK</p>" +
-                "<p>" +
-                $"<a href = \"/AD/{_AD_ID}\" class=\"btn btn-primary\" role=\"button\">View Car</a>" +
-                "</p>" +
-                "</div>";
+                IndustrialCars.InnerHtml +=
+                    $"<img class=\"ItemCardImage\" src=\"/Images/{_AD_ID}/{files[i].Name}\"><br /><div class=\"caption ContentBlock ItemCardDesc\"><h3>{_MAKE}, {_MODEL}</h3><h4>{_ENGINE}</h4><p>KM: {_KM}</p><p>{_PRICE},- DKK</p><p><a href = \"/AD/{_AD_ID}\" class=\"btn btn-primary\" role=\"button\">View Car</a></p></div>";
             }
         }
 
-        FileInfo[] GetImagesFromFolder(string adID)
+        private static FileInfo[] GetImagesFromFolder(string adId)
         {
-            string folderURI = HttpContext.Current.Server.MapPath($"~/Images/{adID}/");
+            var folderUri = HttpContext.Current.Server.MapPath($"~/Images/{adId}/");
 
-            DirectoryInfo d = new DirectoryInfo(folderURI);
+            var d = new DirectoryInfo(folderUri);
 
-            FileInfo[] files = d.GetFiles("*");
+            var files = d.GetFiles("*");
 
             return files;
         }

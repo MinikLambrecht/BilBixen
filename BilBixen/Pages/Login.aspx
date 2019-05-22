@@ -40,7 +40,6 @@
                                                 <td>
                                                     <asp:Label ID="PasswordLabel" runat="server" Text="Password:" AssociatedControlID="Password"/><span style="color: red;"> *</span>
 
-
                                                     <asp:TextBox ID="Password" CssClass="form-control" runat="server" TextMode="Password"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ForeColor="Red" Text="*" ControlToValidate="Password"
                                                                                 ErrorMessage="Password is required." ToolTip="Password is required." ValidationGroup="Wiz1"/>
