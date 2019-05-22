@@ -40,7 +40,7 @@ namespace BilBixen.Pages
 
         #region OnPageLoad
 
-        protected async void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {

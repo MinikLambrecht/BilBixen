@@ -4,6 +4,15 @@
 
 <asp:Content ID="Body_Content" ContentPlaceHolderID="MainContent" runat="server">
 
+    <div class="SearchContentContainer" >
 
+    </div>
+
+
+    <div class="CarGalleryContainer" >
+        <div runat="server" class="thumbnail ItemCard" id="SearchResults">
+          
+        </div>
+    </div>
 
 </asp:Content>
