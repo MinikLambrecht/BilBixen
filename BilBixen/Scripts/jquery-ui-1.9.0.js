@@ -227,7 +227,6 @@ $(function() {
 	var body = document.body,
 		div = body.appendChild( div = document.createElement( "div" ) );
 
-	// access offsetHeight before setting the style to prevent a layout bug
 	// in IE 9 which causes the element to continue to take up space even
 	// after it is removed from the DOM (#8026)
 	div.offsetHeight;
@@ -242,8 +241,6 @@ $(function() {
 	$.support.minHeight = div.offsetHeight === 100;
 	$.support.selectstart = "onselectstart" in div;
 
-	// set display to none to avoid a layout bug in IE
-	// http://dev.jquery.com/ticket/4014
 	body.removeChild( div ).style.display = "none";
 });
 
@@ -309,9 +306,6 @@ $.extend( $.ui, {
 			return true;
 		}
 
-		// TODO: determine which cases actually cause this to happen
-		// if the element doesn't have the scroll set, see if it's possible to
-		// set the scroll
 		el[ scroll ] = 1;
 		has = ( el[ scroll ] > 0 );
 		el[ scroll ] = 0;
@@ -421,23 +415,15 @@ $.widget = function( name, base, prototype ) {
 		}
 	});
 	constructor.prototype = $.widget.extend( basePrototype, {
-		// TODO: remove support for widgetEventPrefix
-		// always use the name + a colon as the prefix, e.g., draggable:start
-		// don't prefix for widgets that aren't DOM-based
-		widgetEventPrefix: name
+        widgetEventPrefix: name
 	}, prototype, {
 		constructor: constructor,
 		namespace: namespace,
 		widgetName: name,
-		// TODO remove widgetBaseClass, see #8155
 		widgetBaseClass: fullName,
 		widgetFullName: fullName
 	});
 
-	// If this widget is being redefined then we need to find all widgets that
-	// are inheriting from it and redefine all of them so that they inherit from
-	// the new version of this widget. We're essentially trying to replace one
-	// level in the prototype chain.
 	if ( existingConstructor ) {
 		$.each( existingConstructor._childConstructors, function( i, child ) {
 			var childPrototype = child.prototype;
@@ -571,12 +557,8 @@ $.Widget.prototype = {
 
 	destroy: function() {
 		this._destroy();
-		// we can probably remove the unbind calls in 2.0
-		// all event bindings should go through this._on()
 		this.element
 			.unbind( this.eventNamespace )
-			// 1.9 BC for #7810
-			// TODO remove dual storage
 			.removeData( this.widgetName )
 			.removeData( this.widgetFullName )
 			// support: jquery <1.6.3
@@ -607,12 +589,10 @@ $.Widget.prototype = {
 			i;
 
 		if ( arguments.length === 0 ) {
-			// don't return a reference to the internal hash
 			return $.widget.extend( {}, this.options );
 		}
 
 		if ( typeof key === "string" ) {
-			// handle nested keys, e.g., "foo.bar" => { foo: { bar: ___ } }
 			options = {};
 			parts = key.split( "." );
 			key = parts.shift();
