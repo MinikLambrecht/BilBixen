@@ -15,6 +15,8 @@ namespace BilBixen.Pages
     public partial class SellYourCar : Page
     {
         private readonly SearchByLicensePlate _PLATE_SEARCH = new SearchByLicensePlate();
+        MySQL_Helper SQL = new MySQL_Helper();
+
 
         private string _LICENSE_PLATE;
         private string _CAR_TYPE;
@@ -244,17 +246,8 @@ namespace BilBixen.Pages
                     $"{CAR_TYPE_LABEL_TEXT.Value}, '{ViewState["CAR_AD_ID"]}'," +
                     $"{PLATEORVIN_LABEL_TEXT.Value}, {MODEL_YEAR_LABEL_TEXT.Value});";
 
-                Debug.WriteLine("Query: " + query);
-
-                using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
-                {
-                    conn.Open();
-
-                    var cmd = new MySqlCommand(query, conn);
-
-                    var dt = new DataTable();
-                    dt.Load(cmd.ExecuteReader());
-                }
+                SQL.SetDataToDatabase(query);
+                
             }
             catch (Exception ex)
             {
@@ -365,15 +358,7 @@ namespace BilBixen.Pages
             string query = "Insert into `brands` (brand_NAME) " +
                     $"values ('{MAKE_LABEL_TEXT.SelectedItem.Text}');";
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
-            {
-                conn.Open();
-
-                var cmd = new MySqlCommand(query, conn);
-
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-            }
+            SQL.SetDataToDatabase(query);
         }
 
         void AddNewModelToDatabase()
@@ -383,15 +368,7 @@ namespace BilBixen.Pages
             string query = "Insert into `models` (model_NAME, model_BRAND, model_CATEGORY) " +
                     $"values ('{MODEL_LABEL_TEXT.SelectedItem.Text}', '{makeID}', '{CAR_TYPE_LABEL_TEXT.Value}');";
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
-            {
-                conn.Open();
-
-                var cmd = new MySqlCommand(query, conn);
-
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-            }
+            SQL.SetDataToDatabase(query);
         }
 
         int GetBrandIdFromDatabase(string brandName)
@@ -401,28 +378,19 @@ namespace BilBixen.Pages
             string query = "Select * from bilbixen.brands " +
                 $"where brand_NAME = '{brandName}';";
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            var rows = SQL.GetDataFromDatabase(query);
+
+            int i = 0;
+
+            foreach (DataRow row in rows)
             {
-                conn.Open();
-
-                var cmd = new MySqlCommand(query, conn);
-
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                var rows = dt.AsEnumerable().ToArray();
-
-                int i = 0;
-
-                foreach (DataRow row in rows)
+                if (rows[i]["brand_NAME"].ToString() == MAKE_LABEL_TEXT.SelectedItem.Text)
                 {
-                    if (rows[i]["brand_NAME"].ToString() == MAKE_LABEL_TEXT.SelectedItem.Text)
-                    {
-                        result = int.Parse(rows[i]["brand_ID"].ToString());
-                    }
-                    else
-                    {
-                        i++;
-                    }
+                    result = int.Parse(rows[i]["brand_ID"].ToString());
+                }
+                else
+                {
+                    i++;
                 }
             }
 
@@ -436,28 +404,19 @@ namespace BilBixen.Pages
             string query = "Select * from bilbixen.models " +
                 $"where model_NAME = '{modelName}';";
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            var rows = SQL.GetDataFromDatabase(query);
+
+            int i = 0;
+
+            foreach (DataRow row in rows)
             {
-                conn.Open();
-
-                var cmd = new MySqlCommand(query, conn);
-
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                var rows = dt.AsEnumerable().ToArray();
-
-                int i = 0;
-
-                foreach (DataRow row in rows)
+                if (rows[i]["model_NAME"].ToString() == MAKE_LABEL_TEXT.SelectedItem.Text)
                 {
-                    if (rows[i]["model_NAME"].ToString() == MAKE_LABEL_TEXT.SelectedItem.Text)
-                    {
-                        result = int.Parse(rows[i]["model_ID"].ToString());
-                    }
-                    else
-                    {
-                        i++;
-                    }
+                    result = int.Parse(rows[i]["model_ID"].ToString());
+                }
+                else
+                {
+                    i++;
                 }
             }
 
@@ -471,25 +430,17 @@ namespace BilBixen.Pages
         {
             string query = "Select * from bilbixen.brands";
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            var rows = SQL.GetDataFromDatabase(query);
+
+            foreach (DataRow row in rows)
             {
-                conn.Open();
+                ListItem item = new ListItem();
+                item.Value = row["brand_ID"].ToString();
+                item.Text = row["brand_NAME"].ToString();
 
-                var cmd = new MySqlCommand(query, conn);
-
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                var rows = dt.AsEnumerable().ToArray();
-
-                foreach (DataRow row in rows)
-                {
-                    ListItem item = new ListItem();
-                    item.Value = row["brand_ID"].ToString();
-                    item.Text = row["brand_NAME"].ToString();
-
-                    MAKE_LABEL_TEXT.Items.Add(item);
-                }
+                MAKE_LABEL_TEXT.Items.Add(item);
             }
+
         }
 
         void FillModelDropdownFromDatabase(int brandID)
@@ -497,25 +448,16 @@ namespace BilBixen.Pages
             string query = "Select * from bilbixen.models " +
                 $"where model_BRAND = {brandID};";
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            var rows = SQL.GetDataFromDatabase(query);
+
+            foreach (DataRow row in rows)
             {
-                conn.Open();
+                ListItem item = new ListItem();
 
-                var cmd = new MySqlCommand(query, conn);
+                item.Value = row["model_ID"].ToString();
+                item.Text = row["model_NAME"].ToString();
 
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                var rows = dt.AsEnumerable().ToArray();
-
-                foreach (DataRow row in rows)
-                {
-                    ListItem item = new ListItem();
-
-                    item.Value = row["model_ID"].ToString();
-                    item.Text = row["model_NAME"].ToString();
-
-                    MODEL_LABEL_TEXT.Items.Add(item);
-                }
+                MODEL_LABEL_TEXT.Items.Add(item);
             }
         }
 
@@ -523,24 +465,15 @@ namespace BilBixen.Pages
         {
             string query = "Select * from bilbixen.fuels";
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            var rows = SQL.GetDataFromDatabase(query);
+
+            foreach (DataRow row in rows)
             {
-                conn.Open();
+                ListItem item = new ListItem();
+                item.Value = row["fuel_ID"].ToString();
+                item.Text = row["fuel_TYPE"].ToString();
 
-                var cmd = new MySqlCommand(query, conn);
-
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                var rows = dt.AsEnumerable().ToArray();
-
-                foreach (DataRow row in rows)
-                {
-                    ListItem item = new ListItem();
-                    item.Value = row["fuel_ID"].ToString();
-                    item.Text = row["fuel_TYPE"].ToString();
-
-                    FUEL_TYPE_LABEL_TEXT.Items.Add(item);
-                }
+                FUEL_TYPE_LABEL_TEXT.Items.Add(item);
             }
         }
 
@@ -548,24 +481,15 @@ namespace BilBixen.Pages
         {
             string query = "Select * from bilbixen.categories";
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            var rows = SQL.GetDataFromDatabase(query);
+
+            foreach (DataRow row in rows)
             {
-                conn.Open();
+                ListItem item = new ListItem();
+                item.Value = row["category_ID"].ToString();
+                item.Text = row["category_NAME"].ToString();
 
-                var cmd = new MySqlCommand(query, conn);
-
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                var rows = dt.AsEnumerable().ToArray();
-
-                foreach (DataRow row in rows)
-                {
-                    ListItem item = new ListItem();
-                    item.Value = row["category_ID"].ToString();
-                    item.Text = row["category_NAME"].ToString();
-
-                    CAR_TYPE_LABEL_TEXT.Items.Add(item);
-                }
+                CAR_TYPE_LABEL_TEXT.Items.Add(item);
             }
         }
 

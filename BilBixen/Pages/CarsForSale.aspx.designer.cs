@@ -13,6 +13,123 @@ namespace BilBixen.Pages {
     public partial class CarsForSale {
         
         /// <summary>
+        /// MAKE_LABEL_DROP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList MAKE_LABEL_DROP;
+        
+        /// <summary>
+        /// Custom_Make control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListItem Custom_Make;
+        
+        /// <summary>
+        /// MODEL_LABEL_DROP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList MODEL_LABEL_DROP;
+        
+        /// <summary>
+        /// ListItem1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListItem ListItem1;
+        
+        /// <summary>
+        /// CAR_TYPE_LABEL_DROP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList CAR_TYPE_LABEL_DROP;
+        
+        /// <summary>
+        /// FUEL_LABEL_DROP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList FUEL_LABEL_DROP;
+        
+        /// <summary>
+        /// KM_LABEL_TEXT1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText KM_LABEL_TEXT1;
+        
+        /// <summary>
+        /// KM_LABEL_TEXT2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText KM_LABEL_TEXT2;
+        
+        /// <summary>
+        /// PRICE_LABEL_TEXT1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText PRICE_LABEL_TEXT1;
+        
+        /// <summary>
+        /// PRICE_LABEL_TEXT2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText PRICE_LABEL_TEXT2;
+        
+        /// <summary>
+        /// YEAR_LABEL_TEXT1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText YEAR_LABEL_TEXT1;
+        
+        /// <summary>
+        /// YEAR_LABEL_TEXT2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText YEAR_LABEL_TEXT2;
+        
+        /// <summary>
+        /// SearchResultsLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label SearchResultsLabel;
+        
+        /// <summary>
         /// SearchResults control.
         /// </summary>
         /// <remarks>

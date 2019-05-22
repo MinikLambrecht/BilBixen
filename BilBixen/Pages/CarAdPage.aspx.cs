@@ -16,6 +16,7 @@ namespace BilBixen.Pages
     public partial class CarAdPage : Page
     {
         SearchByLicensePlate plateSearch = new SearchByLicensePlate();
+        MySQL_Helper SQL = new MySQL_Helper();
 
         public string _FIRSTREGISTRATION;
         public string _TOTALWEIGHT;
@@ -150,41 +151,32 @@ namespace BilBixen.Pages
             string query = "Select * from bilbixen.all_cars " +
                 $"where car_AD_PAGE_ID = {GetLastURLExtentionAndID()};";
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            var rows = SQL.GetDataFromDatabase(query);
+
+            int i = 0;
+
+            foreach (DataRow row in rows)
             {
-                conn.Open();
-
-                var cmd = new MySqlCommand(query, conn);
-
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                var rows = dt.AsEnumerable().ToArray();
-
-                int i = 0;
-
-                foreach (DataRow row in rows)
+                try
                 {
-                    try
-                    {
-                        _MAKE = rows[i]["car_BRAND"].ToString();
-                        _MODEL = rows[i]["car_MODEL"].ToString();
-                        _KM = rows[i]["car_KM"].ToString();
-                        _ENGINE = rows[i]["car_ENGINE"].ToString();
-                        _FIRSTREGISTRATION = rows[i]["car_FIRST_REGISTRATION"].ToString();
-                        _PRICE = rows[i]["car_PRICE"].ToString();
-                        _PLATE = rows[i]["car_PLATE"].ToString();
-                        _MODELYEAR = rows[i]["car_MODELYEAR"].ToString();
-                        _FUELTYPE = rows[i]["car_FUEL"].ToString();
+                    _MAKE = rows[i]["car_BRAND"].ToString();
+                    _MODEL = rows[i]["car_MODEL"].ToString();
+                    _KM = rows[i]["car_KM"].ToString();
+                    _ENGINE = rows[i]["car_ENGINE"].ToString();
+                    _FIRSTREGISTRATION = rows[i]["car_FIRST_REGISTRATION"].ToString();
+                    _PRICE = rows[i]["car_PRICE"].ToString();
+                    _PLATE = rows[i]["car_PLATE"].ToString();
+                    _MODELYEAR = rows[i]["car_MODELYEAR"].ToString();
+                    _FUELTYPE = rows[i]["car_FUEL"].ToString();
 
-                        _FIRSTREGISTRATION = _FIRSTREGISTRATION.Split(' ')[0];
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine("Get Car ERROR: " + ex);
-                    }
-
-                    i++;
+                    _FIRSTREGISTRATION = _FIRSTREGISTRATION.Split(' ')[0];
                 }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Get Car ERROR: " + ex);
+                }
+
+                i++;
             }
         }
 
@@ -194,39 +186,30 @@ namespace BilBixen.Pages
             string query = "Select * from bilbixen.comments " +
                 $"where comment_STATUS_ID = 2 and Comment_AD_ID = {GetLastURLExtentionAndID()};";
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            var rows = SQL.GetDataFromDatabase(query);
+
+            int i = 0;
+
+            List<string> usernames = new List<string>();
+            List<string> text = new List<string>();
+
+            foreach (DataRow row in rows)
             {
-                conn.Open();
-
-                var cmd = new MySqlCommand(query, conn);
-
-                List<string> usernames = new List<string>();
-                List<string> text = new List<string>();
-
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                var rows = dt.AsEnumerable().ToArray();
-
-                int i = 0;
-
-                foreach (DataRow row in rows)
+                try
                 {
-                    try
-                    {
-                        usernames.Add(rows[i]["Comment_USER"].ToString());
-                        text.Add(rows[i]["Comment_TEXT"].ToString());
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine("Get Comments ERROR: " + ex);
-                    }
-
-                    i++;
+                    usernames.Add(rows[i]["Comment_USER"].ToString());
+                    text.Add(rows[i]["Comment_TEXT"].ToString());
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Get Comments ERROR: " + ex);
                 }
 
-                commentUsernames = usernames.ToArray();
-                commentTexts = text.ToArray();
+                i++;
             }
+
+            commentUsernames = usernames.ToArray();
+            commentTexts = text.ToArray();
         }
 
         void CreateComments()
@@ -290,21 +273,13 @@ namespace BilBixen.Pages
             {
                 name = "Anonymous";
             }
-                string text = CommentTextArea.Value;
 
-                string query = "Insert into `comments` (Comment_TEXT, Comment_USER, Comment_STATUS_ID, Comment_AD_ID) " +
-                    $"values ('{text}', '{name}', 1, '{GetLastURLExtentionAndID()}');";
+            string text = CommentTextArea.Value;
 
-                using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
-                {
-                    conn.Open();
+            string query = "Insert into `comments` (Comment_TEXT, Comment_USER, Comment_STATUS_ID, Comment_AD_ID) " +
+                $"values ('{text}', '{name}', 1, '{GetLastURLExtentionAndID()}');";
 
-                    var cmd = new MySqlCommand(query, conn);
-
-                    var dt = new DataTable();
-                    dt.Load(cmd.ExecuteReader());
-                }
-            
+            SQL.SetDataToDatabase(query);
         }
 
         #endregion
