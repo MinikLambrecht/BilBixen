@@ -38,5 +38,17 @@ namespace BilBixen.Scripts.Helper_Classes
                 cmd.ExecuteReader();
             }
         }
+
+        public void UpdateDataToDatabase(string query)
+        {
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            {
+                conn.Open();
+
+                var cmd = new MySqlCommand(query, conn);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }
