@@ -44,50 +44,47 @@ namespace BilBixen.Pages
             }
         }
 
+        protected void AutoSearch_OnChange(object sender, EventArgs e)
+        {
+            
+        }
+
         protected void UpdateSearch()
         {
             var data = GetSearchResultsFromDatabase();
 
             GetSearchResultAmount(data);
 
-            WriteDatabaseResults(data);
-
             FileInfo[] files = file.GetImagesFromFolder(_AD_ID);
 
             CreateCarCards(data, files);
-        }
-
-        void WriteDatabaseResults(DataRow[] rows)
-        {
-            int i = 0;
-
-            _MAKE = rows[i]["car_BRAND"].ToString();
-            _MODEL = rows[i]["car_MODEL"].ToString();
-            _KM = rows[i]["car_KM"].ToString();
-            _ENGINE = rows[i]["car_ENGINE"].ToString();
-            _PRICE = rows[i]["car_PRICE"].ToString();
-            _AD_ID = rows[i]["car_AD_PAGE_ID"].ToString();
         }
 
         void CreateCarCards(DataRow[] carData, FileInfo[] files)
         {
             int i = 0;
 
-            string cardSetup = "" +
-                "<div runat = \"server\" class=\"thumbnail ItemCard\" id=\"SearchResults\">" +
-                $"<img class=\"ItemCardImage\" src=\"/Images/{_AD_ID}/{files[i].Name}\">" +
-                "<br />" +
-                "<div class=\"caption ContentBlock ItemCardDesc\">" +
-                $"<h3>{_MAKE}, {_MODEL} </h3>" +
-                $"<h4>{_ENGINE}</h4>" +
-                $"<p>KM: {_KM}</p>" +
-                $"<p>{_PRICE},- DKK</p>" +
-                "<p>" +
-                $"<a href = \"/AD/{_AD_ID}\" class=\"btn btn-primary\" role=\"button\">View Car</a>" +
-                "</p>" +
-                "</div>" +
-                "</div>";
+            foreach (DataRow row in carData)
+            {
+                string cardSetup = "" +
+                    "<div runat = \"server\" class=\"thumbnail ItemCard\" id=\"SearchResults\">" +
+                        $"<img class=\"ItemCardImage\" src=\"/Images/{row["car_AD_PAGE_ID"].ToString()}/{files[i].Name}\">" +
+                        "<br />" +
+                        "<div class=\"caption ContentBlock ItemCardDesc\">" +
+                            $"<h3>{row["car_BRAND"].ToString()}, {row["car_MODEL"].ToString()} </h3>" +
+                            $"<h4>{row["car_ENGINE"].ToString()}</h4>" +
+                            $"<p>KM: {row["car_KM"].ToString()}</p>" +
+                            $"<p>{row["car_PRICE"].ToString()},- DKK</p>" +
+                            "<p>" +
+                                $"<a href = \"/AD/{row["car_AD_PAGE_ID"].ToString()}\" class=\"btn btn-primary\" role=\"button\">View Car</a>" +
+                            "</p>" +
+                        "</div>" +
+                    "</div>";
 
+                CarGalleryContainer.InnerHtml += cardSetup;
+
+                i++;
+            }
         }
 
         void GetSearchResultAmount(DataRow[] cars)

@@ -7,6 +7,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -220,34 +221,51 @@ namespace BilBixen.Pages
         {
             try
             {
-                UploadImages();
-
-                if (MAKE_LABEL_TEXT.SelectedValue == "0")
+                if (!string.IsNullOrWhiteSpace(MODEL_LABEL_TEXT.SelectedItem.Text) || !string.IsNullOrWhiteSpace(MAKE_LABEL_TEXT.SelectedItem.Text))
                 {
-                    AddNewMakeToDatabase();
+                    if (MAKE_LABEL_TEXT.SelectedValue == "0")
+                    {
+                        AddNewMakeToDatabase();
+                    }
+                    if (MODEL_LABEL_TEXT.SelectedValue == "0")
+                    {
+                        AddNewModelToDatabase();
+                    }
+
+                    int brandId = GetBrandIdFromDatabase(MAKE_LABEL_TEXT.SelectedItem.Text);
+
+                    int modelId = GetModelIdFromDatabase(MODEL_LABEL_TEXT.SelectedItem.Text);
+
+                    int userID;
+
+                    var currUser = Membership.GetUser(User.Identity.Name);
+
+                    if (currUser != null)
+                    {
+                        userID = int.Parse(currUser.ProviderUserKey.ToString());
+                    }
+                    else
+                    {
+                        userID = 0;
+                    }
+
+                    string query = "Insert into `cars` " +
+                        "(car_BRAND, car_MODEL, car_KM, car_ENGINE, car_FUEL," +
+                        " car_DOORS, car_FIRST_REGISTRATION, car_PRICE, car_CATEGORY," +
+                        " car_AD_PAGE_ID, car_PLATE, car_MODELYEAR, car_SALES_USER_ID) " +
+                        "values " +
+                        $"({brandId}, {modelId}, {KM_LABEL_TEXT.Value}, '{VARIANT_LABEL_TEXT.Value}'," +
+                        $"{FUEL_TYPE_LABEL_TEXT.Value}, {DOORS_LABEL_TEXT.Value}," +
+                        $"'{FIRST_REGISTRATION_LABEL_TEXT.Value}', {PRICE_LABEL_TEXT.Value}," +
+                        $"{CAR_TYPE_LABEL_TEXT.Value}, '{ViewState["CAR_AD_ID"]}'," +
+                        $"'{LICENSE_PLATE_TEXT.Value}', {MODEL_YEAR_LABEL_TEXT.Value}, {userID});";
+
+                    SQL.SetDataToDatabase(query);
+
+                    UploadImages();
+
+                    Response.Redirect("/");
                 }
-                if (MODEL_LABEL_TEXT.SelectedValue == "0")
-                {
-                    AddNewModelToDatabase();
-                }
-
-                int brandId = GetBrandIdFromDatabase(MAKE_LABEL_TEXT.SelectedItem.Text);
-
-                int modelId = GetModelIdFromDatabase(MODEL_LABEL_TEXT.SelectedItem.Text);
-
-                string query = "Insert into `cars` " +
-                    "(car_BRAND, car_MODEL, car_KM, car_ENGINE, car_FUEL," +
-                    " car_DOORS, car_FIRST_REGISTRATION, car_PRICE, car_CATEGORY," +
-                    " car_AD_PAGE_ID, car_PLATE, car_MODELYEAR, car_SALES_USER_ID) " +
-                    "values " +
-                    $"({brandId}, {modelId}, {KM_LABEL_TEXT.Value}, '{VARIANT_LABEL_TEXT.Value}'," +
-                    $"{FUEL_TYPE_LABEL_TEXT.Value}, {DOORS_LABEL_TEXT.Value}," +
-                    $"{FIRST_REGISTRATION_LABEL_TEXT.Value}, {PRICE_LABEL_TEXT.Value}," +
-                    $"{CAR_TYPE_LABEL_TEXT.Value}, '{ViewState["CAR_AD_ID"]}'," +
-                    $"{PLATEORVIN_LABEL_TEXT.Value}, {MODEL_YEAR_LABEL_TEXT.Value});";
-
-                SQL.SetDataToDatabase(query);
-                
             }
             catch (Exception ex)
             {
@@ -280,7 +298,7 @@ namespace BilBixen.Pages
 
                 if (fileName != string.Empty)
                 {
-                    var ext = Path.GetExtension(fileDocument.FileName);
+                    var ext = Path.GetExtension(fileDocument.FileName).ToLower();
 
                     if (!((ext == ".jpeg") | (ext == ".jpg") | (ext == ".png")))
                     {
@@ -410,7 +428,7 @@ namespace BilBixen.Pages
 
             foreach (DataRow row in rows)
             {
-                if (rows[i]["model_NAME"].ToString() == MAKE_LABEL_TEXT.SelectedItem.Text)
+                if (rows[i]["model_NAME"].ToString() == MODEL_LABEL_TEXT.SelectedItem.Text)
                 {
                     result = int.Parse(rows[i]["model_ID"].ToString());
                 }
