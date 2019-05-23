@@ -33,6 +33,8 @@ namespace BilBixen.Pages
                     FillCarTypeDropdownFromDatabase();
 
                     FillFuelDropdownFromDatabase();
+
+                    UpdateSearch();
                 }
                 catch (Exception ex)
                 {
@@ -42,181 +44,6 @@ namespace BilBixen.Pages
                
 
             }
-        }
-
-        protected void AutoSearch_OnChange(object sender, EventArgs e)
-        {
-            
-        }
-
-        protected void UpdateSearch()
-        {
-            var data = GetSearchResultsFromDatabase();
-
-            GetSearchResultAmount(data);
-
-            FileInfo[] files = file.GetImagesFromFolder(_AD_ID);
-
-            CreateCarCards(data, files);
-        }
-
-        void CreateCarCards(DataRow[] carData, FileInfo[] files)
-        {
-            int i = 0;
-
-            foreach (DataRow row in carData)
-            {
-                string cardSetup = "" +
-                    "<div runat = \"server\" class=\"thumbnail ItemCard\" id=\"SearchResults\">" +
-                        $"<img class=\"ItemCardImage\" src=\"/Images/{row["car_AD_PAGE_ID"].ToString()}/{files[i].Name}\">" +
-                        "<br />" +
-                        "<div class=\"caption ContentBlock ItemCardDesc\">" +
-                            $"<h3>{row["car_BRAND"].ToString()}, {row["car_MODEL"].ToString()} </h3>" +
-                            $"<h4>{row["car_ENGINE"].ToString()}</h4>" +
-                            $"<p>KM: {row["car_KM"].ToString()}</p>" +
-                            $"<p>{row["car_PRICE"].ToString()},- DKK</p>" +
-                            "<p>" +
-                                $"<a href = \"/AD/{row["car_AD_PAGE_ID"].ToString()}\" class=\"btn btn-primary\" role=\"button\">View Car</a>" +
-                            "</p>" +
-                        "</div>" +
-                    "</div>";
-
-                CarGalleryContainer.InnerHtml += cardSetup;
-
-                i++;
-            }
-        }
-
-        void GetSearchResultAmount(DataRow[] cars)
-        {
-            int i = 0;
-            
-            foreach(DataRow row in cars)
-            {
-                i++;
-            }
-
-            SearchResultsLabel.Text = $"{i} : Results";
-        }
-
-        DataRow[] GetSearchResultsFromDatabase()
-        {
-            string query = "SELECT * FROM bilbixen.cars " +
-                "WHERE car_STATUS = 1";
-
-            #region Dropdowns
-
-            //Make
-            switch (MAKE_LABEL_DROP.SelectedValue)
-            {
-                case "0":
-                    {
-                        break;
-                    }
-                default:
-                    {
-                        query += $", car_BRAND = {MAKE_LABEL_DROP.SelectedValue}";
-                        break;
-                    }
-            }
-
-            //Model
-            switch (MODEL_LABEL_DROP.SelectedValue)
-            {
-                case "0":
-                    {
-                        break;
-                    }
-                default:
-                    {
-                        query += $", car_MODEL = {MODEL_LABEL_DROP.SelectedValue}";
-                        break;
-                    }
-            }
-
-            //FUEL
-            switch (FUEL_LABEL_DROP.SelectedValue)
-            {
-                case "0":
-                    {
-                        break;
-                    }
-                default:
-                    {
-                        query += $", car_FUEL = {FUEL_LABEL_DROP.SelectedValue}";
-                        break;
-                    }
-            }
-
-            //CAR TYPE
-            switch (CAR_TYPE_LABEL_DROP.SelectedValue)
-            {
-                case "0":
-                    {
-                        break;
-                    }
-                default:
-                    {
-                        query += $", car_CATEGORY = {CAR_TYPE_LABEL_DROP.SelectedValue}";
-                        break;
-                    }
-            }
-
-            #endregion
-
-            #region Other
-
-            //TEXT1 = MIN
-            //TEXT2 = MAX
-
-            //KM 
-            if (!string.IsNullOrWhiteSpace(KM_LABEL_TEXT1.Value) && string.IsNullOrWhiteSpace(KM_LABEL_TEXT2.Value))
-            {
-                query += $", car_KM >= {KM_LABEL_TEXT1.Value}";                    
-            }
-            else if (string.IsNullOrWhiteSpace(KM_LABEL_TEXT1.Value) && !string.IsNullOrWhiteSpace(KM_LABEL_TEXT2.Value))
-            {
-                query += $", car_KM <= {KM_LABEL_TEXT2.Value}";
-            }
-            else if(!string.IsNullOrWhiteSpace(KM_LABEL_TEXT1.Value) && !string.IsNullOrWhiteSpace(KM_LABEL_TEXT2.Value))
-            {
-                query += $", car_KM BETWEEN {KM_LABEL_TEXT1.Value} AND {KM_LABEL_TEXT2.Value}";
-            }
-
-
-            //PRICE
-            if (!string.IsNullOrWhiteSpace(PRICE_LABEL_TEXT1.Value) && string.IsNullOrWhiteSpace(PRICE_LABEL_TEXT2.Value))
-            {
-                query += $", car_PRICE >= {PRICE_LABEL_TEXT1.Value}";
-            }
-            else if (string.IsNullOrWhiteSpace(PRICE_LABEL_TEXT1.Value) && !string.IsNullOrWhiteSpace(PRICE_LABEL_TEXT2.Value))
-            {
-                query += $", car_PRICE <= {PRICE_LABEL_TEXT2.Value}";
-            }
-            else if (!string.IsNullOrWhiteSpace(PRICE_LABEL_TEXT1.Value) && !string.IsNullOrWhiteSpace(PRICE_LABEL_TEXT2.Value))
-            {
-                query += $", car_PRICE BETWEEN {PRICE_LABEL_TEXT1.Value} AND {PRICE_LABEL_TEXT2.Value}";
-            }
-
-
-            //YEAR
-            if (!string.IsNullOrWhiteSpace(YEAR_LABEL_TEXT1.Value) && string.IsNullOrWhiteSpace(YEAR_LABEL_TEXT2.Value))
-            {
-                query += $", car_YEAR >= {YEAR_LABEL_TEXT1.Value}";
-            }
-            else if (string.IsNullOrWhiteSpace(YEAR_LABEL_TEXT1.Value) && !string.IsNullOrWhiteSpace(YEAR_LABEL_TEXT2.Value))
-            {
-                query += $", car_YEAR <= {YEAR_LABEL_TEXT2.Value}";
-            }
-            else if (!string.IsNullOrWhiteSpace(YEAR_LABEL_TEXT1.Value) && !string.IsNullOrWhiteSpace(YEAR_LABEL_TEXT2.Value))
-            {
-                query += $", car_YEAR BETWEEN {YEAR_LABEL_TEXT1.Value} AND {YEAR_LABEL_TEXT2.Value}";
-            }
-            #endregion
-
-            query += ";";
-
-            return SQL.GetDataFromDatabase(query);
         }
 
         protected void MakeSelect_OnChange(object sender, EventArgs e)
@@ -233,6 +60,202 @@ namespace BilBixen.Pages
             MODEL_LABEL_DROP.SelectedValue = "0";
 
             FillModelDropdownFromDatabase(int.Parse(MAKE_LABEL_DROP.SelectedValue));
+
+            UpdateSearch();
+        }
+
+        protected void AutoSearch_OnChange(object sender, EventArgs e)
+        {
+            UpdateSearch();
+        }
+
+        protected void UpdateSearch()
+        {
+            var data = GetSearchResultsFromDatabase();
+
+            GetSearchResultAmount(data);
+
+            CreateCarCards(data);
+        }
+
+        void CreateCarCards(DataRow[] carData)
+        {
+            CarGalleryContainer.InnerHtml = "";
+
+            CarGalleryContainer.InnerHtml += "<div class=\"row\">";
+
+            int i = 0;
+            float calc;
+
+            foreach (DataRow row in carData)
+            {
+                FileInfo[] files = file.GetImagesFromFolder(row["car_AD_PAGE_ID"].ToString());
+
+                calc = i % 3;
+
+                if (calc == 0 && i != 0)
+                {
+                    CarGalleryContainer.InnerHtml += "</div> " +
+                        " <br /> " +
+                        "<div class=\"row\">";
+                }
+
+                string cardSetup = "" +
+                    "<div class=\"col-md-4\">" +
+                        "<div class=\"thumbnail ItemCard\" id=\"SearchResults\">" +
+                            $"<img class=\"ItemCardImage\" src=\"/Images/{row["car_AD_PAGE_ID"].ToString()}/{files[0].Name}\">" +
+                            "<br />" +
+                            "<div class=\"caption ContentBlock ItemCardDesc\">" +
+                                $"<h3>{row["car_BRAND"].ToString()}, {row["car_MODEL"].ToString()} </h3>" +
+                                $"<h4>{row["car_ENGINE"].ToString()}</h4>" +
+                                $"<p>KM: {row["car_KM"].ToString()}</p>" +
+                                $"<p>{row["car_PRICE"].ToString()},- DKK</p>" +
+                                "<p>" +
+                                    $"<a href = \"/AD/{row["car_AD_PAGE_ID"].ToString()}\" class=\"btn btn-primary\" role=\"button\">View Car</a>" +
+                                "</p>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>";
+                
+                CarGalleryContainer.InnerHtml += cardSetup;
+
+                i++;
+            }
+            CarGalleryContainer.InnerHtml += "</div>";
+        }
+
+        void GetSearchResultAmount(DataRow[] cars)
+        {
+            int i = 0;
+            
+            foreach(DataRow row in cars)
+            {
+                i++;
+            }
+
+            SearchResultsLabel.Text = $"{i} : Results";
+        }
+
+        DataRow[] GetSearchResultsFromDatabase()
+        {
+            string query = "SELECT * FROM bilbixen.all_cars " +
+                "WHERE car_STATUS = 'For Sale'";
+
+            #region Dropdowns
+
+            //Make
+            switch (MAKE_LABEL_DROP.SelectedValue)
+            {
+                case "0":
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        query += $" AND car_BRAND = '{MAKE_LABEL_DROP.SelectedItem.Text}'";
+                        break;
+                    }
+            }
+
+            //Model
+            switch (MODEL_LABEL_DROP.SelectedValue)
+            {
+                case "0":
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        query += $" AND car_MODEL = '{MODEL_LABEL_DROP.SelectedItem.Text}'";
+                        break;
+                    }
+            }
+
+            //FUEL
+            switch (FUEL_LABEL_DROP.SelectedValue)
+            {
+                case "0":
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        query += $" AND car_FUEL = '{FUEL_LABEL_DROP.SelectedItem.Text}'";
+                        break;
+                    }
+            }
+
+            //CAR TYPE
+            switch (CAR_TYPE_LABEL_DROP.SelectedValue)
+            {
+                case "0":
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        query += $" AND car_CATEGORY = '{CAR_TYPE_LABEL_DROP.SelectedItem.Text}'";
+                        break;
+                    }
+            }
+
+            #endregion
+
+            #region Other
+
+            //TEXT1 = MIN
+            //TEXT2 = MAX
+
+            //KM 
+            if (!string.IsNullOrWhiteSpace(KM_LABEL_TEXT1.Text) && string.IsNullOrWhiteSpace(KM_LABEL_TEXT2.Text))
+            {
+                query += $" AND car_KM >= {KM_LABEL_TEXT1.Text}";                    
+            }
+            else if (string.IsNullOrWhiteSpace(KM_LABEL_TEXT1.Text) && !string.IsNullOrWhiteSpace(KM_LABEL_TEXT2.Text))
+            {
+                query += $" AND car_KM <= {KM_LABEL_TEXT2.Text}";
+            }
+            else if(!string.IsNullOrWhiteSpace(KM_LABEL_TEXT1.Text) && !string.IsNullOrWhiteSpace(KM_LABEL_TEXT2.Text))
+            {
+                query += $" AND car_KM BETWEEN {KM_LABEL_TEXT1.Text} AND {KM_LABEL_TEXT2.Text}";
+            }
+
+
+            //PRICE
+            if (!string.IsNullOrWhiteSpace(PRICE_LABEL_TEXT1.Text) && string.IsNullOrWhiteSpace(PRICE_LABEL_TEXT2.Text))
+            {
+                query += $" AND car_PRICE >= {PRICE_LABEL_TEXT1.Text}";
+            }
+            else if (string.IsNullOrWhiteSpace(PRICE_LABEL_TEXT1.Text) && !string.IsNullOrWhiteSpace(PRICE_LABEL_TEXT2.Text))
+            {
+                query += $" AND car_PRICE <= {PRICE_LABEL_TEXT2.Text}";
+            }
+            else if (!string.IsNullOrWhiteSpace(PRICE_LABEL_TEXT1.Text) && !string.IsNullOrWhiteSpace(PRICE_LABEL_TEXT2.Text))
+            {
+                query += $" AND car_PRICE BETWEEN {PRICE_LABEL_TEXT1.Text} AND {PRICE_LABEL_TEXT2.Text}";
+            }
+
+
+            //YEAR
+            if (!string.IsNullOrWhiteSpace(YEAR_LABEL_TEXT1.Text) && string.IsNullOrWhiteSpace(YEAR_LABEL_TEXT2.Text))
+            {
+                query += $" AND car_MODELYEAR >= {YEAR_LABEL_TEXT1.Text}";
+            }
+            else if (string.IsNullOrWhiteSpace(YEAR_LABEL_TEXT1.Text) && !string.IsNullOrWhiteSpace(YEAR_LABEL_TEXT2.Text))
+            {
+                query += $" AND car_MODELYEAR <= {YEAR_LABEL_TEXT2.Text}";
+            }
+            else if (!string.IsNullOrWhiteSpace(YEAR_LABEL_TEXT1.Text) && !string.IsNullOrWhiteSpace(YEAR_LABEL_TEXT2.Text))
+            {
+                query += $" AND car_MODELYEAR BETWEEN {YEAR_LABEL_TEXT1.Text} AND {YEAR_LABEL_TEXT2.Text}";
+            }
+            #endregion
+
+            query += ";";
+
+            Debug.WriteLine("Query: " + query);
+
+            return SQL.GetDataFromDatabase(query);
         }
 
         #region Fill Dropdowns (Code)

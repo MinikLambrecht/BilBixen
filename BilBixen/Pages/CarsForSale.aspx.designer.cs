@@ -22,13 +22,13 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.DropDownList MAKE_LABEL_DROP;
         
         /// <summary>
-        /// Custom_Make control.
+        /// AnyMake control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListItem Custom_Make;
+        protected global::System.Web.UI.WebControls.ListItem AnyMake;
         
         /// <summary>
         /// MODEL_LABEL_DROP control.
@@ -40,13 +40,13 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.DropDownList MODEL_LABEL_DROP;
         
         /// <summary>
-        /// ListItem1 control.
+        /// AnyModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListItem ListItem1;
+        protected global::System.Web.UI.WebControls.ListItem AnyModel;
         
         /// <summary>
         /// CAR_TYPE_LABEL_DROP control.
@@ -58,6 +58,15 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.DropDownList CAR_TYPE_LABEL_DROP;
         
         /// <summary>
+        /// AnyCarType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListItem AnyCarType;
+        
+        /// <summary>
         /// FUEL_LABEL_DROP control.
         /// </summary>
         /// <remarks>
@@ -67,13 +76,22 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.DropDownList FUEL_LABEL_DROP;
         
         /// <summary>
+        /// AnyFuel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListItem AnyFuel;
+        
+        /// <summary>
         /// KM_LABEL_TEXT1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText KM_LABEL_TEXT1;
+        protected global::System.Web.UI.WebControls.TextBox KM_LABEL_TEXT1;
         
         /// <summary>
         /// KM_LABEL_TEXT2 control.
@@ -82,7 +100,7 @@ namespace BilBixen.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText KM_LABEL_TEXT2;
+        protected global::System.Web.UI.WebControls.TextBox KM_LABEL_TEXT2;
         
         /// <summary>
         /// PRICE_LABEL_TEXT1 control.
@@ -91,7 +109,7 @@ namespace BilBixen.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText PRICE_LABEL_TEXT1;
+        protected global::System.Web.UI.WebControls.TextBox PRICE_LABEL_TEXT1;
         
         /// <summary>
         /// PRICE_LABEL_TEXT2 control.
@@ -100,7 +118,7 @@ namespace BilBixen.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText PRICE_LABEL_TEXT2;
+        protected global::System.Web.UI.WebControls.TextBox PRICE_LABEL_TEXT2;
         
         /// <summary>
         /// YEAR_LABEL_TEXT1 control.
@@ -109,7 +127,7 @@ namespace BilBixen.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText YEAR_LABEL_TEXT1;
+        protected global::System.Web.UI.WebControls.TextBox YEAR_LABEL_TEXT1;
         
         /// <summary>
         /// YEAR_LABEL_TEXT2 control.
@@ -118,7 +136,7 @@ namespace BilBixen.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText YEAR_LABEL_TEXT2;
+        protected global::System.Web.UI.WebControls.TextBox YEAR_LABEL_TEXT2;
         
         /// <summary>
         /// SearchResultsLabel control.
@@ -137,14 +155,5 @@ namespace BilBixen.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl CarGalleryContainer;
-        
-        /// <summary>
-        /// SearchResults control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SearchResults;
     }
 }
