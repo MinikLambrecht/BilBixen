@@ -10,6 +10,7 @@
             <hr />
 
             <asp:FileUpload ID="fileDocument" runat="server" />
+            
             <br />
             <asp:Label runat="server" ID="infoLabel" Text="Label Stuff..."></asp:Label>
 
@@ -60,8 +61,10 @@
 
             <hr />
 
+            <p>When searching all uploaded images has to be reuploaded</p>
+            <p>Please upload after using the plate search</p>
             <input id="PLATEORVIN_LABEL_TEXT" runat="server" placeholder="Type in License plate or VIN" style="width: 250px; text-transform: uppercase" />
-            <asp:Button ID="SEARCH_BUTTON" runat="server" Text="Search" OnClick="LoadData" />
+            <asp:Button ID="SEARCH_BUTTON" runat="server" Text="Search" OnClick="LoadData" CausesValidation="false"/>
 
             <hr />
 
