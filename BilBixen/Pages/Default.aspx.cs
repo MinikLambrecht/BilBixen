@@ -8,7 +8,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using MySql.Data.MySqlClient;
-using MySql.Web.Security;
 
 namespace BilBixen.Pages
 {
@@ -37,18 +36,6 @@ namespace BilBixen.Pages
             catch(Exception ex)
             {
                 Debug.WriteLine(ex);
-            }
-        }
-
-        // Bug: Role provider connection is actively refused by pc
-        protected void TestButton_OnClick(object sender, EventArgs e)
-        {
-            var roleManager = new MySQLRoleProvider();
-            var roles = roleManager.GetAllRoles();
-
-            foreach (var role in roles)
-            {
-                Debug.WriteLineIf(!string.IsNullOrWhiteSpace(role), role);
             }
         }
 
