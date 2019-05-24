@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using BilBixen.Scripts.Helper_Classes;
 using MySql.Data.MySqlClient;
 
 namespace BilBixen.Pages
@@ -14,6 +15,8 @@ namespace BilBixen.Pages
     public partial class Default : Page
     {
         public Random Rand { get; } = new Random();
+        MySQL_Helper SQL = new MySQL_Helper();
+        ImageFileControll fileCon = new ImageFileControll();
 
         private string _MAKE;
         private string _MODEL;
@@ -52,7 +55,7 @@ namespace BilBixen.Pages
 
                 var price = int.Parse(row["car_PRICE"].ToString());
 
-                var year = row["car_FIRST_REGISTRATION"].ToString().Split('/')[2].Split(' ')[0];
+                var year = row["car_FIRST_REGISTRATION"].ToString().Split('-')[0].Split(' ')[0];
 
                 var firstRegYear = int.Parse(year);
 
@@ -75,32 +78,33 @@ namespace BilBixen.Pages
         {
             const string query = "Select * from bilbixen.all_cars where car_CATEGORY = 'Passenger' and car_STATUS = 'For Sale';";
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
-            {
-                conn.Open();
+            var rows = SQL.GetDataFromDatabase(query);
 
-                var cmd = new MySqlCommand(query, conn);
+            var i = GetIndexOfDatabaseOutputDataScores(rows);
 
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                var rows = dt.AsEnumerable().ToArray();
+            _MAKE = rows[i]["car_BRAND"].ToString();
+            _MODEL = rows[i]["car_MODEL"].ToString();
+            _KM = rows[i]["car_KM"].ToString();
+            _ENGINE = rows[i]["car_ENGINE"].ToString();
+            _PRICE = rows[i]["car_PRICE"].ToString();
+            _AD_ID = rows[i]["car_AD_PAGE_ID"].ToString();
 
-                var i = GetIndexOfDatabaseOutputDataScores(rows);
+            var files = fileCon.GetImagesFromFolder(_AD_ID);
 
-                _MAKE = rows[i]["car_BRAND"].ToString();
-                _MODEL = rows[i]["car_MODEL"].ToString();
-                _KM = rows[i]["car_KM"].ToString();
-                _ENGINE = rows[i]["car_ENGINE"].ToString();
-                _PRICE = rows[i]["car_PRICE"].ToString();
-                _AD_ID = rows[i]["car_AD_PAGE_ID"].ToString();
+            i = 0;
 
-                var files = GetImagesFromFolder(_AD_ID);
-
-                i = 0;
-
-                PassengerCars.InnerHtml +=
-                    $"<img class=\"ItemCardImage\" src=\"/Images/{_AD_ID}/{files[i].Name}\"><br /><div class=\"caption ContentBlock ItemCardDesc\"><h3>{_MAKE}, {_MODEL}</h3><h4>{_ENGINE}</h4><p>KM: {_KM}</p><p>{_PRICE},- DKK</p><p><a href = \"/AD/{_AD_ID}\" class=\"btn btn-primary\" role=\"button\">View Car</a></p></div>";
-            }
+            PassengerCars.InnerHtml +=
+                $"<img class=\"ItemCardImage\" src=\"/Images/{_AD_ID}/{files[i].Name}\">" +
+                $"<br />" +
+                $"<div class=\"caption ContentBlock ItemCardDesc\">" +
+                    $"<h3>{_MAKE}, {_MODEL}</h3>" +
+                    $"<h4>{_ENGINE}</h4>" +
+                    $"<p>KM: {_KM}</p>" +
+                    $"<p>{_PRICE},- DKK</p>" +
+                    $"<p>" +
+                        $"<a href = \"/AD/{_AD_ID}\" class=\"btn btn-primary\" role=\"button\">View Car</a>" +
+                    $"</p>" +
+                $"</div>";
         }
 
         void GetWreckedCarsDataFromDatabase()
@@ -108,32 +112,33 @@ namespace BilBixen.Pages
 
             var query = "Select * from bilbixen.all_cars where car_CATEGORY = 'Wreck' and car_STATUS = 'For Sale';";
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
-            {
-                conn.Open();
+            var rows = SQL.GetDataFromDatabase(query);
 
-                var cmd = new MySqlCommand(query, conn);
+            var i = GetIndexOfDatabaseOutputDataScores(rows);
 
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                var rows = dt.AsEnumerable().ToArray();
+            _MAKE = rows[i]["car_BRAND"].ToString();
+            _MODEL = rows[i]["car_MODEL"].ToString();
+            _KM = rows[i]["car_KM"].ToString();
+            _ENGINE = rows[i]["car_ENGINE"].ToString();
+            _PRICE = rows[i]["car_PRICE"].ToString();
+            _AD_ID = rows[i]["car_AD_PAGE_ID"].ToString();
 
-                var i = GetIndexOfDatabaseOutputDataScores(rows);
+            var files = fileCon.GetImagesFromFolder(_AD_ID);
 
-                _MAKE = rows[i]["car_BRAND"].ToString();
-                _MODEL = rows[i]["car_MODEL"].ToString();
-                _KM = rows[i]["car_KM"].ToString();
-                _ENGINE = rows[i]["car_ENGINE"].ToString();
-                _PRICE = rows[i]["car_PRICE"].ToString();
-                _AD_ID = rows[i]["car_AD_PAGE_ID"].ToString();
+            i = 0;
 
-                var files = GetImagesFromFolder(_AD_ID);
-
-                i = 0;
-
-                WreckedCars.InnerHtml +=
-                    $"<img class=\"ItemCardImage\" src=\"/Images/{_AD_ID}/{files[i].Name}\"><br /><div class=\"caption ContentBlock ItemCardDesc\"><h3>{_MAKE}, {_MODEL}</h3><h4>{_ENGINE}</h4><p>KM: {_KM}</p><p>{_PRICE},- DKK</p><p><a href = \"/AD/{_AD_ID}\" class=\"btn btn-primary\" role=\"button\">View Car</a></p></div>";
-            }
+            WreckedCars.InnerHtml +=
+                $"<img class=\"ItemCardImage\" src=\"/Images/{_AD_ID}/{files[i].Name}\">" +
+                $"<br />" +
+                $"<div class=\"caption ContentBlock ItemCardDesc\">" +
+                    $"<h3>{_MAKE}, {_MODEL}</h3>" +
+                    $"<h4>{_ENGINE}</h4>" +
+                    $"<p>KM: {_KM}</p>" +
+                    $"<p>{_PRICE},- DKK</p>" +
+                    $"<p>" +
+                        $"<a href = \"/AD/{_AD_ID}\" class=\"btn btn-primary\" role=\"button\">View Car</a>" +
+                    $"</p>" +
+                $"</div>";
         }
 
         void GetVanCarsDataFromDatabase()
@@ -141,43 +146,33 @@ namespace BilBixen.Pages
 
             var query = "Select * from bilbixen.all_cars where car_CATEGORY = 'Van' and car_STATUS = 'For Sale';";
 
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
-            {
-                conn.Open();
+            var rows = SQL.GetDataFromDatabase(query);
 
-                var cmd = new MySqlCommand(query, conn);
+            var i = GetIndexOfDatabaseOutputDataScores(rows);
 
-                var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                var rows = dt.AsEnumerable().ToArray();
+            _MAKE = rows[i]["car_BRAND"].ToString();
+            _MODEL = rows[i]["car_MODEL"].ToString();
+            _KM = rows[i]["car_KM"].ToString();
+            _ENGINE = rows[i]["car_ENGINE"].ToString();
+            _PRICE = rows[i]["car_PRICE"].ToString();
+            _AD_ID = rows[i]["car_AD_PAGE_ID"].ToString();
 
-                var i = GetIndexOfDatabaseOutputDataScores(rows);
+            FileInfo[] files = fileCon.GetImagesFromFolder(_AD_ID);
 
-                _MAKE = rows[i]["car_BRAND"].ToString();
-                _MODEL = rows[i]["car_MODEL"].ToString();
-                _KM = rows[i]["car_KM"].ToString();
-                _ENGINE = rows[i]["car_ENGINE"].ToString();
-                _PRICE = rows[i]["car_PRICE"].ToString();
-                _AD_ID = rows[i]["car_AD_PAGE_ID"].ToString();
+            i = 0;
 
-                FileInfo[] files = GetImagesFromFolder(_AD_ID);
-
-                i = 0;
-
-                IndustrialCars.InnerHtml +=
-                    $"<img class=\"ItemCardImage\" src=\"/Images/{_AD_ID}/{files[i].Name}\"><br /><div class=\"caption ContentBlock ItemCardDesc\"><h3>{_MAKE}, {_MODEL}</h3><h4>{_ENGINE}</h4><p>KM: {_KM}</p><p>{_PRICE},- DKK</p><p><a href = \"/AD/{_AD_ID}\" class=\"btn btn-primary\" role=\"button\">View Car</a></p></div>";
-            }
-        }
-
-        private static FileInfo[] GetImagesFromFolder(string adId)
-        {
-            var folderUri = HttpContext.Current.Server.MapPath($"~/Images/{adId}/");
-
-            var d = new DirectoryInfo(folderUri);
-
-            var files = d.GetFiles("*");
-
-            return files;
+            IndustrialCars.InnerHtml +=
+                $"<img class=\"ItemCardImage\" src=\"/Images/{_AD_ID}/{files[i].Name}\">" +
+                $"<br />" +
+                $"<div class=\"caption ContentBlock ItemCardDesc\">" +
+                    $"<h3>{_MAKE}, {_MODEL}</h3>" +
+                    $"<h4>{_ENGINE}</h4>" +
+                    $"<p>KM: {_KM}</p>" +
+                    $"<p>{_PRICE},- DKK</p>" +
+                    $"<p>" +
+                        $"<a href = \"/AD/{_AD_ID}\" class=\"btn btn-primary\" role=\"button\">View Car</a>" +
+                    $"</p>" +
+                $"</div>";
         }
     }
 }

@@ -32,28 +32,28 @@
 
                         <div class="col-md-8">
                             <asp:DropDownList AutoPostBack="true" runat="server" class="MAKE_LABEL_DROP" ID="MAKE_LABEL_DROP" OnSelectedIndexChanged="MakeSelect_OnChange">
-                                    <asp:ListItem runat="server" ID="Custom_Make" Value="0" Text="" Selected="True"></asp:ListItem>
+                                    <asp:ListItem runat="server" ID="AnyMake" Value="0" Text="Any" Selected="True"></asp:ListItem>
                             </asp:DropDownList>
 
                             <br />
                             <br />
 
-                            <asp:DropDownList runat="server" class="MODEL_LABEL_DROP" ID="MODEL_LABEL_DROP" Enabled="false">
-                                <asp:ListItem runat="server" ID="ListItem1" Value="0" Text="" Selected="True"></asp:ListItem>
+                            <asp:DropDownList AutoPostBack="true" runat="server" class="MODEL_LABEL_DROP" ID="MODEL_LABEL_DROP" Enabled="false" OnSelectedIndexChanged="AutoSearch_OnChange">
+                                <asp:ListItem runat="server" ID="AnyModel" Value="0" Text="Any" Selected="True"></asp:ListItem>
                             </asp:DropDownList>
 
                             <br />
                             <br />
 
-                            <asp:DropDownList runat="server" class="CAR_TYPE_LABEL_DROP" ID="CAR_TYPE_LABEL_DROP">
-
+                            <asp:DropDownList AutoPostBack="true" runat="server" class="CAR_TYPE_LABEL_DROP" ID="CAR_TYPE_LABEL_DROP" OnSelectedIndexChanged="AutoSearch_OnChange">
+                                <asp:ListItem runat="server" ID="AnyCarType" Value="0" Text="Any" Selected="True"></asp:ListItem>
                             </asp:DropDownList>
 
                             <br />
                             <br />
 
-                            <asp:DropDownList runat="server" class="FUEL_LABEL_DROP" ID="FUEL_LABEL_DROP">
-
+                            <asp:DropDownList AutoPostBack="true" runat="server" class="FUEL_LABEL_DROP" ID="FUEL_LABEL_DROP" OnSelectedIndexChanged="AutoSearch_OnChange">
+                                <asp:ListItem runat="server" ID="AnyFuel" Value="0" Text="Any" Selected="True"></asp:ListItem>
                             </asp:DropDownList>
                         </div>
                     </div>
@@ -77,20 +77,20 @@
 
                         <div class="col-md-8">
 
-                            <input runat="server" id="KM_LABEL_TEXT1" type="text" style="width:40%;"/>
-                            <input runat="server" id="KM_LABEL_TEXT2" type="text" style="width:40%;"/>
+                            <asp:TextBox AutoPostBack="true" runat="server" ID="KM_LABEL_TEXT1" type="number" style="width:40%;" OnTextChanged="AutoSearch_OnChange"></asp:TextBox>
+                            <asp:TextBox AutoPostBack="true" runat="server" ID="KM_LABEL_TEXT2" type="number" style="width:40%;" OnTextChanged="AutoSearch_OnChange"></asp:TextBox>
 
                             <br />
                             <br />
 
-                            <input runat="server" id="PRICE_LABEL_TEXT1" type="text" style="width:40%; position:relative; bottom: 7px;"/>
-                            <input runat="server" id="PRICE_LABEL_TEXT2" type="text" style="width:40%; position:relative; bottom: 7px;"/>
+                            <asp:TextBox AutoPostBack="true" runat="server" ID="PRICE_LABEL_TEXT1" type="number" style="width:40%; position:relative; bottom: 7px;" OnTextChanged="AutoSearch_OnChange"></asp:TextBox>
+                            <asp:TextBox AutoPostBack="true" runat="server" ID="PRICE_LABEL_TEXT2" type="number" style="width:40%; position:relative; bottom: 7px;" OnTextChanged="AutoSearch_OnChange"></asp:TextBox>
 
                             <br />
                             <br />
 
-                            <input runat="server" id="YEAR_LABEL_TEXT1" type="text" style="width:40%; position:relative; bottom: 12px;"/>
-                            <input runat="server" id="YEAR_LABEL_TEXT2" type="text" style="width:40%; position:relative; bottom: 12px;"/>
+                            <asp:TextBox AutoPostBack="true" runat="server" ID="YEAR_LABEL_TEXT1" type="number" style="width:40%; position:relative; bottom: 12px;" OnTextChanged="AutoSearch_OnChange"></asp:TextBox>
+                            <asp:TextBox AutoPostBack="true" runat="server" ID="YEAR_LABEL_TEXT2" type="number" style="width:40%; position:relative; bottom: 12px;" OnTextChanged="AutoSearch_OnChange"></asp:TextBox>
 
                         </div>
 
@@ -108,26 +108,9 @@
                 <asp:label runat="server" ID="SearchResultsLabel" Text="0 : Results"/>
             </div>
 
+            <br />
 
-            <div runat="server" id="CarGalleryContainer" class="CarGalleryContainer" >
-
-                <!--
-
-                    Example
-                <div runat="server" class="thumbnail ItemCard" id="SearchResults">
-                    <img class="ItemCardImage" src="/Images/{_AD_ID}/{files[i].Name}">
-                    <br />
-                    <div class="caption ContentBlock ItemCardDesc">
-                    <h3>{_MAKE}, {_MODEL}</h3>
-                    <h4>{_ENGINE}</h4>
-                    <p>KM: {_KM}</p>
-                    <p>{_PRICE},- DKK</p>
-                    <p>
-                    <a href = "/AD/{_AD_ID}" class="btn btn-primary" role="button">View Car</a>
-                    </p>
-                    </div>
-                </div>
-                    -->
+            <div runat="server" id="CarGalleryContainer" class="CarGalleryContainer">
 
             </div>
         </ContentTemplate>

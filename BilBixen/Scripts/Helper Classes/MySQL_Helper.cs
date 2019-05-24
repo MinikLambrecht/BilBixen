@@ -11,7 +11,7 @@ namespace BilBixen.Scripts.Helper_Classes
 {
     public class MySQL_Helper
     {
-        public DataRow[] GetDataFromDatabase(string query)
+        public DataRow[] GetDataFromDatabase(string query) //Returns rows in table
         {
             using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
             {
@@ -27,7 +27,7 @@ namespace BilBixen.Scripts.Helper_Classes
             }
         }
 
-        public void SetDataToDatabase(string query)
+        public void SetDataToDatabase(string query) //Adds new data
         {
             using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
             {
@@ -36,6 +36,20 @@ namespace BilBixen.Scripts.Helper_Classes
                 var cmd = new MySqlCommand(query, conn);
 
                 cmd.ExecuteReader();
+            }
+        }
+
+        public int UpdateDataToDatabase(string query) //Returns rows updated
+        {
+            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            {
+                conn.Open();
+
+                var cmd = new MySqlCommand(query, conn);
+
+                var rowsUpdated = cmd.ExecuteNonQuery();
+
+                return rowsUpdated;
             }
         }
     }

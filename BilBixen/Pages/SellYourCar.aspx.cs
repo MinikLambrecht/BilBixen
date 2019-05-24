@@ -249,6 +249,11 @@ namespace BilBixen.Pages
                         userID = 0;
                     }
 
+                    if (MODEL_YEAR_LABEL_TEXT.Value == "0" || MODEL_YEAR_LABEL_TEXT.Value == null)
+                    {
+                        MODEL_YEAR_LABEL_TEXT.Value = FIRST_REGISTRATION_LABEL_TEXT.Value.Split('-')[0];
+                    }
+
                     string query = "Insert into `cars` " +
                         "(car_BRAND, car_MODEL, car_KM, car_ENGINE, car_FUEL," +
                         " car_DOORS, car_FIRST_REGISTRATION, car_PRICE, car_CATEGORY," +
@@ -264,7 +269,7 @@ namespace BilBixen.Pages
 
                     UploadImages();
 
-                    Response.Redirect("/");
+                    Response.Redirect("/Home");
                 }
             }
             catch (Exception ex)
