@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CommentVarification.aspx.cs" Inherits="BilBixen.Pages.Admin.CommentVarification" Async="true" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CommentVarification.aspx.cs" Inherits="BilBixen.Pages.CommentVarification" Async="true" %>
 
 <asp:Content ID="Body_Content" ContentPlaceHolderID="MainContent" runat="server">
 

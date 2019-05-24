@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BilBixen.Pages.Admin {
+namespace BilBixen.Pages {
     
     
     public partial class CommentVarification {

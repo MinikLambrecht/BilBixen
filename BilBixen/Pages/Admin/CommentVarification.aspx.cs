@@ -10,11 +10,11 @@ using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace BilBixen.Pages.Admin
+namespace BilBixen.Pages
 {
     public partial class CommentVarification : Page
     {
-        MySQL_Helper SQL = new MySQL_Helper();
+        readonly MySQL_Helper SQL = new MySQL_Helper();
 
         string commentUsername;
         string commentText;

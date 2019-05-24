@@ -11,23 +11,5 @@ namespace BilBixen.Pages {
     
     
     public partial class Tests {
-        
-        /// <summary>
-        /// Comment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Comment;
-        
-        /// <summary>
-        /// ID_LABEL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ID_LABEL;
     }
 }
