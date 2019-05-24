@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace BilBixen.Pages
 {
-    public partial class Tests : Page
+    public partial class CommentVarification : Page
     {
         MySQL_Helper SQL = new MySQL_Helper();
 

@@ -338,6 +338,7 @@
     <Content Include="Images\900\900_0.jpg" />
     <Content Include="Images\900\900_1.jpg" />
     <Content Include="Pages\About.aspx" />
+    <Content Include="Pages\Admin\CommentVarification.aspx" />
     <Content Include="Pages\CarAdPage.aspx" />
     <Content Include="Pages\CarsForSale.aspx" />
     <Content Include="Pages\Contact.aspx" />
@@ -405,6 +406,13 @@
     </Compile>
     <Compile Include="Pages\About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\CommentVarification.aspx.cs">
+      <DependentUpon>CommentVarification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\CommentVarification.aspx.designer.cs">
+      <DependentUpon>CommentVarification.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\CarAdPage.aspx.cs">
       <DependentUpon>CarAdPage.aspx</DependentUpon>
