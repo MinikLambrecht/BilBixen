@@ -13,13 +13,13 @@ namespace BilBixen.Pages {
     public partial class Login {
         
         /// <summary>
-        /// LoginTab control.
+        /// LoginControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LoginTab;
+        protected global::System.Web.UI.WebControls.Login LoginControl;
         
         /// <summary>
         /// Wiz1 control.

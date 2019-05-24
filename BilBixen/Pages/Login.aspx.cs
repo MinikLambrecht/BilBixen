@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Configuration;
-using System.Data;
 using System.Diagnostics;
 using System.Web.Security;
 using System.Web.UI;
-using MySql.Data.MySqlClient;
 
 namespace BilBixen.Pages
 {
@@ -12,22 +9,23 @@ namespace BilBixen.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            CheckDbConnection();
+
         }
 
         protected void Wiz1_OnCreatedUser(object sender, EventArgs e)
         {
-            Roles.AddUserToRole(Wiz1.UserName, "User");
+            _ASSIGN_USER_ROLE(Wiz1.UserName, "User");
         }
 
-        private static void CheckDbConnection()
+        private static void _ASSIGN_USER_ROLE(string username, string role)
         {
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            try
             {
-                conn.Open();
-
-                Debug.WriteLine("Connection is " + conn.State + ".");
-                Debug.WriteLineIf(conn.State == ConnectionState.Open, "Server is running MySql version " + conn.ServerVersion + ".");
+                Roles.AddUserToRole(username, role);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
             }
         }
     }

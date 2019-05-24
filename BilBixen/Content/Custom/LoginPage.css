@@ -1,12 +1,19 @@
-﻿td, tr {
-    text-align: center;
+﻿td, tr
+{
+    max-width: 100%;
     font-family: Verdana;
-    width: 100%;
 }
 
-td input {
-    max-width: 100%;
-    width: 100%;
+td input[type=submit], tr input[type=submit] {
+    display: block;
+    margin: 0 auto;
+}
+
+.well {
+    margin-top: 5%;
+    margin-left: 30%;
+    max-width: 25vw;
+    width: auto;
 }
 
 table {

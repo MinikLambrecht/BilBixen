@@ -56,13 +56,23 @@
                         </div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav navbar-left">
-                                <li><a runat="server" href="Sale">Cars For Sale</a></li>
-                                <li><a runat="server" href="Sell">Sell Your Car</a></li>
+                                <li>
+                                    <a runat="server" href="Sale">Cars For Sale</a>
+                                </li>
+                                <li>
+                                    <a runat="server" href="Sell">Sell Your Car</a>
+                                </li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="About">About Us</a></li>
-                                <li><a runat="server" href="Contact">Contact</a></li>
-                                <li><a runat="server" href="Login">Login/Register</a></li>
+                                <li>
+                                    <a runat="server" href="About">About Us</a>
+                                </li>
+                                <li>
+                                    <a runat="server" href="Contact">Contact</a>
+                                </li>
+                                <li>
+                                    <a runat="server" href="Login">Login/Register</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -81,13 +91,26 @@
                         </div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav navbar-left">
-                                <li><a runat="server" href="Sale">Cars For Sale</a></li>
-                                <li><a runat="server" href="Sell">Sell Your Car</a></li>
+                                <li>
+                                    <a runat="server" href="Sale">Cars For Sale</a>
+                                </li>
+                                <li>
+                                    <a runat="server" href="Sell">Sell Your Car</a>
+                                </li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="About">About Us</a></li>
-                                <li><a runat="server" href="Contact">Contact</a></li>
-                                <li><a runat="server" href="#">Profile</a></li>
+                                <li>
+                                    <a runat="server" href="About">About Us</a>
+                                </li>
+                                <li>
+                                    <a runat="server" href="Contact">Contact</a>
+                                </li>
+                                <li>
+                                    <a runat="server" href="#">Profile</a>
+                                </li>
+                                <li>
+                                    <a runat="server" OnServerClick="_LOGOUT_USER">Logout</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
