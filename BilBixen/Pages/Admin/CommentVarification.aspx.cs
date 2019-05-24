@@ -10,7 +10,7 @@ using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace BilBixen.Pages
+namespace BilBixen.Pages.Admin
 {
     public partial class CommentVarification : Page
     {
