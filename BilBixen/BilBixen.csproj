@@ -329,16 +329,62 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Images\10000\40000_0.jpg" />
+    <Content Include="Images\10000\40000_1.jpg" />
+    <Content Include="Images\100\100_0.jpg" />
+    <Content Include="Images\100\100_1.jpg" />
+    <Content Include="Images\20000\40000_0.jpg" />
+    <Content Include="Images\20000\40000_1.jpg" />
+    <Content Include="Images\2000\100_0.jpg" />
+    <Content Include="Images\2000\100_1.jpg" />
+    <Content Include="Images\200\100_0.jpg" />
+    <Content Include="Images\200\100_1.jpg" />
+    <Content Include="Images\30000\40000_0.jpg" />
+    <Content Include="Images\30000\40000_1.jpg" />
+    <Content Include="Images\3000\100_0.jpg" />
+    <Content Include="Images\3000\100_1.jpg" />
+    <Content Include="Images\300\100_0.jpg" />
+    <Content Include="Images\300\100_1.jpg" />
     <Content Include="Images\40000\40000_0.jpg" />
     <Content Include="Images\40000\40000_1.jpg" />
     <Content Include="Images\1000\1000_0.jpg" />
     <Content Include="Images\1000\1000_1.jpg" />
+    <Content Include="Images\4000\100_0.jpg" />
+    <Content Include="Images\4000\100_1.jpg" />
+    <Content Include="Images\400\100_0.jpg" />
+    <Content Include="Images\400\100_1.jpg" />
+    <Content Include="Images\50000\40000_0.jpg" />
+    <Content Include="Images\50000\40000_1.jpg" />
+    <Content Include="Images\5000\100_0.jpg" />
+    <Content Include="Images\5000\100_1.jpg" />
+    <Content Include="Images\500\100_0.jpg" />
+    <Content Include="Images\500\100_1.jpg" />
+    <Content Include="Images\60000\40000_0.jpg" />
+    <Content Include="Images\60000\40000_1.jpg" />
+    <Content Include="Images\6000\100_0.jpg" />
+    <Content Include="Images\6000\100_1.jpg" />
     <Content Include="Images\600\100_0.jpg" />
     <Content Include="Images\600\100_1.jpg" />
+    <Content Include="Images\70000\40000_0.jpg" />
+    <Content Include="Images\70000\40000_1.jpg" />
+    <Content Include="Images\7000\100_0.jpg" />
+    <Content Include="Images\7000\100_1.jpg" />
+    <Content Include="Images\700\100_0.jpg" />
+    <Content Include="Images\700\100_1.jpg" />
+    <Content Include="Images\80000\40000_0.jpg" />
+    <Content Include="Images\80000\40000_1.jpg" />
+    <Content Include="Images\8000\100_0.jpg" />
+    <Content Include="Images\8000\100_1.jpg" />
+    <Content Include="Images\800\100_0.jpg" />
+    <Content Include="Images\800\100_1.jpg" />
+    <Content Include="Images\90000\40000_0.jpg" />
+    <Content Include="Images\90000\40000_1.jpg" />
+    <Content Include="Images\9000\100_0.jpg" />
+    <Content Include="Images\9000\100_1.jpg" />
     <Content Include="Images\900\900_0.jpg" />
     <Content Include="Images\900\900_1.jpg" />
     <Content Include="Pages\About.aspx" />
-    <Content Include="Pages\Admin\CommentVarification.aspx" />
+    <Content Include="Pages\Admin\CommentVerification.aspx" />
     <Content Include="Pages\CarAdPage.aspx" />
     <Content Include="Pages\CarsForSale.aspx" />
     <Content Include="Pages\Contact.aspx" />
@@ -353,12 +399,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="Properties\PublishProfiles\Interserver Host.pubxml" />
+    <None Include="Properties\PublishProfiles\Bilbixen.miniklambrecht.com - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Pages\ForgottenPassword.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\SellYourCar.aspx" />
-    <Content Include="Pages\Tests.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -407,12 +452,12 @@
     <Compile Include="Pages\About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Admin\CommentVarification.aspx.cs">
-      <DependentUpon>CommentVarification.aspx</DependentUpon>
+    <Compile Include="Pages\Admin\CommentVerification.aspx.cs">
+      <DependentUpon>CommentVerification.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Admin\CommentVarification.aspx.designer.cs">
-      <DependentUpon>CommentVarification.aspx</DependentUpon>
+    <Compile Include="Pages\Admin\CommentVerification.aspx.designer.cs">
+      <DependentUpon>CommentVerification.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\CarAdPage.aspx.cs">
       <DependentUpon>CarAdPage.aspx</DependentUpon>
@@ -466,17 +511,9 @@
     <Compile Include="Pages\SellYourCar.aspx.designer.cs">
       <DependentUpon>SellYourCar.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Tests.aspx.cs">
-      <DependentUpon>Tests.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Tests.aspx.designer.cs">
-      <DependentUpon>Tests.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scripts\Helper Classes\Ad.cs" />
-    <Compile Include="Scripts\Helper Classes\ImageFileControll.cs" />
-    <Compile Include="Scripts\Helper Classes\MySQL_Helper.cs" />
+    <Compile Include="Scripts\Helper Classes\ImageFileController.cs" />
+    <Compile Include="Scripts\Helper Classes\MySqlHelper.cs" />
     <Compile Include="Scripts\Helper Classes\SearchByLicensePlate.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

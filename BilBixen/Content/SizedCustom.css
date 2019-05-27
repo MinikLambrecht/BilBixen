@@ -65,16 +65,6 @@
     }
 }
 
-
-
-
-
-
-
-
-
-
-
 @media (max-width: 768px) { /* Do this when Small */
 
     /* Hide Content */
@@ -109,10 +99,6 @@
         border: 1px solid darkgray;
         border-radius: 10px;
     }
-
-
-
-
     /* Sized Text */
 
     .SizedTextxxSmall {

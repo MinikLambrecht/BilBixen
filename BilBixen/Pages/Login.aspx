@@ -16,47 +16,47 @@
                 </ul>
                 <div id="TabContent" class="tab-content">
                     <div class="tab-pane active in" id="Login">
-                        <asp:Login ID="LoginControl" runat="server" DestinationPageUrl="Default.aspx" >
-                                <LayoutTemplate>
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Username:</asp:Label><span style="color: red;"> *</span>
+                        <asp:Login ID="LoginControl" runat="server" DestinationPageUrl="Default.aspx">
+                            <LayoutTemplate>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Username:</asp:Label><span style="color: red;"> *</span>
 
-                                                <asp:TextBox ID="UserName" CssClass="form-control" runat="server"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ErrorMessage="Username is required." 
-                                                                            ToolTip="Username is required." ForeColor="Red" ValidationGroup="LoginControl" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label><span style="color: red;"> *</span>
+                                            <asp:TextBox ID="UserName" CssClass="form-control" runat="server"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ErrorMessage="Username is required."
+                                                                        ToolTip="Username is required." ForeColor="Red" ValidationGroup="LoginControl"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label><span style="color: red;"> *</span>
 
-                                                <asp:TextBox ID="Password" CssClass="form-control" runat="server" TextMode="Password"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="Password is required." 
-                                                                            ToolTip="Password is required." ForeColor="Red" ValidationGroup="LoginControl" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" id="RememberMe" runat="server">Remember Me</label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="color: Red;">
-                                                <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <asp:Button ID="LoginButton" CssClass="btn btn-primary" runat="server" CommandName="Login" CausesValidation="True" Text="Log In" ValidationGroup="LoginControl"/>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </LayoutTemplate>
-                            </asp:Login>
+                                            <asp:TextBox ID="Password" CssClass="form-control" runat="server" TextMode="Password"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="Password is required."
+                                                                        ToolTip="Password is required." ForeColor="Red" ValidationGroup="LoginControl"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" id="RememberMe" runat="server">Remember Me</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: Red;">
+                                            <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:Button ID="LoginButton" CssClass="btn btn-primary" runat="server" CommandName="Login" CausesValidation="True" Text="Log In" ValidationGroup="LoginControl"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </LayoutTemplate>
+                        </asp:Login>
                     </div>
 
                     <div class="tab-pane fade" id="Register">

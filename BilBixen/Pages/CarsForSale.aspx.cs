@@ -2,7 +2,6 @@
 using System;
 using System.Data;
 using System.Diagnostics;
-using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -10,39 +9,26 @@ namespace BilBixen.Pages
 {
     public partial class CarsForSale : Page
     {
-        MySQL_Helper SQL = new MySQL_Helper();
-        ImageFileControll file = new ImageFileControll();
-
-        public string _MAKE;
-        public string _MODEL;
-        public string _ENGINE;
-        public string _KM;
-        public string _PRICE;
-
-        public string _AD_ID;
+        private readonly MySqlHelper _SQL = new MySqlHelper();
+        private readonly ImageFileController _FILE = new ImageFileController();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if (Page.IsPostBack) return;
+            try
             {
-                try
-                {
-                    //Fill dropdowns
-                    FillMakeDropdownFromDatabase();
+                //Fill dropdowns
+                FillMakeDropdownFromDatabase();
 
-                    FillCarTypeDropdownFromDatabase();
+                FillCarTypeDropdownFromDatabase();
 
-                    FillFuelDropdownFromDatabase();
+                FillFuelDropdownFromDatabase();
 
-                    UpdateSearch();
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                }
-
-               
-
+                UpdateSearch();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
             }
         }
 
@@ -50,9 +36,9 @@ namespace BilBixen.Pages
         {
             MODEL_LABEL_DROP.Enabled = true;
 
-            int count = MODEL_LABEL_DROP.Items.Count;
+            var count = MODEL_LABEL_DROP.Items.Count;
 
-            for (int i = 1; i < count; i++)
+            for (var i = 1; i < count; i++)
             {
                 MODEL_LABEL_DROP.Items.RemoveAt(1);
             }
@@ -69,7 +55,7 @@ namespace BilBixen.Pages
             UpdateSearch();
         }
 
-        protected void UpdateSearch()
+        private void UpdateSearch()
         {
             var data = GetSearchResultsFromDatabase();
 
@@ -78,40 +64,40 @@ namespace BilBixen.Pages
             CreateCarCards(data);
         }
 
-        void CreateCarCards(DataRow[] carData)
+        private void CreateCarCards(DataRow[] carData)
         {
+            if (carData == null) throw new ArgumentNullException(nameof(carData));
             CarGalleryContainer.InnerHtml = "";
 
             CarGalleryContainer.InnerHtml += "<div class=\"row\">";
 
-            int i = 0;
-            float calc;
+            var i = 0;
 
-            foreach (DataRow row in carData)
+            foreach (var row in carData)
             {
-                FileInfo[] files = file.GetImagesFromFolder(row["car_AD_PAGE_ID"].ToString());
+                var files = ImageFileController.GetImagesFromFolder(row["car_AD_PAGE_ID"].ToString());
 
-                calc = i % 3;
+                float calc = i % 3;
 
-                if (calc == 0 && i != 0)
+                if (Math.Abs(Math.Abs(calc)) < 0 && i != 0)
                 {
                     CarGalleryContainer.InnerHtml += "</div> " +
                         " <br /> " +
                         "<div class=\"row\">";
                 }
 
-                string cardSetup = "" +
+                var cardSetup = "" +
                     "<div class=\"col-md-4\">" +
                         "<div class=\"thumbnail ItemCard\" id=\"SearchResults\">" +
-                            $"<img class=\"ItemCardImage\" src=\"/Images/{row["car_AD_PAGE_ID"].ToString()}/{files[0].Name}\">" +
+                            $"<img class=\"ItemCardImage\" src=\"/Images/{row["car_AD_PAGE_ID"]}/{files[0].Name}\">" +
                             "<br />" +
                             "<div class=\"caption ContentBlock ItemCardDesc\">" +
-                                $"<h3>{row["car_BRAND"].ToString()}, {row["car_MODEL"].ToString()} </h3>" +
-                                $"<h4>{row["car_ENGINE"].ToString()}</h4>" +
-                                $"<p>KM: {row["car_KM"].ToString()}</p>" +
-                                $"<p>{row["car_PRICE"].ToString()},- DKK</p>" +
+                                $"<h3>{row["car_BRAND"]}, {row["car_MODEL"]} </h3>" +
+                                $"<h4>{row["car_ENGINE"]}</h4>" +
+                                $"<p>KM: {row["car_KM"]}</p>" +
+                                $"<p>{row["car_PRICE"]},- DKK</p>" +
                                 "<p>" +
-                                    $"<a href = \"/AD/{row["car_AD_PAGE_ID"].ToString()}\" class=\"btn btn-primary\" role=\"button\">View Car</a>" +
+                                    $"<a href = \"/AD/{row["car_AD_PAGE_ID"]}\" class=\"btn btn-primary\" role=\"button\">View Car</a>" +
                                 "</p>" +
                             "</div>" +
                         "</div>" +
@@ -124,25 +110,19 @@ namespace BilBixen.Pages
             CarGalleryContainer.InnerHtml += "</div>";
         }
 
-        void GetSearchResultAmount(DataRow[] cars)
+        private void GetSearchResultAmount(DataRow[] cars)
         {
-            int i = 0;
-            
-            foreach(DataRow row in cars)
-            {
-                i++;
-            }
+            if (cars == null) throw new ArgumentNullException(nameof(cars));
+            var i = cars.Length;
 
             SearchResultsLabel.Text = $"{i} : Results";
         }
 
-        DataRow[] GetSearchResultsFromDatabase()
+        private DataRow[] GetSearchResultsFromDatabase()
         {
-            string query = "SELECT * FROM bilbixen.all_cars " +
+            var query = "SELECT * FROM bilbixen.all_cars " +
                 "WHERE car_STATUS = 'For Sale'";
-
-            #region Dropdowns
-
+            
             //Make
             switch (MAKE_LABEL_DROP.SelectedValue)
             {
@@ -198,11 +178,7 @@ namespace BilBixen.Pages
                         break;
                     }
             }
-
-            #endregion
-
-            #region Other
-
+            
             //TEXT1 = MIN
             //TEXT2 = MAX
 
@@ -249,84 +225,70 @@ namespace BilBixen.Pages
             {
                 query += $" AND car_MODELYEAR BETWEEN {YEAR_LABEL_TEXT1.Text} AND {YEAR_LABEL_TEXT2.Text}";
             }
-            #endregion
 
             query += ";";
 
             Debug.WriteLine("Query: " + query);
 
-            return SQL.GetDataFromDatabase(query);
+            return MySqlHelper.GetDataFromDatabase(query);
         }
 
-        #region Fill Dropdowns (Code)
-
-        void FillMakeDropdownFromDatabase()
+        private void FillMakeDropdownFromDatabase()
         {
-            string query = "Select * from bilbixen.brands";
+            var query = "Select * from bilbixen.brands";
 
-            var rows = SQL.GetDataFromDatabase(query);
+            var rows = MySqlHelper.GetDataFromDatabase(query);
 
-            foreach (DataRow row in rows)
+            foreach (var row in rows)
             {
-                ListItem item = new ListItem();
-                item.Value = row["brand_ID"].ToString();
-                item.Text = row["brand_NAME"].ToString();
+                var item = new ListItem {Value = row["brand_ID"].ToString(), Text = row["brand_NAME"].ToString()};
 
                 MAKE_LABEL_DROP.Items.Add(item);
             }
 
         }
 
-        void FillModelDropdownFromDatabase(int brandID)
+        private void FillModelDropdownFromDatabase(int brandId)
         {
-            string query = "Select * from bilbixen.models " +
-                $"where model_BRAND = {brandID};";
+            var query = "Select * from bilbixen.models " +
+                $"where model_BRAND = {brandId};";
 
-            var rows = SQL.GetDataFromDatabase(query);
+            var rows = MySqlHelper.GetDataFromDatabase(query);
 
-            foreach (DataRow row in rows)
+            foreach (var row in rows)
             {
-                ListItem item = new ListItem();
-
-                item.Value = row["model_ID"].ToString();
-                item.Text = row["model_NAME"].ToString();
+                var item = new ListItem {Value = row["model_ID"].ToString(), Text = row["model_NAME"].ToString()};
 
                 MODEL_LABEL_DROP.Items.Add(item);
             }
         }
 
-        void FillFuelDropdownFromDatabase()
+        private void FillFuelDropdownFromDatabase()
         {
-            string query = "Select * from bilbixen.fuels";
+            var query = "Select * from bilbixen.fuels";
 
-            var rows = SQL.GetDataFromDatabase(query);
+            var rows = MySqlHelper.GetDataFromDatabase(query);
 
-            foreach (DataRow row in rows)
+            foreach (var row in rows)
             {
-                ListItem item = new ListItem();
-                item.Value = row["fuel_ID"].ToString();
-                item.Text = row["fuel_TYPE"].ToString();
+                var item = new ListItem {Value = row["fuel_ID"].ToString(), Text = row["fuel_TYPE"].ToString()};
 
                 FUEL_LABEL_DROP.Items.Add(item);
             }
         }
 
-        void FillCarTypeDropdownFromDatabase()
+        private void FillCarTypeDropdownFromDatabase()
         {
-            string query = "Select * from bilbixen.categories";
+            var query = "Select * from bilbixen.categories";
 
-            var rows = SQL.GetDataFromDatabase(query);
+            var rows = MySqlHelper.GetDataFromDatabase(query);
 
-            foreach (DataRow row in rows)
+            foreach (var row in rows)
             {
-                ListItem item = new ListItem();
-                item.Value = row["category_ID"].ToString();
-                item.Text = row["category_NAME"].ToString();
+                var item = new ListItem {Value = row["category_ID"].ToString(), Text = row["category_NAME"].ToString()};
 
                 CAR_TYPE_LABEL_DROP.Items.Add(item);
             }
         }
-
-        #endregion
     }
 }

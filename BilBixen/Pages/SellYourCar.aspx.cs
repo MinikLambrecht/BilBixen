@@ -1,9 +1,6 @@
 ﻿using BilBixen.Scripts.Helper_Classes;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -16,7 +13,7 @@ namespace BilBixen.Pages
     public partial class SellYourCar : Page
     {
         private readonly SearchByLicensePlate _PLATE_SEARCH = new SearchByLicensePlate();
-        MySQL_Helper SQL = new MySQL_Helper();
+        private readonly MySqlHelper _SQL = new MySqlHelper();
 
 
         private string _LICENSE_PLATE;
@@ -37,30 +34,24 @@ namespace BilBixen.Pages
 
         private string _PLATE_INPUT;
 
-        private bool usedPlateSearch;
+        private bool _USED_PLATE_SEARCH;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if (Page.IsPostBack) return;
+            ViewState["CAR_AD_ID"] = GenerateId();
+
+            try
             {
-                ViewState["CAR_AD_ID"] = GenerateId();
+                FillCarTypeDropdownFromDatabase();
 
-                #region Fill Dropdowns
+                FillFuelDropdownFromDatabase();
 
-                try
-                {
-                    FillCarTypeDropdownFromDatabase();
-
-                    FillFuelDropdownFromDatabase();
-
-                    FillMakeDropdownFromDatabase();
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                }
-
-                #endregion
+                FillMakeDropdownFromDatabase();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
             }
         }
 
@@ -68,8 +59,6 @@ namespace BilBixen.Pages
         {
             try
             {
-                #region Data From Plate search
-
                 _PLATE_INPUT = PLATEORVIN_LABEL_TEXT.Value;
                 var data = await _PLATE_SEARCH.GetInfo(_PLATE_INPUT);
 
@@ -115,7 +104,7 @@ namespace BilBixen.Pages
 
                 if (!exists)
                 {
-                    Custom_Make.Text = _MAKE;
+                    MODEL_LABEL_TEXT.Items[0].Text = _MAKE;
                     MAKE_LABEL_TEXT.SelectedValue = "0";
                 }
                 else
@@ -143,7 +132,7 @@ namespace BilBixen.Pages
 
                 if (!exists)
                 {
-                    Custom_Model.Text = _MODEL;
+                    MODEL_LABEL_TEXT.Items[0].Text = _MODEL;
                     MODEL_LABEL_TEXT.SelectedValue = "0";
                 }
                 else
@@ -157,9 +146,7 @@ namespace BilBixen.Pages
                 ENGINE_POWER_LABEL_TEXT.Value = _ENGINE_POWER;
                 FUEL_TYPE_LABEL_TEXT.Value = _FUEL_TYPE;
 
-                #endregion
-
-                usedPlateSearch = true;
+                _USED_PLATE_SEARCH = true;
             }
             catch(Exception ex)
             {
@@ -183,13 +170,13 @@ namespace BilBixen.Pages
             return Convert.ToInt32(uniqueId);
         }
 
-        void SetModelSelectAfterPlateSearch()
+        private void SetModelSelectAfterPlateSearch()
         {
             MODEL_LABEL_TEXT.Enabled = true;
 
-            int count = MODEL_LABEL_TEXT.Items.Count;
+            var count = MODEL_LABEL_TEXT.Items.Count;
 
-            for (int i = 1; i < count; i++)
+            for (var i = 1; i < count; i++)
             {
                 MODEL_LABEL_TEXT.Items.RemoveAt(1);
             }
@@ -201,76 +188,66 @@ namespace BilBixen.Pages
         {
             MODEL_LABEL_TEXT.Enabled = true;
 
-            int count = MODEL_LABEL_TEXT.Items.Count;
+            var count = MODEL_LABEL_TEXT.Items.Count;
 
-            for (int i = 1; i < count; i++)
+            for (var i = 1; i < count; i++)
             {
                 MODEL_LABEL_TEXT.Items.RemoveAt(1);
             }
 
-            if (usedPlateSearch)
+            if (_USED_PLATE_SEARCH)
             {
-                Custom_Model.Text = "";
+                MODEL_LABEL_TEXT.Items[0].Text = "";
             }
             MODEL_LABEL_TEXT.SelectedValue = "0";
 
             FillModelDropdownFromDatabase(int.Parse(MAKE_LABEL_TEXT.SelectedValue));
         }
 
-        protected void SubmitAdbtn_OnClick(object sender, EventArgs e)
+        protected void SubmitAD_OnClick(object sender, EventArgs e)
         {
             try
             {
-                if (!string.IsNullOrWhiteSpace(MODEL_LABEL_TEXT.SelectedItem.Text) || !string.IsNullOrWhiteSpace(MAKE_LABEL_TEXT.SelectedItem.Text))
+                if (string.IsNullOrWhiteSpace(MODEL_LABEL_TEXT.SelectedItem.Text) &&
+                    string.IsNullOrWhiteSpace(MAKE_LABEL_TEXT.SelectedItem.Text)) return;
+                if (MAKE_LABEL_TEXT.SelectedValue == "0")
                 {
-                    if (MAKE_LABEL_TEXT.SelectedValue == "0")
-                    {
-                        AddNewMakeToDatabase();
-                    }
-                    if (MODEL_LABEL_TEXT.SelectedValue == "0")
-                    {
-                        AddNewModelToDatabase();
-                    }
-
-                    int brandId = GetBrandIdFromDatabase(MAKE_LABEL_TEXT.SelectedItem.Text);
-
-                    int modelId = GetModelIdFromDatabase(MODEL_LABEL_TEXT.SelectedItem.Text);
-
-                    int userID;
-
-                    var currUser = Membership.GetUser(User.Identity.Name);
-
-                    if (currUser != null)
-                    {
-                        userID = int.Parse(currUser.ProviderUserKey.ToString());
-                    }
-                    else
-                    {
-                        userID = 0;
-                    }
-
-                    if (MODEL_YEAR_LABEL_TEXT.Value == "0" || MODEL_YEAR_LABEL_TEXT.Value == null)
-                    {
-                        MODEL_YEAR_LABEL_TEXT.Value = FIRST_REGISTRATION_LABEL_TEXT.Value.Split('-')[0];
-                    }
-
-                    string query = "Insert into `cars` " +
-                        "(car_BRAND, car_MODEL, car_KM, car_ENGINE, car_FUEL," +
-                        " car_DOORS, car_FIRST_REGISTRATION, car_PRICE, car_CATEGORY," +
-                        " car_AD_PAGE_ID, car_PLATE, car_MODELYEAR, car_SALES_USER_ID) " +
-                        "values " +
-                        $"({brandId}, {modelId}, {KM_LABEL_TEXT.Value}, '{VARIANT_LABEL_TEXT.Value}'," +
-                        $"{FUEL_TYPE_LABEL_TEXT.Value}, {DOORS_LABEL_TEXT.Value}," +
-                        $"'{FIRST_REGISTRATION_LABEL_TEXT.Value}', {PRICE_LABEL_TEXT.Value}," +
-                        $"{CAR_TYPE_LABEL_TEXT.Value}, '{ViewState["CAR_AD_ID"]}'," +
-                        $"'{LICENSE_PLATE_TEXT.Value}', {MODEL_YEAR_LABEL_TEXT.Value}, {userID});";
-
-                    SQL.SetDataToDatabase(query);
-
-                    UploadImages();
-
-                    Response.Redirect("/Home");
+                    AddNewMakeToDatabase();
                 }
+                if (MODEL_LABEL_TEXT.SelectedValue == "0")
+                {
+                    AddNewModelToDatabase();
+                }
+
+                var brandId = GetBrandIdFromDatabase(MAKE_LABEL_TEXT.SelectedItem.Text);
+
+                var modelId = GetModelIdFromDatabase(MODEL_LABEL_TEXT.SelectedItem.Text);
+
+                var currentUser = Membership.GetUser(User.Identity.Name);
+
+                var userId = currentUser != null ? int.Parse(currentUser.ProviderUserKey?.ToString() ?? throw new InvalidOperationException()) : 0;
+
+                if (MODEL_YEAR_LABEL_TEXT.Value == "0" || MODEL_YEAR_LABEL_TEXT.Value == null)
+                {
+                    MODEL_YEAR_LABEL_TEXT.Value = FIRST_REGISTRATION_LABEL_TEXT.Value.Split('-')[0];
+                }
+
+                string query = "Insert into `cars` " +
+                               "(car_BRAND, car_MODEL, car_KM, car_ENGINE, car_FUEL," +
+                               " car_DOORS, car_FIRST_REGISTRATION, car_PRICE, car_CATEGORY," +
+                               " car_AD_PAGE_ID, car_PLATE, car_MODELYEAR, car_SALES_USER_ID) " +
+                               "values " +
+                               $"({brandId}, {modelId}, {KM_LABEL_TEXT.Value}, '{VARIANT_LABEL_TEXT.Value}'," +
+                               $"{FUEL_TYPE_LABEL_TEXT.Value}, {DOORS_LABEL_TEXT.Value}," +
+                               $"'{FIRST_REGISTRATION_LABEL_TEXT.Value}', {PRICE_LABEL_TEXT.Value}," +
+                               $"{CAR_TYPE_LABEL_TEXT.Value}, '{ViewState["CAR_AD_ID"]}'," +
+                               $"'{LICENSE_PLATE_TEXT.Value}', {MODEL_YEAR_LABEL_TEXT.Value}, {userId});";
+
+                _SQL.SetDataToDatabase(query);
+
+                UploadImages();
+
+                Response.RedirectToRoute("Home_Page");
             }
             catch (Exception ex)
             {
@@ -303,7 +280,7 @@ namespace BilBixen.Pages
 
                 if (fileName != string.Empty)
                 {
-                    var ext = Path.GetExtension(fileDocument.FileName).ToLower();
+                    var ext = Path.GetExtension(fileDocument.FileName)?.ToLower();
 
                     if (!((ext == ".jpeg") | (ext == ".jpg") | (ext == ".png")))
                     {
@@ -343,27 +320,6 @@ namespace BilBixen.Pages
                     {
                         fileDocument.PostedFile.SaveAs(Path.Combine(savePath, "IMG" + "_" + "0" + ext));
                     }
-
-                    //if (fileCount == 0)
-                    //{
-                    //    ADID_LABEL.Text = "<0";
-                    //    for (var i = 0; i < fileCount; i++)
-                    //    {
-                    //        fileDocument.PostedFile.SaveAs(Path.Combine(savePath, "/IMG" + "_" + i + ext));
-                    //    }
-                    //    ADID_LABEL.Text = "<0 Complete";
-                    //}
-                    //else
-                    //{
-                    //    ADID_LABEL.Text = ">0";
-                    //    for (var i = 0; i < fileCount; i++)
-                    //    {
-                    //        fileDocument.PostedFile.SaveAs(Path.Combine(savePath, "/IMG" + "_" + i + ext));
-                    //    }
-                    //    ADID_LABEL.Text = ">0 Complete";
-                    //}
-
-                    //infoLabel.Text = "Images uploaded successfully.";
                 }
                 else
                 {
@@ -376,36 +332,36 @@ namespace BilBixen.Pages
             }
         }
 
-        void AddNewMakeToDatabase()
+        private void AddNewMakeToDatabase()
         {
-            string query = "Insert into `brands` (brand_NAME) " +
+            var query = "Insert into `brands` (brand_NAME) " +
                     $"values ('{MAKE_LABEL_TEXT.SelectedItem.Text}');";
 
-            SQL.SetDataToDatabase(query);
+            _SQL.SetDataToDatabase(query);
         }
 
-        void AddNewModelToDatabase()
+        private void AddNewModelToDatabase()
         {
-            int makeID = GetBrandIdFromDatabase(MAKE_LABEL_TEXT.SelectedItem.Text);
+            var makeId = GetBrandIdFromDatabase(MAKE_LABEL_TEXT.SelectedItem.Text);
 
-            string query = "Insert into `models` (model_NAME, model_BRAND, model_CATEGORY) " +
-                    $"values ('{MODEL_LABEL_TEXT.SelectedItem.Text}', '{makeID}', '{CAR_TYPE_LABEL_TEXT.Value}');";
+            var query = "Insert into `models` (model_NAME, model_BRAND, model_CATEGORY) " +
+                    $"values ('{MODEL_LABEL_TEXT.SelectedItem.Text}', '{makeId}', '{CAR_TYPE_LABEL_TEXT.Value}');";
 
-            SQL.SetDataToDatabase(query);
+            _SQL.SetDataToDatabase(query);
         }
 
-        int GetBrandIdFromDatabase(string brandName)
+        private int GetBrandIdFromDatabase(string brandName)
         {
-            int result = 0;
+            var result = 0;
 
-            string query = "Select * from bilbixen.brands " +
+            var query = "Select * from bilbixen.brands " +
                 $"where brand_NAME = '{brandName}';";
 
-            var rows = SQL.GetDataFromDatabase(query);
+            var rows = MySqlHelper.GetDataFromDatabase(query);
 
-            int i = 0;
+            var i = 0;
 
-            foreach (DataRow row in rows)
+            foreach (var unused in rows)
             {
                 if (rows[i]["brand_NAME"].ToString() == MAKE_LABEL_TEXT.SelectedItem.Text)
                 {
@@ -420,18 +376,18 @@ namespace BilBixen.Pages
             return result;
         }
 
-        int GetModelIdFromDatabase(string modelName)
+        private int GetModelIdFromDatabase(string modelName)
         {
-            int result = 0;
+            var result = 0;
 
-            string query = "Select * from bilbixen.models " +
+            var query = "Select * from bilbixen.models " +
                 $"where model_NAME = '{modelName}';";
 
-            var rows = SQL.GetDataFromDatabase(query);
+            var rows = MySqlHelper.GetDataFromDatabase(query);
 
-            int i = 0;
+            var i = 0;
 
-            foreach (DataRow row in rows)
+            foreach (var unused in rows)
             {
                 if (rows[i]["model_NAME"].ToString() == MODEL_LABEL_TEXT.SelectedItem.Text)
                 {
@@ -446,76 +402,63 @@ namespace BilBixen.Pages
             return result;
         }
 
-
-        #region Fill Dropdowns (Code)
-
-        void FillMakeDropdownFromDatabase()
+        private void FillMakeDropdownFromDatabase()
         {
-            string query = "Select * from bilbixen.brands";
+            const string query = "Select * from bilbixen.brands";
 
-            var rows = SQL.GetDataFromDatabase(query);
+            var rows = MySqlHelper.GetDataFromDatabase(query);
 
-            foreach (DataRow row in rows)
+            foreach (var row in rows)
             {
-                ListItem item = new ListItem();
-                item.Value = row["brand_ID"].ToString();
-                item.Text = row["brand_NAME"].ToString();
+                var item = new ListItem {Value = row["brand_ID"].ToString(), Text = row["brand_NAME"].ToString()};
 
                 MAKE_LABEL_TEXT.Items.Add(item);
             }
 
         }
 
-        void FillModelDropdownFromDatabase(int brandID)
+        private void FillModelDropdownFromDatabase(int brandId)
         {
-            string query = "Select * from bilbixen.models " +
-                $"where model_BRAND = {brandID};";
+            var query = "Select * from bilbixen.models " +
+                           $"where model_BRAND = {brandId};";
 
-            var rows = SQL.GetDataFromDatabase(query);
+            var rows = MySqlHelper.GetDataFromDatabase(query);
 
-            foreach (DataRow row in rows)
+            foreach (var row in rows)
             {
-                ListItem item = new ListItem();
+                var item = new ListItem {Value = row["model_ID"].ToString(), Text = row["model_NAME"].ToString()};
 
-                item.Value = row["model_ID"].ToString();
-                item.Text = row["model_NAME"].ToString();
 
                 MODEL_LABEL_TEXT.Items.Add(item);
             }
         }
 
-        void FillFuelDropdownFromDatabase()
+        private void FillFuelDropdownFromDatabase()
         {
-            string query = "Select * from bilbixen.fuels";
+            const string query = "Select * from bilbixen.fuels";
 
-            var rows = SQL.GetDataFromDatabase(query);
+            var rows = MySqlHelper.GetDataFromDatabase(query);
 
-            foreach (DataRow row in rows)
+            foreach (var row in rows)
             {
-                ListItem item = new ListItem();
-                item.Value = row["fuel_ID"].ToString();
-                item.Text = row["fuel_TYPE"].ToString();
+                var item = new ListItem {Value = row["fuel_ID"].ToString(), Text = row["fuel_TYPE"].ToString()};
 
                 FUEL_TYPE_LABEL_TEXT.Items.Add(item);
             }
         }
 
-        void FillCarTypeDropdownFromDatabase()
+        private void FillCarTypeDropdownFromDatabase()
         {
-            string query = "Select * from bilbixen.categories";
+            const string query = "Select * from bilbixen.categories";
 
-            var rows = SQL.GetDataFromDatabase(query);
+            var rows = MySqlHelper.GetDataFromDatabase(query);
 
-            foreach (DataRow row in rows)
+            foreach (var row in rows)
             {
-                ListItem item = new ListItem();
-                item.Value = row["category_ID"].ToString();
-                item.Text = row["category_NAME"].ToString();
+                var item = new ListItem {Value = row["category_ID"].ToString(), Text = row["category_NAME"].ToString()};
 
                 CAR_TYPE_LABEL_TEXT.Items.Add(item);
             }
         }
-
-        #endregion
     }
 }

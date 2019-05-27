@@ -109,11 +109,12 @@ namespace BilBixen.Scripts.Helper_Classes
 
             result = temp;
 
-            var resultarray = result.Split(new[] { ": \"" }, StringSplitOptions.None);
+            var resultarray = result.Split(new[] {": \""}, StringSplitOptions.None);
 
             //Debug.WriteLine(String.Join(", ", resultarray));
 
-            var finalCollection = resultarray.Select(item => item.Split(new[] { "\"," }, StringSplitOptions.None)).Select(tempo => tempo[0]).ToList();
+            var finalCollection = resultarray.Select(item => item.Split(new[] {"\","}, StringSplitOptions.None))
+                .Select(tempo => tempo[0]).ToList();
 
             //Debug.WriteLine($"Before------------------------------ {Environment.NewLine} {String.Join(",", finalCollection)} {Environment.NewLine + Environment.NewLine} ");
 

@@ -112,15 +112,6 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.DropDownList MAKE_LABEL_TEXT;
         
         /// <summary>
-        /// Custom_Make control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListItem Custom_Make;
-        
-        /// <summary>
         /// MODEL_LABEL control.
         /// </summary>
         /// <remarks>
@@ -137,15 +128,6 @@ namespace BilBixen.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList MODEL_LABEL_TEXT;
-        
-        /// <summary>
-        /// Custom_Model control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListItem Custom_Model;
         
         /// <summary>
         /// KM_LABEL control.

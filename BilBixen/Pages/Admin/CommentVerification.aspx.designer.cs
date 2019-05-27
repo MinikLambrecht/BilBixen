@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BilBixen.Pages {
+namespace BilBixen.Pages.Admin {
     
     
-    public partial class CommentVarification {
+    public partial class CommentVerification {
         
         /// <summary>
         /// Comment control.

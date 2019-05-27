@@ -2,31 +2,31 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="container" style="max-height: 25vw; width: 100%; margin-bottom: 25px; margin-top: 25px">
-        <img src="../Content/Images/LandingPage_Image.png" alt="Cars for sale" style="width: 100%; height: 25vw" />
+    <div class="container" style="margin-bottom: 25px; margin-top: 25px; max-height: 25vw; width: 100%;">
+        <img src="../Content/Images/LandingPage_Image.png" alt="Cars for sale" style="height: 25vw; width: 100%;"/>
     </div>
 
     <div class="row">
 
-      <div class="col-sm-6 col-md-4">
-        <div runat="server" class="thumbnail ItemCard" id="PassengerCars">
-          
+        <div class="col-sm-6 col-md-4">
+            <div runat="server" class="thumbnail ItemCard" id="PassengerCars">
+
+            </div>
         </div>
-      </div>
 
 
-     <div class="col-sm-6 col-md-4">
-        <div runat="server" class="thumbnail ItemCard" id="WreckedCars">
+        <div class="col-sm-6 col-md-4">
+            <div runat="server" class="thumbnail ItemCard" id="WreckedCars">
 
+            </div>
         </div>
-      </div>
 
 
-     <div class="col-sm-6 col-md-4">
-        <div runat="server" class="thumbnail ItemCard" id="IndustrialCars">
+        <div class="col-sm-6 col-md-4">
+            <div runat="server" class="thumbnail ItemCard" id="IndustrialCars">
 
+            </div>
         </div>
-     </div>
     </div>
 
 </asp:Content>

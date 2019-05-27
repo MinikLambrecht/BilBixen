@@ -22,15 +22,6 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.DropDownList MAKE_LABEL_DROP;
         
         /// <summary>
-        /// AnyMake control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListItem AnyMake;
-        
-        /// <summary>
         /// MODEL_LABEL_DROP control.
         /// </summary>
         /// <remarks>
@@ -38,15 +29,6 @@ namespace BilBixen.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList MODEL_LABEL_DROP;
-        
-        /// <summary>
-        /// AnyModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListItem AnyModel;
         
         /// <summary>
         /// CAR_TYPE_LABEL_DROP control.
@@ -58,15 +40,6 @@ namespace BilBixen.Pages {
         protected global::System.Web.UI.WebControls.DropDownList CAR_TYPE_LABEL_DROP;
         
         /// <summary>
-        /// AnyCarType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListItem AnyCarType;
-        
-        /// <summary>
         /// FUEL_LABEL_DROP control.
         /// </summary>
         /// <remarks>
@@ -74,15 +47,6 @@ namespace BilBixen.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList FUEL_LABEL_DROP;
-        
-        /// <summary>
-        /// AnyFuel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListItem AnyFuel;
         
         /// <summary>
         /// KM_LABEL_TEXT1 control.

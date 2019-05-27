@@ -1,19 +1,16 @@
-﻿using MySql.Data.MySqlClient;
-using MySql.Web.Security;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Web;
+using MySql.Data.MySqlClient;
 
 namespace BilBixen.Scripts.Helper_Classes
 {
-    public class MySQL_Helper
+    public class MySqlHelper
     {
-        public DataRow[] GetDataFromDatabase(string query) //Returns rows in table
+        public static DataRow[] GetDataFromDatabase(string query) //Returns rows in table
         {
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            using (var conn =
+                new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
             {
                 conn.Open();
 
@@ -29,7 +26,8 @@ namespace BilBixen.Scripts.Helper_Classes
 
         public void SetDataToDatabase(string query) //Adds new data
         {
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            using (var conn =
+                new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
             {
                 conn.Open();
 
@@ -41,7 +39,8 @@ namespace BilBixen.Scripts.Helper_Classes
 
         public int UpdateDataToDatabase(string query) //Returns rows updated
         {
-            using (var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
+            using (var conn =
+                new MySqlConnection(ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ConnectionString))
             {
                 conn.Open();
 
